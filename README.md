@@ -10,13 +10,12 @@
     <img src="images/logo.jpg" alt="Logo" width="80" height="80">
   </a>
 
-<h3 align="center">Titel des Projektes</h3>
+<h3 align="center">IBCornelsen UI</h3>
 
   <p align="center">
-    Eine kurze Beschreibung des Projektes
+    User Interface Komponenten des IBCornelsen.
     <br />
     <a href="https://github.com/IBCornelsen/repo_name"><strong>Dokumentation »</strong></a>
-    <br />
     <br />
     <a href="https://github.com/IBCornelsen/repo_name">Demo</a>
     ·
