@@ -1,4 +1,5 @@
 import type { Preview } from "@storybook/svelte";
+import "../src/style/tailwind-output.css"
 
 const preview: Preview = {
   parameters: {

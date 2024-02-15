@@ -1,7 +1,6 @@
 <script>
 	import { Meta, Template, Story } from "@storybook/addon-svelte-csf";
-	import {default as BoxWithHeading} from "../components/BoxWithHeading.svelte";
-	import "../style/tailwind.css";
+	import BoxWithHeading from "../components/BoxWithHeading.svelte";
 </script>
 
 <Meta title="BoxWithHeading" component={BoxWithHeading} />

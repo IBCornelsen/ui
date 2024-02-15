@@ -4,7 +4,6 @@
 		RawNotification,
 		RawNotificationWrapper,
 	} from "../components/Notifications";
-	import "../style/tailwind.css";
 </script>
 
 <Meta title="Notification" component={RawNotification} />
@@ -24,6 +23,19 @@
 			timeout: 0,
 			subtext: "This is some text.",
 			type: "warning",
+		},
+	}}
+/>
+
+<Story
+	name="Error/Dismissable"
+	args={{
+		notification: {
+			message: "This is some error text.",
+			dismissable: true,
+			timeout: 0,
+			subtext: "This is some text.",
+			type: "error",
 		},
 	}}
 />
