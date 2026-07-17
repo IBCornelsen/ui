@@ -1,0 +1,5 @@
+@import "tailwindcss";
+@import "./tokens.css";
+
+/* Storybook renders components from this folder — scan their utility classes. */
+@source "./components";
