@@ -150,29 +150,30 @@
   ontouchmove={onCardTouchMove}
   ontouchend={onCardTouchEnd}
 >
-  <!-- Energieeffizienz-Skala (mobil: einziger sichtbarer Bereich, wenn eingeklappt) -->
-  <div class="flex flex-col gap-2 border-neutral-100 lg:border-b lg:pb-4">
-    <div class="hidden items-center gap-1.5 lg:flex">
-      <span class="text-sm text-neutral-600">Energieeffizienz</span>
-      <Tooltip
-        text="Die Einschätzung der Effizienz erfolgt nach Eingabe der Verbrauchsdaten."
-      >
-        <button
-          type="button"
-          aria-label="Hinweis zur Energieeffizienz"
-          class="inline-flex cursor-help"
+  <!-- Energieeffizienz-Skala (mobil: einziger sichtbarer Bereich, wenn eingeklappt).
+       Ohne scale-Daten entfällt der gesamte Block inkl. Überschrift. -->
+  {#if scale}
+    <div class="flex flex-col gap-2 border-neutral-100 lg:border-b lg:pb-4">
+      <div class="hidden items-center gap-1.5 lg:flex">
+        <span class="text-sm text-neutral-600">Energieeffizienz</span>
+        <Tooltip
+          text="Die Einschätzung der Effizienz erfolgt nach Eingabe der Verbrauchsdaten."
         >
-          <InfoIcon size={15} class="text-neutral-600" />
-        </button>
-      </Tooltip>
-    </div>
+          <button
+            type="button"
+            aria-label="Hinweis zur Energieeffizienz"
+            class="inline-flex cursor-help"
+          >
+            <InfoIcon size={15} class="text-neutral-600" />
+          </button>
+        </Tooltip>
+      </div>
 
-    <div class="order-none">
-      {#if scale}
+      <div class="order-none">
         <EnergyScale classes={scale.classes} markers={scale.markers} />
-      {/if}
+      </div>
     </div>
-  </div>
+  {/if}
 
   <!-- Aufziehbares Panel (mobil): folgt beim Ziehen dem Finger -->
   <div class="collapsible" class:open={expanded} bind:this={panelEl}>
