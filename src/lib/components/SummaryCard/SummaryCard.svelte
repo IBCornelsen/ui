@@ -1,8 +1,10 @@
 <script lang="ts">
   import CaretUpIcon from "phosphor-svelte/lib/CaretUpIcon";
   import CheckIcon from "phosphor-svelte/lib/CheckIcon";
+  import InfoIcon from "phosphor-svelte/lib/InfoIcon";
   import WarningIcon from "phosphor-svelte/lib/WarningIcon";
   import EnergyScale from "../EnergyScale/EnergyScale.svelte";
+  import Tooltip from "../Tooltip.svelte";
   import type { Snippet } from "svelte";
   import type {
     EnergyScaleClass,
@@ -149,10 +151,24 @@
   ontouchend={onCardTouchEnd}
 >
   <!-- Energieeffizienz-Skala (mobil: einziger sichtbarer Bereich, wenn eingeklappt).
-       Ohne Überschrift (einheitlich mit dem Bedarfsausweis); ohne scale-Daten
-       entfällt der Block ganz. -->
+       Ohne scale-Daten entfällt der gesamte Block inkl. Überschrift. -->
   {#if scale}
     <div class="flex flex-col gap-2 border-neutral-100 lg:border-b lg:pb-4">
+      <div class="hidden items-center gap-1.5 lg:flex">
+        <span class="text-sm text-neutral-600">Energieeffizienz</span>
+        <Tooltip
+          text="Die Einschätzung der Effizienz erfolgt nach Eingabe der Verbrauchsdaten."
+        >
+          <button
+            type="button"
+            aria-label="Hinweis zur Energieeffizienz"
+            class="inline-flex cursor-help"
+          >
+            <InfoIcon size={15} class="text-neutral-600" />
+          </button>
+        </Tooltip>
+      </div>
+
       <div class="order-none">
         <EnergyScale classes={scale.classes} markers={scale.markers} />
       </div>
