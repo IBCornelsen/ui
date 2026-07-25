@@ -139,7 +139,7 @@
   class={[
     "flex flex-col gap-4 bg-white px-4 py-2",
     // Desktop: klassische Sidebar-Karte
-    "lg:mx-0 lg:max-h-[calc(100vh-12rem)] lg:overflow-y-auto lg:rounded-2xl lg:border lg:border-neutral-200 lg:px-5 lg:py-5",
+    "lg:mx-0 lg:max-h-[calc(100vh-12rem)] lg:overflow-y-auto lg:rounded-2xl lg:border lg:border-neutral-200 lg:px-5 lg:py-5 lg:shadow-md",
     // Mobil: volle Breite, direkt unter dem Header, ohne seitlichen Abstand
     "-mx-3 border-b border-neutral-200 lg:mx-0",
     // Mobil aufgeklappt: volle Höhe unter dem Header, eigener Scrollbereich (kein Body-Overflow)
@@ -182,14 +182,15 @@
       <div
         class="flex flex-col gap-2 border-b border-neutral-100 pb-4 lg:order-first"
       >
+        <!-- Kopf im Stil der Startseiten-Karte „Preise im Überblick":
+             Titel = h5-Typografie in primary-700, Preis orange, MwSt.-Zusatz grau. -->
         <div class="flex items-center justify-between gap-3">
-          <span class="text-primary-900 text-base font-bold">{produkt}</span>
+          <span class="text-primary-700 text-lg leading-snug font-bold">{produkt}</span>
           <div class="flex shrink-0 items-baseline gap-1.5">
-            <span
-              class="text-secondary-600 text-xl font-extrabold tracking-tight"
+            <span class="text-secondary-600 text-base font-bold whitespace-nowrap"
               >{preis} €</span
             >
-            <span class="text-xs text-neutral-600">inkl. MwSt.</span>
+            <span class="text-sm text-neutral-600">inkl. MwSt.</span>
           </div>
         </div>
       </div>
