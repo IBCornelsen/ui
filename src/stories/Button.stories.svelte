@@ -36,6 +36,7 @@
 
 <Story name="Größen">
 	<div class="flex items-center gap-3">
+		<Button size="xs">Winzig</Button>
 		<Button size="sm">Klein</Button>
 		<Button size="md">Mittel</Button>
 		<Button size="lg">Groß</Button>
@@ -49,5 +50,12 @@
 		<Button variant="outline">Outline</Button>
 		<Button variant="ghost">Ghost</Button>
 		<Button variant="danger">Danger</Button>
+	</div>
+</Story>
+
+<Story name="Als Link">
+	<div class="flex gap-3">
+		<Button href="#ziel">Primär-Link</Button>
+		<Button variant="outline" size="sm" href="#ziel">Outline-Link</Button>
 	</div>
 </Story>

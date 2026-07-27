@@ -3,11 +3,13 @@
 	import type { HTMLButtonAttributes } from "svelte/elements";
 
 	type Variant = "primary" | "secondary" | "outline" | "neutral" | "ghost" | "danger";
-	type Size = "sm" | "md" | "lg";
+	type Size = "xs" | "sm" | "md" | "lg";
 
+	// With `href` the button renders as an anchor (same look, link semantics).
 	interface Props extends HTMLButtonAttributes {
 		variant?: Variant;
 		size?: Size;
+		href?: string;
 		children: Snippet;
 	}
 
@@ -15,6 +17,7 @@
 		variant = "primary",
 		size = "md",
 		type = "button",
+		href,
 		class: className = "",
 		children,
 		...rest
@@ -38,6 +41,7 @@
 	};
 
 	const sizes: Record<Size, string> = {
+		xs: "h-7 px-2 text-xs",
 		sm: "h-8 px-3 text-xs",
 		md: "h-10 px-4 text-sm",
 		lg: "h-12 px-5 text-base"
@@ -45,8 +49,8 @@
 
 	// Material-style ripple emanating from the pointer position.
 	function spawnRipple(event: PointerEvent) {
-		const button = event.currentTarget as HTMLButtonElement;
-		if (button.disabled) return;
+		const button = event.currentTarget as HTMLElement;
+		if (button instanceof HTMLButtonElement && button.disabled) return;
 
 		const diameter = Math.max(button.clientWidth, button.clientHeight);
 		const rect = button.getBoundingClientRect();
@@ -63,9 +67,21 @@
 	}
 </script>
 
-<button {type} class={[base, variants[variant], sizes[size], className]} {...rest} onpointerdown={spawnRipple}>
-	{@render children()}
-</button>
+{#if href}
+	<!-- Rest-Props sind Button-typisiert; fürs Anchor-Rendering reicht der lose Cast. -->
+	<a
+		{href}
+		class={[base, variants[variant], sizes[size], className]}
+		{...rest as Record<string, unknown>}
+		onpointerdown={spawnRipple}
+	>
+		{@render children()}
+	</a>
+{:else}
+	<button {type} class={[base, variants[variant], sizes[size], className]} {...rest} onpointerdown={spawnRipple}>
+		{@render children()}
+	</button>
+{/if}
 
 <style>
 	:global(.ripple) {
