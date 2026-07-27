@@ -15,7 +15,11 @@ export type {
 	StepState,
 	StepSeverity
 } from "./components/SummaryCard/types";
+export { default as Checkbox } from "./components/Checkbox.svelte";
+export { default as FieldLabel } from "./components/FieldLabel.svelte";
+export { default as Modal } from "./components/Modal.svelte";
 export { default as EnergyScale } from "./components/EnergyScale/EnergyScale.svelte";
+export { default as EffizienzSkala } from "./components/EffizienzSkala.svelte";
 export type { EnergyScaleClass, EnergyScaleMarker } from "./components/EnergyScale/types";
 export { default as Anleitung } from "./components/Anleitung/Anleitung.svelte";
 export { default as AnleitungCard } from "./components/Anleitung/AnleitungCard.svelte";
