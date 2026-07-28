@@ -19,6 +19,12 @@
 		boden = true,
 		// Opaque backdrop behind the body so pipes don't shine through in schematics.
 		flaeche = undefined,
+		// Decorative sun of the solar/PV drawings (schematics bring their own sky).
+		mitSonne = true,
+		// Mirror the drawing (right roof slope in schematics).
+		spiegeln = false,
+		// Second (solar) coil in storage tanks, exiting at the left housing edge.
+		solarSchlange = false,
 		titel = undefined,
 		class: klasse = ""
 	}: {
@@ -29,6 +35,9 @@
 		stutzen?: boolean;
 		boden?: boolean;
 		flaeche?: string;
+		mitSonne?: boolean;
+		spiegeln?: boolean;
+		solarSchlange?: boolean;
 		titel?: string;
 		class?: string;
 	} = $props();
@@ -134,6 +143,7 @@
 		</linearGradient>
 	</defs>
 
+	<g transform={spiegeln ? "translate(96 0) scale(-1 1)" : undefined}>
 	{#if flaeche}
 		<rect
 			x={korpus.x}
@@ -406,6 +416,12 @@
 			d="M74 42 H43 A2.5 2.5 0 0 0 43 47 H55 A2.5 2.5 0 0 1 55 52 H43 A2.5 2.5 0 0 0 43 57 H74"
 			stroke={wtV}
 		/>
+		{#if solarSchlange}
+			<path
+				d="M22 58 H53 A2.5 2.5 0 0 1 53 63 H41 A2.5 2.5 0 0 0 41 68 H53 A2.5 2.5 0 0 1 53 73 H22"
+				stroke={wtV}
+			/>
+		{/if}
 	{:else if name === 'kombi'}
 		<rect x="34" y="12" width="28" height="68" rx="12" />
 		<rect x="40" y="20" width="16" height="22" rx="7" stroke-dasharray="3 3" />
@@ -418,6 +434,9 @@
 			d="M74 52 H43 A2.5 2.5 0 0 0 43 57 H55 A2.5 2.5 0 0 1 55 62 H43 A2.5 2.5 0 0 0 43 67 H74"
 			stroke={wtV}
 		/>
+		{#if solarSchlange}
+			<path d="M22 65 H51 A2 2 0 0 1 51 69 H41 A2 2 0 0 0 41 73 H22" stroke={wtV} />
+		{/if}
 
 	<!-- ── Solar and photovoltaics ── -->
 	{:else if name === 'solar-flach'}
@@ -425,7 +444,7 @@
 		{#each [28, 34.8, 41.6, 48.4, 55.2, 62] as lx (lx)}
 			<line x1={lx} y1="32" x2={lx} y2="70" />
 		{/each}
-		{@render sonne(80, 16)}
+		{#if mitSonne}{@render sonne(80, 16)}{/if}
 		{#if stutzen}
 			<line x1="70" y1="34" x2="82" y2="34" stroke="var(--vl)" />
 			<line x1="70" y1="64" x2="82" y2="64" stroke="var(--rl)" />
@@ -435,7 +454,7 @@
 		{#each [26, 36, 46, 56, 66] as rx (rx)}
 			<rect x={rx} y="34" width="6" height="42" rx="3" />
 		{/each}
-		{@render sonne(14, 14)}
+		{#if mitSonne}{@render sonne(14, 14)}{/if}
 		{#if stutzen}
 			<line x1="72" y1="20.5" x2="84" y2="20.5" stroke="var(--vl)" />
 			<line x1="72" y1="25.5" x2="84" y2="25.5" stroke="var(--rl)" />
@@ -445,7 +464,7 @@
 		<line x1="39.3" y1="22" x2="39.3" y2="74" /><line x1="56.6" y1="22" x2="56.6" y2="74" />
 		<line x1="22" y1="39.3" x2="74" y2="39.3" /><line x1="22" y1="56.6" x2="74" y2="56.6" />
 		<path d="M50 36 L41 50 L47 50 L44 61 L55 47 L49 47 L53 36 Z" fill="var(--elec)" stroke="none" />
-		{@render sonne(84, 14)}
+		{#if mitSonne}{@render sonne(84, 14)}{/if}
 	{:else if name === 'batterie'}
 		<rect x="30" y="24" width="36" height="48" rx="6" />
 		<path d="M50 30 L43 41 L48 41 L45 50 L54 39 L49 39 L52 30 Z" fill="var(--elec)" stroke="none" />
@@ -453,21 +472,33 @@
 		<line x1="37" y1="62" x2="59" y2="62" stroke="var(--elec)" />
 		<line x1="37" y1="68" x2="59" y2="68" stroke="var(--elec)" />
 	{:else if name === 'solar-dach'}
-		<line x1="10" y1="72" x2="84" y2="24" />
-		<path d="M25.4 59.8 L69.6 31.2 L65.8 25.4 L21.6 54 Z" />
-		{@render sonne(16, 16)}
+		<!-- Roof pitch 21.3° = the house cross-section of the schematic view -->
+		{#if boden}<line x1="4" y1="70" x2="92" y2="35.7" />{/if}
+		<g transform="rotate(-21.3 48 52.8)">
+			<rect x="16" y="42.8" width="64" height="10" rx="2" />
+			{#each [26, 36, 46, 56, 66] as lx (lx)}
+				<line x1={lx} y1="42.8" x2={lx} y2="52.8" />
+			{/each}
+		</g>
+		{#if mitSonne}{@render sonne(16, 16)}{/if}
 		{#if stutzen}
-			<line x1="34" y1="61" x2="34" y2="71" stroke="var(--vl)" />
-			<line x1="42" y1="56" x2="42" y2="66" stroke="var(--rl)" />
+			<line x1="58" y1="51" x2="58" y2="61" stroke="var(--vl)" />
+			<line x1="66" y1="48" x2="66" y2="58" stroke="var(--rl)" />
 		{/if}
 	{:else if name === 'pv-dach'}
-		<line x1="10" y1="72" x2="84" y2="24" />
-		<path d="M25.4 59.8 L69.6 31.2 L65.8 25.4 L21.6 54 Z" />
-		<line x1="36.3" y1="52.8" x2="32.5" y2="47" />
-		<line x1="47.2" y1="45.7" x2="43.4" y2="39.9" />
-		<line x1="58" y1="38.7" x2="54.2" y2="32.9" />
-		{@render sonne(16, 16)}
-		<path d="M56 54 L49 65 L54 65 L51 74 L60 63 L55 63 L58 54 Z" fill="var(--elec)" stroke="none" />
+		{#if boden}<line x1="4" y1="70" x2="92" y2="35.7" />{/if}
+		<g transform="rotate(-21.3 48 52.8)">
+			<rect x="16" y="42.8" width="64" height="10" rx="2" />
+			<line x1="16" y1="47.8" x2="80" y2="47.8" />
+			{#each [32, 48, 64] as lx (lx)}
+				<line x1={lx} y1="42.8" x2={lx} y2="52.8" />
+			{/each}
+		</g>
+		{#if mitSonne}
+			<!-- Sun and lightning are illustration context — schematics show their own -->
+			{@render sonne(16, 16)}
+			<path d="M60 56 L53 67 L58 67 L55 76 L64 65 L59 65 L62 56 Z" fill="var(--elec)" stroke="none" />
+		{/if}
 
 	<!-- ── Ventilation ── -->
 	{:else if name === 'lueftung-zentral'}
@@ -498,6 +529,32 @@
 			<line x1="58" y1="48" x2="70" y2="48" />
 			<path d="M67 44.5 L70.5 48 L67 51.5" />
 		</g>
+
+	<!-- ── Cooling ── -->
+	{:else if name === 'kaelteerzeuger'}
+		<rect x="22" y="28" width="52" height="46" rx="6" />
+		<g stroke="var(--cool)">
+			<line x1="48" y1="38" x2="48" y2="64" />
+			<line x1="36.7" y1="44.5" x2="59.3" y2="57.5" />
+			<line x1="36.7" y1="57.5" x2="59.3" y2="44.5" />
+		</g>
+		{#if stutzen}
+			<line x1="74" y1="38" x2="86" y2="38" stroke="var(--cool)" />
+			<line x1="74" y1="46" x2="86" y2="46" stroke="var(--cool)" />
+		{/if}
+		{#if boden}<line x1="14" y1="80" x2="82" y2="80" />{/if}
+	{:else if name === 'umluftkuehler'}
+		<rect x="16" y="34" width="64" height="30" rx="5" />
+		{@render ventilator(34, 49, 10, true, 2)}
+		<g stroke="var(--cool)" stroke-width="2">
+			<line x1="60" y1="40" x2="60" y2="58" />
+			<line x1="52" y1="44.5" x2="68" y2="53.5" />
+			<line x1="52" y1="53.5" x2="68" y2="44.5" />
+		</g>
+		{#if stutzen}
+			<line x1="80" y1="42" x2="90" y2="42" stroke="var(--cool)" />
+			<line x1="80" y1="52" x2="90" y2="52" stroke="var(--cool)" />
+		{/if}
 
 	<!-- ── Fittings and controls ── -->
 	{:else if name === 'pumpe'}
@@ -539,6 +596,7 @@
 			stroke="none"
 		/>
 	{/if}
+	</g>
 </svg>
 
 <style>

@@ -24,6 +24,8 @@ export type TechnikIconName =
   | 'solar-flach' | 'solar-roehren' | 'pv-modul' | 'batterie' | 'solar-dach' | 'pv-dach'
   // Ventilation
   | 'lueftung-zentral' | 'lueftung-dezentral' | 'abluft'
+  // Cooling (v7 additions, user-approved 2026-07-28)
+  | 'kaelteerzeuger' | 'umluftkuehler'
   // Fittings and controls
   | 'pumpe' | 'mischer' | 'regelung' | 'fws' | 'zapfstelle';
 
@@ -61,6 +63,8 @@ export const TECHNIK_ICON_LABEL: Record<TechnikIconName, string> = {
   'lueftung-zentral': 'Lüftungsanlage zentral (WRG)',
   'lueftung-dezentral': 'Lüftung dezentral (Pendellüfter)',
   abluft: 'Abluftanlage',
+  kaelteerzeuger: 'Kälteerzeuger',
+  umluftkuehler: 'Umluftkühler',
   pumpe: 'Umwälz-/Zirkulationspumpe',
   mischer: 'Mischer (3-Wege)',
   regelung: 'Regelung / Raumregler',
@@ -101,6 +105,10 @@ export const TECHNIK_ICON_KORPUS: Partial<Record<TechnikIconName, IconKorpus>> =
   'lueftung-zentral': { x: 26, y: 26, w: 44, h: 44, r: 6 },
   'lueftung-dezentral': { x: 26, y: 40, w: 44, h: 16, r: 3 },
   abluft: { x: 20, y: 40, w: 56, h: 16, r: 3 },
+  kaelteerzeuger: { x: 22, y: 28, w: 52, h: 46, r: 6 },
+  umluftkuehler: { x: 16, y: 34, w: 64, h: 30, r: 5 },
+  'solar-dach': { x: 16, y: 31, w: 64, h: 33, r: 2 },
+  'pv-dach': { x: 16, y: 31, w: 64, h: 33, r: 2 },
   fws: { x: 30, y: 16, w: 36, h: 48, r: 6 },
   regelung: { x: 30, y: 26, w: 36, h: 44, r: 6 },
   zapfstelle: { x: 22, y: 26, w: 44, h: 40, r: 0 },
@@ -108,4 +116,37 @@ export const TECHNIK_ICON_KORPUS: Partial<Record<TechnikIconName, IconKorpus>> =
 
 export function iconKorpus(name: TechnikIconName): IconKorpus {
   return TECHNIK_ICON_KORPUS[name] ?? { x: 0, y: 0, w: 96, h: 96, r: 6 };
+}
+
+// Named attachment points (96 grid) where pipes may connect a drawing —
+// e.g. the storage coil that deliberately ends at the housing edge.
+export type IconAnker = { x: number; y: number };
+export const TECHNIK_ICON_ANKER: Partial<Record<TechnikIconName, Record<string, IconAnker>>> = {
+  puffer: {
+    vl: { x: 62, y: 26 },
+    rl: { x: 62, y: 68 },
+  },
+  'ww-speicher': {
+    // Heating coil (right), solar coil (left, only drawn with `solarSchlange`),
+    // tap-water outlet on top of the tank.
+    heizVl: { x: 74, y: 42 },
+    heizRl: { x: 74, y: 57 },
+    solarVl: { x: 22, y: 58 },
+    solarRl: { x: 22, y: 73 },
+    oben: { x: 48, y: 14 },
+  },
+  kombi: {
+    heizVl: { x: 74, y: 52 },
+    heizRl: { x: 74, y: 67 },
+    solarVl: { x: 22, y: 65 },
+    solarRl: { x: 22, y: 73 },
+    oben: { x: 48, y: 12 },
+  },
+  zapfstelle: {
+    zulauf: { x: 22, y: 34 },
+  },
+};
+
+export function iconAnker(name: TechnikIconName, ankerName: string): IconAnker | null {
+  return TECHNIK_ICON_ANKER[name]?.[ankerName] ?? null;
 }

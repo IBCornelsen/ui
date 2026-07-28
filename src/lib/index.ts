@@ -54,12 +54,16 @@ export type { Notification } from "./components/Notifications/store.svelte";
 export { default as Pagination } from "./components/Pagination.svelte";
 export { default as Pill } from "./components/Pill.svelte";
 export { default as TechnikIcon } from "./components/TechnikIcon/TechnikIcon.svelte";
+export { default as TechnikBand } from "./components/TechnikIcon/TechnikBand.svelte";
 export {
   TECHNIK_ICON_LABEL,
   TECHNIK_ICON_KORPUS,
+  TECHNIK_ICON_ANKER,
   iconKorpus,
+  iconAnker,
 } from "./components/TechnikIcon/technikIkonen";
 export type {
   TechnikIconName,
   IconKorpus,
+  IconAnker,
 } from "./components/TechnikIcon/technikIkonen";
