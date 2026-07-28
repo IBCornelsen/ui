@@ -18,6 +18,9 @@
 		readonly?: boolean;
 		// invalid: roter Rahmen für leere/ungültige Pflichtfelder (wie in den Formularen).
 		invalid?: boolean;
+		// required: Pflichtfeld — ohne Tags CI-orange markiert (offene Eingabe),
+		// analog zur :invalid-Konvention der nativen Felder.
+		required?: boolean;
 		// Keep numeric tags in ascending order after each insert.
 		sortNumeric?: boolean;
 		class?: string;
@@ -34,10 +37,13 @@
 		disabled = false,
 		readonly = false,
 		invalid = false,
+		required = false,
 		sortNumeric = false,
 		class: className = "",
 		...rest
 	}: Props = $props();
+
+	const pflichtOffen = $derived(required && !invalid && tags.length === 0);
 
 	let draft = $state("");
 
@@ -87,7 +93,9 @@
 	class={[
 		"flex flex-wrap items-center gap-1.5 rounded-md border px-1.5 py-1 transition-colors focus-within:ring-2",
 		!invalid &&
+			!pflichtOffen &&
 			"border-neutral-300 bg-white focus-within:border-primary-600 focus-within:ring-primary-600/15",
+		pflichtOffen && "border-secondary-500 bg-secondary-50 focus-within:ring-secondary-500/20",
 		invalid && "border-error-500 bg-error-50 focus-within:ring-error-500/20",
 		disabled && "cursor-default bg-neutral-100",
 		className
