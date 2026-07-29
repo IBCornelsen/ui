@@ -10,11 +10,20 @@
 		placement?: Placement;
 		// Delay before showing on hover/focus (ms).
 		delay?: number;
+		// Extra classes for the trigger wrapper (e.g. w-full for block-level triggers).
+		class?: string;
 		// The trigger element(s) the tooltip is anchored to.
 		children: Snippet;
 	}
 
-	let { text, content, placement = "top", delay = 150, children }: Props = $props();
+	let {
+		text,
+		content,
+		placement = "top",
+		delay = 150,
+		class: className = "",
+		children
+	}: Props = $props();
 
 	let open = $state(false);
 	let showTimer: ReturnType<typeof setTimeout> | undefined;
@@ -55,7 +64,7 @@
 
 <!-- svelte-ignore a11y_no_static_element_interactions -->
 <span
-	class="relative inline-flex"
+	class={["relative inline-flex", className]}
 	onmouseenter={show}
 	onmouseleave={hide}
 	onfocusin={show}

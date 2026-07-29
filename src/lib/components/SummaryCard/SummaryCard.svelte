@@ -35,6 +35,8 @@
     embedded?: boolean;
     // Guidance panel shown in place of the steps when embedded.
     anleitung?: Snippet;
+    // Optional badge directly under the product header (e.g. autosave status).
+    headerBadge?: Snippet;
     // Energy efficiency scale data. Supplied by the caller so the card stays domain-free;
     // the card only passes it through to EnergyScale.
     scale?: { classes: EnergyScaleClass[]; markers?: EnergyScaleMarker[] };
@@ -49,6 +51,7 @@
     steps = DEFAULT_STEPS,
     embedded = false,
     anleitung,
+    headerBadge,
     scale,
     actions,
   }: Props = $props();
@@ -191,6 +194,11 @@
             <span class="text-xs text-neutral-600">inkl. MwSt.</span>
           </div>
         </div>
+
+        {#if headerBadge}
+          <!-- Sits flush under the header row (cancels the column gap). -->
+          <div class="-mt-2">{@render headerBadge()}</div>
+        {/if}
       </div>
 
       <!-- Schritte: im Embed ersetzt die kontextuelle Anleitung die Schrittliste. -->

@@ -62,15 +62,15 @@
 	--color-info-700: #1d4ed8;
 
 	/* --- Energy efficiency scale (DIN fixed colors) --- */
-	--color-energy-aplus: #00a651;
-	--color-energy-a: #52b848;
-	--color-energy-b: #a6ce39;
-	--color-energy-c: #ffeb00;
-	--color-energy-d: #ffd500;
-	--color-energy-e: #f7a800;
-	--color-energy-f: #f37021;
-	--color-energy-g: #ed1c24;
-	--color-energy-h: #be1e2d;
+	--color-energy-aplus: #00963f;
+	--color-energy-a: #4bb748;
+	--color-energy-b: #a2c517;
+	--color-energy-c: #dfd000;
+	--color-energy-d: #fbbb00;
+	--color-energy-e: #f18700;
+	--color-energy-f: #e6320f;
+	--color-energy-g: #cc1517;
+	--color-energy-h: #951b1e;
 
 	/* --- Building heating status (Gebäude-Ansicht: beheizt/unbeheizt) --- */
 	--color-heated-surface: #f3d0cb;
