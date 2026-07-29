@@ -1,4 +1,5 @@
 <script lang="ts">
+	import type { Snippet } from "svelte";
 	import type { HTMLInputAttributes } from "svelte/elements";
 
 	interface Props extends Omit<HTMLInputAttributes, "value"> {
@@ -6,6 +7,8 @@
 		// invalid: roter Rahmen für leere/ungültige Pflichtfelder (wie in den Formularen).
 		invalid?: boolean;
 		element?: HTMLInputElement;
+		// Optionales Icon links im Feld (z. B. Suche, E-Mail).
+		icon?: Snippet;
 	}
 
 	let {
@@ -13,6 +16,7 @@
 		invalid = false,
 		element = $bindable(),
 		class: className = "",
+		icon,
 		...rest
 	}: Props = $props();
 
@@ -22,12 +26,28 @@
 	const error = "border-error-500 bg-error-50 focus:border-error-500 focus:ring-error-500/20";
 </script>
 
-<input
-	bind:value
-	bind:this={element}
-	class={[base, !invalid && ok, invalid && error, className]}
-	{...rest}
-/>
+{#if icon}
+	<div class="relative w-full">
+		<span
+			class="pointer-events-none absolute top-1/2 left-3 flex -translate-y-1/2 items-center text-neutral-400"
+		>
+			{@render icon()}
+		</span>
+		<input
+			bind:value
+			bind:this={element}
+			class={[base, "pl-9", !invalid && ok, invalid && error, className]}
+			{...rest}
+		/>
+	</div>
+{:else}
+	<input
+		bind:value
+		bind:this={element}
+		class={[base, !invalid && ok, invalid && error, className]}
+		{...rest}
+	/>
+{/if}
 
 <style>
 	/* Spinner-Pfeile bei Zahlenfeldern entfernen. */
