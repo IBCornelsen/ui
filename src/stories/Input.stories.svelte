@@ -46,12 +46,41 @@
 		<Field label="E-Mail" for="email-icon">
 			<Input id="email-icon" type="email" placeholder="nutzer@email.com">
 				{#snippet icon()}
-					<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+					<svg
+						width="16"
+						height="16"
+						viewBox="0 0 24 24"
+						fill="none"
+						stroke="currentColor"
+						stroke-width="2"
+					>
 						<rect width="20" height="16" x="2" y="4" rx="2" />
 						<path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" />
 					</svg>
 				{/snippet}
 			</Input>
+		</Field>
+	</div>
+</Story>
+
+<!-- validate: Fehlertext erscheint nach dem ersten Verlassen des Feldes. -->
+<Story name="Mit Validierung">
+	<div class="w-72">
+		<Field label="Wohnfläche (m²)" for="flaeche-validate" required>
+			<Input id="flaeche-validate" type="number" required validate placeholder="0" />
+		</Field>
+	</div>
+</Story>
+
+<Story name="Mit eigenem Validator">
+	<div class="w-72">
+		<Field label="Baujahr" for="baujahr-validate">
+			<Input
+				id="baujahr-validate"
+				type="number"
+				value={1890}
+				validator={(value) => Number(value) >= 1900 || "Baujahr ab 1900 erwartet."}
+			/>
 		</Field>
 	</div>
 </Story>

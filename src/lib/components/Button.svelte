@@ -78,7 +78,12 @@
 		{@render children()}
 	</a>
 {:else}
-	<button {type} class={[base, variants[variant], sizes[size], className]} {...rest} onpointerdown={spawnRipple}>
+	<button
+		{type}
+		class={[base, variants[variant], sizes[size], className]}
+		{...rest}
+		onpointerdown={spawnRipple}
+	>
 		{@render children()}
 	</button>
 {/if}

@@ -10,6 +10,20 @@ Shared Svelte component package used by `apps/cad` and `apps/online-energieauswe
 - Design tokens live in `src/lib/tokens.css` (exported as `@ibc/ui/tokens.css`). Use them instead of hardcoding colors.
 - Breaking a component's props breaks two apps — check usages in both apps (`grep -r "from \"@ibc/ui\"" ../../apps`) before changing a public prop.
 
+## Prüfungen
+
+```bash
+bun run check        # svelte-check (muss 0 ERRORS bleiben)
+bun run lint         # prettier --check + eslint (muss exit 0 bleiben)
+bun run format       # prettier --write
+bun run lint:legacy  # eslint-legacy.json neu erzeugen — darf nur kürzer werden
+bun run build-storybook
+```
+
+`eslint-legacy.json` nimmt die Dateien aus, die die scharfen Regeln (`max-depth 2`,
+`max-lines-per-function 80`) heute noch verletzen. Neue Dateien werden geprüft; Einträge
+nur entfernen, nie hinzufügen.
+
 ## Git
 
 You're allowed to use git. Commit in this submodule first, then bump the submodule pointer in the monorepo root (see root `CLAUDE.md`). Always mention that a commit was made by you and not an actual human.

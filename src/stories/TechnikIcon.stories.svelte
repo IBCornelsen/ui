@@ -1,7 +1,10 @@
 <script module lang="ts">
 	import { defineMeta } from "@storybook/addon-svelte-csf";
 	import TechnikIcon from "../lib/components/TechnikIcon/TechnikIcon.svelte";
-	import { TECHNIK_ICON_LABEL, type TechnikIconName } from "../lib/components/TechnikIcon/technikIkonen";
+	import {
+		TECHNIK_ICON_LABEL,
+		type TechnikIconName
+	} from "../lib/components/TechnikIcon/technikIkonen";
 
 	const { Story } = defineMeta({
 		title: "UI/TechnikIcon",

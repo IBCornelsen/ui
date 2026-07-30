@@ -10,15 +10,9 @@
 
 <Story name="Mit Label">
 	<div class="flex w-96 flex-col gap-3">
-		<Checkbox name="agb">
-			Ich habe die AGB gelesen und akzeptiert.
-		</Checkbox>
-		<Checkbox name="newsletter" checked>
-			Newsletter abonnieren.
-		</Checkbox>
-		<Checkbox name="gesperrt" disabled>
-			Deaktivierte Option.
-		</Checkbox>
+		<Checkbox name="agb">Ich habe die AGB gelesen und akzeptiert.</Checkbox>
+		<Checkbox name="newsletter" checked>Newsletter abonnieren.</Checkbox>
+		<Checkbox name="gesperrt" disabled>Deaktivierte Option.</Checkbox>
 	</div>
 </Story>
 

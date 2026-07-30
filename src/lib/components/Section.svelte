@@ -45,14 +45,18 @@
 	}
 </script>
 
-<div {id} class="scroll-mt-4 rounded-xl border border-neutral-200 bg-white" class:overflow-hidden={!open}>
+<div
+	{id}
+	class="scroll-mt-4 rounded-xl border border-neutral-200 bg-white"
+	class:overflow-hidden={!open}
+>
 	<button
 		type="button"
 		class="flex w-full items-center gap-3 rounded-t-xl px-4 py-3 text-left transition-colors hover:bg-neutral-200"
 		onclick={toggle}
 	>
 		<span
-			class="bg-primary-600 flex h-6 w-6 shrink-0 items-center justify-center rounded-md font-mono text-sm font-bold text-white"
+			class="flex h-6 w-6 shrink-0 items-center justify-center rounded-md bg-primary-600 font-mono text-sm font-bold text-white"
 		>
 			{bereich}
 		</span>

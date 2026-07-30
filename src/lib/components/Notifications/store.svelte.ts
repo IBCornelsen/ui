@@ -1,4 +1,3 @@
-
 export const notifications: Record<string, Notification> = $state({});
 
 const defaults = {

@@ -17,7 +17,8 @@
 		<div
 			use:anleitung={{
 				title: "Anlass",
-				description: "Grund der Ausstellung wählen (z. B. Verkauf, Vermietung, Modernisierung). Bestimmt die Ausweisart nach dem GEG.",
+				description:
+					"Grund der Ausstellung wählen (z. B. Verkauf, Vermietung, Modernisierung). Bestimmt die Ausweisart nach dem GEG.",
 				importance: "required",
 				norm: {
 					ref: "GEG §80",
@@ -39,7 +40,8 @@
 		<div
 			use:anleitung={{
 				title: "Gebäudetyp",
-				description: "Wohngebäudetyp wählen (z. B. Ein- oder Mehrfamilienhaus). Legt das Nutzungsprofil fest: 20 °C, Warmwasser- und Luftbedarf.",
+				description:
+					"Wohngebäudetyp wählen (z. B. Ein- oder Mehrfamilienhaus). Legt das Nutzungsprofil fest: 20 °C, Warmwasser- und Luftbedarf.",
 				importance: "required",
 				onFocus: setActive
 			}}

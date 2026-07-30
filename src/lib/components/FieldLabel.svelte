@@ -15,14 +15,14 @@
 
 <div class="flex items-center justify-between gap-2">
 	<label class="text-sm leading-none font-semibold text-neutral-700">
-		{title}{#if required}<span class="text-secondary-600 ml-0.5">*</span>{/if}
+		{title}{#if required}<span class="ml-0.5 text-secondary-600">*</span>{/if}
 	</label>
 
 	{#if children}
 		<div class="relative flex-shrink-0">
 			<button
 				type="button"
-				class="hover:bg-primary-100 hover:text-primary-700 flex h-5 w-5 cursor-help items-center justify-center rounded-full bg-neutral-200 text-neutral-600 transition-colors"
+				class="flex h-5 w-5 cursor-help items-center justify-center rounded-full bg-neutral-200 text-neutral-600 transition-colors hover:bg-primary-100 hover:text-primary-700"
 				onmouseenter={() => {
 					tooltipOpen = true;
 				}}

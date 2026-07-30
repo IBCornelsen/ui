@@ -1,0 +1,10 @@
+{
+	"note": "Bestands-Ausnahmen für die scharfen Konventionsregeln. Nur kürzen, nie erweitern — neue Dateien werden geprüft. Regenerieren: bun run lint:legacy",
+	"rules": {
+		"svelte/no-at-html-tags": [
+			"src/lib/components/Notifications/Notification.svelte",
+			"src/lib/components/Notifications/RawNotification.svelte",
+			"src/lib/components/SummaryCard/SummaryCard.svelte"
+		]
+	}
+}

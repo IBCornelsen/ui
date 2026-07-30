@@ -36,7 +36,7 @@
 
 {#if instruction.error}
 	<div
-		class="border-error-200 bg-error-50 text-error-700 mt-2.5 flex items-start gap-2 rounded-md border px-3 py-2 text-base leading-snug font-medium"
+		class="border-error-200 mt-2.5 flex items-start gap-2 rounded-md border bg-error-50 px-3 py-2 text-base leading-snug font-medium text-error-700"
 	>
 		<WarningIcon size={18} weight="fill" class="mt-0.5 shrink-0" />
 		<span>{instruction.error}</span>
@@ -44,9 +44,9 @@
 {/if}
 
 {#if instruction.norm}
-	<div class="border-primary-300 bg-primary-50 mt-2.5 rounded-md border-l-[3px] px-3 py-2">
+	<div class="mt-2.5 rounded-md border-l-[3px] border-primary-300 bg-primary-50 px-3 py-2">
 		<div
-			class="text-primary-700 flex items-center gap-1.5 text-base font-bold tracking-wide uppercase"
+			class="flex items-center gap-1.5 text-base font-bold tracking-wide text-primary-700 uppercase"
 		>
 			<BookOpenTextIcon size={13} weight="fill" />
 			{instruction.norm.ref}

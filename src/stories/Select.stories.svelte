@@ -31,3 +31,16 @@
 		</Field>
 	</div>
 </Story>
+
+<!-- validate: Fehlertext erscheint nach dem ersten Verlassen des Feldes. -->
+<Story name="Mit Validierung">
+	<div class="w-72">
+		<Field label="Lüftung" for="lueftung-validate" required>
+			<Select id="lueftung-validate" required validate value={null}>
+				<option disabled value={null}>Bitte auswählen</option>
+				<option value="fenster">Fensterlüftung</option>
+				<option value="anlage">Lüftungsanlage</option>
+			</Select>
+		</Field>
+	</div>
+</Story>

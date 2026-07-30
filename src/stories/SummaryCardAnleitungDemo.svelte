@@ -32,7 +32,8 @@
 		<div
 			use:anleitung={{
 				title: "Anlass",
-				description: "Grund der Ausstellung wählen (z. B. Verkauf, Vermietung, Modernisierung). Bestimmt die Ausweisart nach dem GEG.",
+				description:
+					"Grund der Ausstellung wählen (z. B. Verkauf, Vermietung, Modernisierung). Bestimmt die Ausweisart nach dem GEG.",
 				importance: "required",
 				norm: {
 					ref: "GEG §80",
@@ -54,7 +55,8 @@
 		<div
 			use:anleitung={{
 				title: "Wohnfläche",
-				description: "Wohnfläche nach Wohnflächenverordnung eintragen. Vertraute Bezugsgröße; dient der Plausibilitätsprüfung.",
+				description:
+					"Wohnfläche nach Wohnflächenverordnung eintragen. Vertraute Bezugsgröße; dient der Plausibilitätsprüfung.",
 				importance: "required",
 				onFocus: setActive
 			}}
@@ -67,7 +69,8 @@
 		<div
 			use:anleitung={{
 				title: "Nutzfläche A_NGF",
-				description: "Nutzfläche eintragen. Leer lassen = automatisch aus dem Volumen geschätzt (0,32 · Vₑ). Bezugsfläche der Bilanz.",
+				description:
+					"Nutzfläche eintragen. Leer lassen = automatisch aus dem Volumen geschätzt (0,32 · Vₑ). Bezugsfläche der Bilanz.",
 				importance: "required",
 				norm: {
 					ref: "DIN V 18599-1, 8.2.1",

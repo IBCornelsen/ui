@@ -77,8 +77,7 @@
 				{:else}
 					{text}
 				{/if}
-				<span
-					class={["absolute size-2 rotate-45 bg-neutral-900", arrowPlacement[placement]]}
+				<span class={["absolute size-2 rotate-45 bg-neutral-900", arrowPlacement[placement]]}
 				></span>
 			</span>
 		</span>

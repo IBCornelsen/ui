@@ -20,7 +20,15 @@
 		children: Snippet;
 	}
 
-	let { badge, title, open = $bindable(true), complete, id, onHeaderClick, children }: Props = $props();
+	let {
+		badge,
+		title,
+		open = $bindable(true),
+		complete,
+		id,
+		onHeaderClick,
+		children
+	}: Props = $props();
 
 	function handleHeaderClick() {
 		if (onHeaderClick) {
@@ -45,19 +53,25 @@
 		<span class="flex-1 text-sm font-semibold text-neutral-800">{title}</span>
 		{#if complete}
 			<!-- Abschnitt vollständig → Haken im CI-blauen Kreis -->
-			<span class="flex h-4.5 w-4.5 shrink-0 items-center justify-center rounded-full bg-primary-600">
+			<span
+				class="flex h-4.5 w-4.5 shrink-0 items-center justify-center rounded-full bg-primary-600"
+			>
 				<CheckIcon size={11} weight="bold" class="text-white" />
 			</span>
 		{:else}
 			<!-- Pflichtangaben offen → X im CI-orangen Kreis -->
-			<span class="flex h-4.5 w-4.5 shrink-0 items-center justify-center rounded-full bg-secondary-500">
+			<span
+				class="flex h-4.5 w-4.5 shrink-0 items-center justify-center rounded-full bg-secondary-500"
+			>
 				<XIcon size={11} weight="bold" class="text-white" />
 			</span>
 		{/if}
 		<CaretDownIcon
 			size={16}
 			weight="bold"
-			class="shrink-0 text-neutral-500 transition-transform duration-200 {open ? '-rotate-180' : ''}"
+			class="shrink-0 text-neutral-500 transition-transform duration-200 {open
+				? '-rotate-180'
+				: ''}"
 		/>
 	</button>
 	<div data-cy="section-body" class="border-t border-white p-4" class:hidden={!open}>
