@@ -22,6 +22,7 @@ export { default as FieldTabLabel } from "./components/FieldTabLabel.svelte";
 export { default as Modal } from "./components/Modal.svelte";
 export { default as ConfirmDialog } from "./components/ConfirmDialog.svelte";
 export { default as WorkflowNav } from "./components/WorkflowNav.svelte";
+export { default as StepBadge } from "./components/StepBadge.svelte";
 export type { WorkflowStepStatus } from "./components/WorkflowNav.svelte";
 export { default as Accordion } from "./components/Accordion.svelte";
 export { default as FaqAccordion } from "./components/FaqAccordion/FaqAccordion.svelte";
