@@ -33,6 +33,15 @@
 	</div>
 </Story>
 
+<!-- Leeres Pflichtfeld: CI-orange statt Fehlerrot (Formulare cad/Schnellerfassung). -->
+<Story name="Pflichtfeld leer">
+	<div class="w-72">
+		<Field label="Wohnfläche (m²)" for="flaeche-pflicht" required>
+			<Input id="flaeche-pflicht" invalid invalidVariant="required" placeholder="—" />
+		</Field>
+	</div>
+</Story>
+
 <Story name="Deaktiviert">
 	<div class="w-72">
 		<Field label="Kundennummer" for="kdnr">
