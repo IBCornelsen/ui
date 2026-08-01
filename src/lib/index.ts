@@ -20,6 +20,7 @@ export { default as Checkbox } from "./components/Checkbox.svelte";
 export { default as FieldLabel } from "./components/FieldLabel.svelte";
 export { default as FieldTabLabel } from "./components/FieldTabLabel.svelte";
 export { default as Modal } from "./components/Modal.svelte";
+export { default as ConfirmDialog } from "./components/ConfirmDialog.svelte";
 export { default as WorkflowNav } from "./components/WorkflowNav.svelte";
 export type { WorkflowStepStatus } from "./components/WorkflowNav.svelte";
 export { default as Accordion } from "./components/Accordion.svelte";
