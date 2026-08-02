@@ -51,3 +51,18 @@
 		abschlussAktion={bestellen}
 	/>
 </Story>
+
+<Story name="Freiraum aus gemessener Leistenhöhe">
+	<StepNavigation
+		steps={STEPS}
+		active={STEPS.length - 1}
+		onGoto={(index) => console.log("Schritt", index + 1)}
+		abschlussAktion={bestellen}
+		leistenHoehe={224}
+	/>
+	<p class="text-sm text-neutral-600">
+		`leistenHoehe` kommt aus dem bindbaren `barHeight` der MobileStepBar. Im letzten Schritt trägt
+		die Leiste den kompletten Aktionsblock; ein fester Freiraum ließe den letzten Abschnitt darunter
+		verschwinden.
+	</p>
+</Story>

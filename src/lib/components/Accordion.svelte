@@ -11,6 +11,9 @@
 	interface Props {
 		badge: string;
 		title: string;
+		// Kurzfassung für schmale Bildschirme — die Langfassung läuft dort über
+		// drei Zeilen. Ohne Angabe steht überall der Langtitel.
+		titleKurz?: string;
 		open?: boolean;
 		complete: boolean;
 		id?: string;
@@ -23,6 +26,7 @@
 	let {
 		badge,
 		title,
+		titleKurz,
 		open = $bindable(true),
 		complete,
 		id,
@@ -43,14 +47,21 @@
 	<button
 		type="button"
 		onclick={handleHeaderClick}
-		class="flex w-full items-center gap-3 px-4 py-3 text-left transition-colors hover:bg-white/40"
+		class="flex w-full items-center gap-3 px-3 py-3 text-left transition-colors hover:bg-white/40 sm:px-4"
 	>
 		<span
 			class="flex h-6 w-6 shrink-0 items-center justify-center rounded-md bg-primary-600 font-mono text-[12px] font-bold text-white"
 		>
 			{badge}
 		</span>
-		<span class="flex-1 text-sm font-semibold text-neutral-800">{title}</span>
+		<span class="flex-1 text-sm font-semibold text-neutral-800">
+			{#if titleKurz}
+				<span class="sm:hidden">{titleKurz}</span>
+				<span class="max-sm:hidden">{title}</span>
+			{:else}
+				{title}
+			{/if}
+		</span>
 		{#if complete}
 			<!-- Abschnitt vollständig → Haken im CI-blauen Kreis -->
 			<span
@@ -74,7 +85,9 @@
 				: ''}"
 		/>
 	</button>
-	<div data-cy="section-body" class="border-t border-white p-4" class:hidden={!open}>
+	<!-- p-3 unter sm: auf 390px-Bildschirmen liegen bereits drei Rahmen um den
+	     Körper, jeder Pixel Innenabstand fehlt den Feldern. -->
+	<div data-cy="section-body" class="border-t border-white p-3 sm:p-4" class:hidden={!open}>
 		{@render children()}
 	</div>
 </div>

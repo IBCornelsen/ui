@@ -23,3 +23,19 @@
 		</Accordion>
 	</div>
 </Story>
+
+<Story name="Kurztitel auf schmalen Bildschirmen">
+	<div class="flex w-[360px] flex-col gap-4">
+		<Accordion
+			badge="B"
+			title="Eingabe der Gebäudeadresse - Angaben zu Wohnfläche, Keller und Dachgeschoss"
+			titleKurz="Adresse & Flächen"
+			complete={false}
+		>
+			<p class="text-sm text-neutral-600">
+				Unter sm steht der Kurztitel, ab sm der volle Titel — die Langfassung liefe auf einem
+				390px-Bildschirm über drei Zeilen.
+			</p>
+		</Accordion>
+	</div>
+</Story>

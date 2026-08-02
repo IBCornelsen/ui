@@ -15,11 +15,19 @@
 		active: number;
 		onGoto: (index: number) => void;
 		abschlussAktion: Snippet;
+		// Gemessene Höhe der festen Schritt-Leiste (MobileStepBar `barHeight`).
+		// Ohne Wert greift eine grobe Schätzung — die reicht nicht, sobald die
+		// Leiste im letzten Schritt den Aktionsblock trägt und mitwächst.
+		leistenHoehe?: number;
 	}
 
-	const { steps, active, onGoto, abschlussAktion }: Props = $props();
+	const { steps, active, onGoto, abschlussAktion, leistenHoehe = 0 }: Props = $props();
 
 	const istLetzterSchritt = $derived(active >= steps.length - 1);
+
+	const GESCHAETZTE_HOEHE = 80;
+	const LUFT = 16;
+	const spacerHoehe = $derived(Math.max(leistenHoehe, GESCHAETZTE_HOEHE) + LUFT);
 </script>
 
 <div
@@ -45,11 +53,8 @@
 		{/if}
 	</div>
 </div>
-<!-- Freiraum für die feste Schritt-Leiste: im letzten Schritt trägt sie zusätzlich
-     die Abschluss-Aktion und ist entsprechend höher. -->
-<div
-	class="lg:hidden"
-	class:h-20={!istLetzterSchritt}
-	class:h-36={istLetzterSchritt}
-	aria-hidden="true"
-></div>
+<!-- Freiraum für die feste Schritt-Leiste. Die Höhe kommt gemessen aus der Leiste
+     selbst: im letzten Schritt trägt sie den kompletten Aktionsblock und wächst
+     mit der Hinweisliste — feste Klassen (h-36) ließen den letzten Abschnitt
+     unter der Leiste verschwinden. -->
+<div class="lg:hidden" style:height="{spacerHoehe}px" aria-hidden="true"></div>
