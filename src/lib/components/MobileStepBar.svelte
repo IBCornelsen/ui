@@ -22,16 +22,20 @@
 		abschlussAktion?: Snippet;
 		// Set false on the intermediate steps, where there is nothing to close yet.
 		abschlussSichtbar?: boolean;
+		// Measured height of the fixed bar in px (0 while hidden from lg upward).
+		// Bind it to lift floating content above the bar, e.g. the GewerkeBar.
+		barHeight?: number;
 	}
 
-	const {
+	let {
 		onPrev,
 		onNext,
 		prevDisabled = false,
 		nextDisabled = false,
 		menu,
 		abschlussAktion,
-		abschlussSichtbar = true
+		abschlussSichtbar = true,
+		barHeight = $bindable(0)
 	}: Props = $props();
 
 	// z-40 keeps the bar below modals and overlays (cad modal z-120, oea overlays z-130+).
@@ -41,7 +45,10 @@
 		"disabled:opacity-40 disabled:hover:bg-primary-600";
 </script>
 
-<div class="fixed inset-x-0 bottom-0 z-40 flex flex-col gap-2 px-4 pb-4 lg:hidden">
+<div
+	class="fixed inset-x-0 bottom-0 z-40 flex flex-col gap-2 px-4 pb-4 lg:hidden"
+	bind:clientHeight={barHeight}
+>
 	{#if abschlussAktion && abschlussSichtbar}
 		<!-- Weißer Grund: der Knopf steht über dem scrollenden Inhalt. -->
 		<div class="rounded-xl bg-white/95 p-2 shadow-lg backdrop-blur-sm">
