@@ -4,10 +4,15 @@
 	import InfoIcon from "phosphor-svelte/lib/InfoIcon";
 	import WarningIcon from "phosphor-svelte/lib/WarningIcon";
 	import EnergyScale from "../EnergyScale/EnergyScale.svelte";
+	import StepBadge from "../StepBadge.svelte";
 	import Tooltip from "../Tooltip.svelte";
 	import type { Snippet } from "svelte";
 	import type { EnergyScaleClass, EnergyScaleMarker } from "../EnergyScale/types";
 	import type { StepInfo } from "./types";
+
+	// Same 26 px circle as StepBadge/WorkflowNav so all step markers line up app-wide.
+	const STEP_CIRCLE =
+		"flex size-[26px] shrink-0 items-center justify-center rounded-full text-[13px]";
 
 	const DEFAULT_STEPS: StepInfo[] = [
 		"Ausweisart",
@@ -197,32 +202,22 @@
 							<li class="flex gap-3">
 								<div class="flex flex-col items-center">
 									{#if step.severity === "error"}
-										<span
-											class="flex size-7 items-center justify-center rounded-full bg-error-600 text-white"
-										>
-											<WarningIcon size={16} weight="bold" />
+										<span class="{STEP_CIRCLE} bg-error-600 text-white">
+											<WarningIcon size={14} weight="bold" />
 										</span>
 									{:else if step.severity === "warning"}
-										<span
-											class="flex size-7 items-center justify-center rounded-full bg-warning-500 text-white"
-										>
-											<WarningIcon size={16} weight="bold" />
+										<span class="{STEP_CIRCLE} bg-warning-500 text-white">
+											<WarningIcon size={14} weight="bold" />
 										</span>
 									{:else if step.state === "done"}
-										<span
-											class="flex size-7 items-center justify-center rounded-full bg-primary-600 text-white"
-										>
-											<CheckIcon size={16} weight="bold" />
+										<span class="{STEP_CIRCLE} bg-primary-600 text-white">
+											<CheckIcon size={14} weight="bold" />
 										</span>
 									{:else if step.state === "current"}
-										<span
-											class="flex size-7 items-center justify-center rounded-full bg-primary-600 text-sm font-bold text-white"
-										>
-											{stepNumber}
-										</span>
+										<StepBadge step={stepNumber} />
 									{:else}
 										<span
-											class="flex size-7 items-center justify-center rounded-full border border-neutral-300 text-sm font-semibold text-neutral-600"
+											class="{STEP_CIRCLE} border border-neutral-300 text-[13px] font-semibold text-neutral-600"
 										>
 											{stepNumber}
 										</span>
