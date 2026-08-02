@@ -8,8 +8,8 @@
 	// Step navigation below the sections of a form step: one way back, one way
 	// forward, the next step's number in a blue circle. On the last step the
 	// caller's closing action (order, save, host action) takes the forward slot.
-	// Below lg the floating arrow circles take over the step change, so only that
-	// closing action stays — the spacer keeps it clear of the circles.
+	// From lg upward only — below lg the fixed MobileStepBar carries both the step
+	// change and the closing action; the spacer keeps content clear of it.
 	interface Props {
 		steps: string[];
 		active: number;
@@ -23,15 +23,10 @@
 </script>
 
 <div
-	class="mt-8 flex flex-col gap-3 border-t border-neutral-100 pt-5 sm:flex-row sm:items-center"
-	class:max-lg:hidden={!istLetzterSchritt}
+	class="mt-8 flex flex-col gap-3 border-t border-neutral-100 pt-5 max-lg:hidden sm:flex-row sm:items-center"
 >
 	{#if active > 0}
-		<Button
-			variant="outline"
-			class="w-full max-lg:hidden sm:w-auto"
-			onclick={() => onGoto(active - 1)}
-		>
+		<Button variant="outline" class="w-full sm:w-auto" onclick={() => onGoto(active - 1)}>
 			<CaretLeftIcon size={16} weight="bold" />
 			Zurück
 		</Button>
@@ -41,11 +36,7 @@
 		{#if istLetzterSchritt}
 			{@render abschlussAktion()}
 		{:else}
-			<Button
-				variant="outline"
-				class="w-full max-lg:hidden sm:w-auto"
-				onclick={() => onGoto(active + 1)}
-			>
+			<Button variant="outline" class="w-full sm:w-auto" onclick={() => onGoto(active + 1)}>
 				zu
 				<StepBadge step={active + 2} size="sm" />
 				{steps[active + 1]}
@@ -54,5 +45,11 @@
 		{/if}
 	</div>
 </div>
-<!-- Freiraum für die schwebenden Pfeil-Kreise am unteren Rand. -->
-<div class="h-16 lg:hidden" aria-hidden="true"></div>
+<!-- Freiraum für die feste Schritt-Leiste: im letzten Schritt trägt sie zusätzlich
+     die Abschluss-Aktion und ist entsprechend höher. -->
+<div
+	class="lg:hidden"
+	class:h-20={!istLetzterSchritt}
+	class:h-36={istLetzterSchritt}
+	aria-hidden="true"
+></div>
