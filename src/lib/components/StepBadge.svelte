@@ -9,14 +9,14 @@
 
 	const { step, size = "md" }: Props = $props();
 
-	const MASSE = {
+	const SIZE_CLASSES = {
 		sm: "h-[22px] w-[22px] text-[11px]",
 		md: "h-[26px] w-[26px] text-[13px]"
 	};
 </script>
 
 <span
-	class="inline-flex shrink-0 items-center justify-center rounded-full bg-primary-600 font-bold text-white {MASSE[
+	class="inline-flex shrink-0 items-center justify-center rounded-full bg-primary-600 font-bold text-white {SIZE_CLASSES[
 		size
 	]}"
 	aria-hidden="true"

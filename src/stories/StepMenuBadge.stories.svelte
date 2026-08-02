@@ -9,32 +9,36 @@
 		tags: ["autodocs"]
 	});
 
-	const steps = [
+	const STEPS = [
 		"Ausweisart & Adresse",
 		"Gebäudedaten",
 		"Verbrauch & Warmwasser",
 		"Lüftung & Heizung",
 		"Abschluss"
 	];
-	const status: WorkflowStepStatus[] = ["complete", "complete", "open", "blocked", "open"];
+	const STATUS: WorkflowStepStatus[] = ["complete", "complete", "open", "blocked", "open"];
+</script>
+
+<script lang="ts">
+	let active = $state(2);
 </script>
 
 <Story name="Neben der Schritt-Überschrift">
 	<div class="flex items-center gap-3">
-		<StepBadge step={3} />
-		<h2 class="text-xl leading-snug font-semibold text-primary-900">Verbrauch & Warmwasser</h2>
+		<StepBadge step={active + 1} />
+		<h2 class="text-xl leading-snug font-semibold text-primary-900">{STEPS[active]}</h2>
 		<div class="ml-auto">
 			<StepMenuBadge
 				label="Workflow"
-				{steps}
-				active={2}
-				{status}
-				onSelect={(index) => console.log("Schritt", index + 1)}
+				steps={STEPS}
+				{active}
+				status={STATUS}
+				onSelect={(index) => (active = index)}
 			/>
 		</div>
 	</div>
 	<p class="mt-4 text-sm text-neutral-600">
 		Der Kreis zeigt „aktuell/gesamt" und klappt die Schrittliste mit Status auf — Ersatz für die
-		unter lg ausgeblendete Workflow-Spalte.
+		unter lg ausgeblendete Workflow-Spalte. Escape oder Klick daneben schließt das Menü.
 	</p>
 </Story>

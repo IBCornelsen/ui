@@ -2,9 +2,9 @@
 	import CaretLeftIcon from "phosphor-svelte/lib/CaretLeftIcon";
 	import CaretRightIcon from "phosphor-svelte/lib/CaretRightIcon";
 
-	// Floating circular prev/next buttons for small screens (below lg): step
-	// navigation stays reachable from any scroll position while the workflow
-	// column and the inline step buttons are hidden.
+	// Always-visible prev/next step buttons for narrow screens: two blue circles
+	// floating in the lower corners of the viewport. Hidden from lg upward, where
+	// the step column and the labeled step buttons take over.
 	interface Props {
 		onPrev: () => void;
 		onNext: () => void;
@@ -14,27 +14,28 @@
 
 	const { onPrev, onNext, prevDisabled = false, nextDisabled = false }: Props = $props();
 
+	// z-40 keeps the circles below modals and overlays (cad modal z-120, oea overlays z-130+).
 	const CIRCLE =
-		"flex h-12 w-12 items-center justify-center rounded-full bg-primary-600 text-white shadow-lg transition-colors enabled:cursor-pointer enabled:hover:bg-primary-700 disabled:bg-neutral-300";
+		"fixed bottom-4 z-40 flex h-12 w-12 cursor-pointer items-center justify-center " +
+		"rounded-full bg-primary-600 text-white shadow-lg transition-colors hover:bg-primary-700 " +
+		"disabled:cursor-default disabled:opacity-40 disabled:hover:bg-primary-600 lg:hidden";
 </script>
 
-<div class="fixed right-4 bottom-4 z-130 flex gap-3 lg:hidden">
-	<button
-		type="button"
-		aria-label="Vorheriger Schritt"
-		onclick={onPrev}
-		disabled={prevDisabled}
-		class={CIRCLE}
-	>
-		<CaretLeftIcon size={22} weight="bold" />
-	</button>
-	<button
-		type="button"
-		aria-label="Nächster Schritt"
-		onclick={onNext}
-		disabled={nextDisabled}
-		class={CIRCLE}
-	>
-		<CaretRightIcon size={22} weight="bold" />
-	</button>
-</div>
+<button
+	type="button"
+	class="{CIRCLE} left-4"
+	onclick={onPrev}
+	disabled={prevDisabled}
+	aria-label="Vorheriger Schritt"
+>
+	<CaretLeftIcon size={22} weight="bold" />
+</button>
+<button
+	type="button"
+	class="{CIRCLE} right-4"
+	onclick={onNext}
+	disabled={nextDisabled}
+	aria-label="Nächster Schritt"
+>
+	<CaretRightIcon size={22} weight="bold" />
+</button>

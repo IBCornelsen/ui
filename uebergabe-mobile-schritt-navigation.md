@@ -19,8 +19,8 @@ Strecken — cad-Workflow (Bedarfsausweis-Embed) und oea-Formulare
    Status-Kreisen auf (Optik `WorkflowNav`: Haken = fertig, orange = nach
    Abschluss-Prüfung blockiert, Nummer = offen) und springt Schritte direkt an.
 4. **`FloatingStepArrows`** (`@ibc/ui`): zwei schwebende blaue Pfeil-Kreise
-   fest unten rechts (`fixed`, `lg:hidden`), vor/zurück von jeder
-   Scrollposition aus. Die Fuß-Knöpfe der Schritte bleiben mobil nur für die
+   fest in den unteren Ecken (zurück links, weiter rechts; `fixed`,
+   `lg:hidden`), vor/zurück von jeder Scrollposition aus. Die Fuß-Knöpfe der Schritte bleiben mobil nur für die
    Abschluss-Aktion des letzten Schritts (Bestellung bzw. Host-Aktion).
 
 ## Commits
@@ -39,15 +39,26 @@ Strecken — cad-Workflow (Bedarfsausweis-Embed) und oea-Formulare
 
 - `StepMenuBadge`-Props = `WorkflowNav`-Props (`label`, `steps`, `active`,
   `status: WorkflowStepStatus[]`, `onSelect`) — Status-Typ kommt aus
-  `WorkflowNav.svelte`.
+  `WorkflowNav.svelte`. Das Dropdown rendert `WorkflowNav` selbst
+  (`bg-neutral-50 p-3`, `max-h-[70vh] overflow-y-auto`), statt dessen Zeilen
+  zu duplizieren: eine Optik-Quelle für Spalte und Menü.
+- Eck-Positionen der Pfeil-Kreise sind Vertrag mit den Apps: cad reserviert
+  per `max-lg:px-16` (AppShell) 64 px an BEIDEN Rändern unter der
+  Host-Abschluss-Aktion, oea legt einen `h-16`-Spacer über die volle Breite.
+  Beide Kreise rechts würden den Aktionsblock überdecken.
+- Escape schließt das Menü (`<svelte:window onkeydown>`), Klick auf den
+  unsichtbaren Backdrop ebenso.
+- Der Badge-Kreis wächst mit (`h-[30px] min-w-[30px] px-1.5`) — feste Breite
+  bricht bei zweistelligen Schrittzahlen („10/12“).
 - cad kapselt die Sprunglogik in `src/lib/components/SchrittMenue.svelte`
   (Hüllflächen brauchen `prepareEnvelopeRows()`, gesperrtes Zeichnen fragt
   per Dialog nach — wie `NavColumn.clickStep`).
 - Der Zeichnen-Schritt trägt bewusst KEINE Überschrift (Nutzer-Entscheid),
   dort gibt es also kein Schritt-Menü — Navigation läuft über die
   Pfeil-Kreise; Haustechnik hat als Schaubild ebenfalls keine Überschrift.
-- z-Ordnung: Backdrop des Menüs `z-140`, Menü `z-150`, Pfeil-Kreise `z-130`
-  (unter den oea-Overlays der rechten Karte).
+- z-Ordnung: Pfeil-Kreise und Menü-Backdrop `z-40`, Menü-Panel `z-50` — damit
+  liegen sie UNTER Modals und Overlays (cad-Modal `z-120`, oea-Overlays
+  `z-130+`) und verdecken keinen Dialog.
 
 ## Verifikation (2026-08-02, lokal)
 

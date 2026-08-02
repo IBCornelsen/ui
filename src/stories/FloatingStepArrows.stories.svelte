@@ -8,20 +8,21 @@
 	});
 </script>
 
-<!-- Die Kreise sind fixed am unteren rechten Rand und nur unter lg sichtbar —
-     Storybook-Viewport auf ein Mobilformat stellen, um sie zu sehen. -->
-<Story name="Beide aktiv">
-	<FloatingStepArrows onPrev={() => console.log("zurück")} onNext={() => console.log("weiter")} />
-	<p class="text-sm text-neutral-600">
-		Schwebende Pfeil-Kreise für den Schrittwechsel unter lg (Viewport verkleinern).
-	</p>
-</Story>
+<script lang="ts">
+	let step = $state(1);
+</script>
 
-<Story name="Erster Schritt (zurück gesperrt)">
+<!-- The circles are position:fixed in the lower corners and only visible below the
+     lg breakpoint — narrow the preview viewport to see them. -->
+<Story name="Schrittwechsel">
+	<p class="text-sm text-neutral-700">Aktueller Schritt: {step}/4</p>
+	<p class="mt-2 text-sm text-neutral-600">
+		Zurück liegt unten links, weiter unten rechts; an den Enden sind die Kreise ausgegraut.
+	</p>
 	<FloatingStepArrows
-		onPrev={() => console.log("zurück")}
-		onNext={() => console.log("weiter")}
-		prevDisabled
+		onPrev={() => (step = step - 1)}
+		onNext={() => (step = step + 1)}
+		prevDisabled={step <= 1}
+		nextDisabled={step >= 4}
 	/>
-	<p class="text-sm text-neutral-600">Im ersten Schritt ist der linke Kreis ausgegraut.</p>
 </Story>
