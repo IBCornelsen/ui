@@ -31,9 +31,12 @@ Strecken — cad-Workflow (Bedarfsausweis-Embed) und oea-Formulare
 - **oea `new-deployment-dev`:** `8de4ca4a`, `c74abbe5`, `8fe59784`,
   `ab670db8` (Aktionsblock mobil, Konto im Header), `dddef311` (mobile
   Navigation FormularShell + Kundendaten).
-- **ui `new-deployment-dev`:** `e506728` (StepBadge) und der NACHGEBAUTE
-  Commit mit `StepMenuBadge` + `FloatingStepArrows` (dieses Dokument liegt
-  im selben Commit).
+- **ui `new-deployment-dev`:** `e506728` (StepBadge), `106c2f8` (Nachbau
+  `StepMenuBadge` + `FloatingStepArrows`), `01aeefd` (Angleich an die
+  Patch-Referenz der Cloud-Session), `413e3a1` (`StepNavigation`,
+  SummaryCard-Kreise).
+- **Opus-5-Session 02.08. (Restarbeiten):** ui `01aeefd`/`413e3a1`,
+  cad `f56ae3c`, oea `4b7a6cfd`/`bd475780`.
 
 ## Architektur-Notizen
 
@@ -59,18 +62,32 @@ Strecken — cad-Workflow (Bedarfsausweis-Embed) und oea-Formulare
 - z-Ordnung: Pfeil-Kreise und Menü-Backdrop `z-40`, Menü-Panel `z-50` — damit
   liegen sie UNTER Modals und Overlays (cad-Modal `z-120`, oea-Overlays
   `z-130+`) und verdecken keinen Dialog.
+- `StepNavigation` trägt die Schritt-Leiste unter den Abschnitten (Zurück,
+  „zu <nächster Schritt>“ mit `StepBadge`, Abschluss-Aktion als Snippet,
+  `h-16`-Spacer). Beide oea-Strecken nutzen sie; die cad-Leiste bleibt
+  bewusst eigenständig — andere Knopf-Optik (34 px, neutrale Ränder, kein
+  Ripple) und die `hostSchrittAktion`-Sonderfälle (`max-lg:px-16`, `xl:hidden`).
+- Schritt-Kreise app-weit 26 px: `StepBadge`, `WorkflowNav` und seit `413e3a1`
+  auch `SummaryCard` (vorher 28 px).
 
 ## Verifikation (2026-08-02, lokal)
 
 - `packages/ui`: `bun run check` 0 Errors, `bun run lint` grün.
-- oea `check:baseline`: 250 == Baseline. cad `check`: 68 == Baseline.
-- Playwright-Probe cad 420×800: Pfeil-Kreise sichtbar, Menü öffnet mit
-  Statusliste, Sprung zu „Hüllflächen prüfen“ füllt die Tabelle.
-- `din:verify` lokal (die Cloud-Session konnte Schritte 3+4 nicht laufen
-  lassen — Projekt-XMLs liegen nicht im Repo).
+- oea `check:baseline` 250 == Baseline, `bun run lint` erstmals 0 Errors,
+  vitest 34 grün, Playwright-e2e **111 grün** (der Lauf, den die Cloud nicht
+  fahren konnte; zwei mehrdeutige Selektoren dabei repariert).
+- cad `check` 68 == Baseline, `bun test` 188 grün, `bun run lint` 0 Errors
+  (vorher 84), `din:verify` GRÜN (52 Suiten byte-stabil).
+- Playwright-Probe cad 420×800: Pfeil-Kreise unten in BEIDEN Ecken, Menü
+  öffnet die Statusliste, Escape schließt.
 
 ## Offen
 
-- Optischer Feinschliff nach Jens' Review (Positionen/Größen der Kreise).
-- Storybook-Stories sind angelegt (`StepMenuBadge`, `FloatingStepArrows`);
-  `FloatingStepArrows` ist nur im verkleinerten Storybook-Viewport sichtbar.
+- Optischer Feinschliff nach Jens' Review (Positionen/Größen der Kreise) und
+  der manuelle Mobil-Durchlauf auf einem echten Gerät.
+- Storybook-Stories sind angelegt (`StepMenuBadge`, `FloatingStepArrows`,
+  `StepNavigation`); `FloatingStepArrows` ist nur im verkleinerten
+  Storybook-Viewport sichtbar.
+- `WorkflowNav` trägt `data-cy="tab-N"`; öffnet ein Test das Schritt-Menü,
+  gibt es diese Marker doppelt (Spalte + Menü) — dann per Container
+  eingrenzen.
