@@ -45,7 +45,7 @@
 </script>
 
 <div
-	class="fixed inset-x-0 bottom-0 z-40 flex flex-col gap-2 px-4 pb-4 lg:hidden"
+	class="fixed inset-x-0 bottom-0 z-40 flex flex-col gap-2 px-4 pb-1 lg:hidden"
 	bind:clientHeight={barHeight}
 >
 	<div class="flex items-center justify-between">
