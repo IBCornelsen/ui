@@ -44,8 +44,11 @@
 		"disabled:opacity-40 disabled:hover:bg-primary-600";
 </script>
 
+<!-- Bottom padding = safe area: without it the iPhone home indicator overlays the
+     circles (hosts need viewport-fit=cover); on devices without an inset it stays
+     flush at pb-0. The measured barHeight includes the inset automatically. -->
 <div
-	class="fixed inset-x-0 bottom-0 z-40 flex flex-col gap-2 px-3 pb-0 lg:hidden"
+	class="fixed inset-x-0 bottom-0 z-40 flex flex-col gap-2 px-3 pb-[env(safe-area-inset-bottom)] lg:hidden"
 	bind:clientHeight={barHeight}
 >
 	<div class="flex items-center justify-between">
