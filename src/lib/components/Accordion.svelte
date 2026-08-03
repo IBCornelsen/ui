@@ -47,7 +47,7 @@
 	<button
 		type="button"
 		onclick={handleHeaderClick}
-		class="flex w-full items-center gap-3 px-3 py-3 text-left transition-colors hover:bg-white/40 sm:px-4"
+		class="flex w-full items-center gap-2 px-2 py-3 text-left transition-colors hover:bg-white/40 sm:gap-3 sm:px-4"
 	>
 		<span
 			class="flex h-6 w-6 shrink-0 items-center justify-center rounded-md bg-primary-600 font-mono text-[12px] font-bold text-white"
@@ -87,7 +87,7 @@
 	</button>
 	<!-- p-3 unter sm: auf 390px-Bildschirmen liegen bereits drei Rahmen um den
 	     Körper, jeder Pixel Innenabstand fehlt den Feldern. -->
-	<div data-cy="section-body" class="border-t border-white p-3 sm:p-4" class:hidden={!open}>
+	<div data-cy="section-body" class="border-t border-white p-2 sm:p-4" class:hidden={!open}>
 		{@render children()}
 	</div>
 </div>
