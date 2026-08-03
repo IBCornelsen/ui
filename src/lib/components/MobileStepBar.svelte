@@ -5,12 +5,13 @@
 
 	// Fixed step bar at the bottom edge, below lg only: back circle in the left
 	// corner, the step menu badge in the middle, forward circle in the right
-	// corner. On the last step the closing action (order, save, host action) sits
-	// as a full-width button directly above the circles and stays reachable from
-	// any scroll position.
+	// corner — nothing else. The closing actions (order, save, help) live in the
+	// right slide-in card; on the last step the forward circle opens that card,
+	// which the host wires through `onNext` (Jens 2026-08-03: the action block in
+	// the bar covered half the screen on the last step).
 	//
 	// The bar is position:fixed and cannot push content — pages keep a spacer at
-	// the end of their scroll area: SPACER_CLASS / SPACER_CLASS_MIT_AKTION below.
+	// the end of their scroll area fed by `barHeight`.
 	interface Props {
 		onPrev: () => void;
 		onNext: () => void;
@@ -18,10 +19,9 @@
 		nextDisabled?: boolean;
 		// Step menu badge (StepMenuBadge) — apps wire their own jump logic.
 		menu?: Snippet;
-		// Closing action of the last step; the surrounding bar gets a backdrop.
-		abschlussAktion?: Snippet;
-		// Set false on the intermediate steps, where there is nothing to close yet.
-		abschlussSichtbar?: boolean;
+		// Accessible name of the forward circle. On the last step the hosts pass
+		// something like "Abschluss öffnen", since it opens the card instead.
+		nextLabel?: string;
 		// Measured height of the fixed bar in px (0 while hidden from lg upward).
 		// Bind it to lift floating content above the bar, e.g. the GewerkeBar.
 		barHeight?: number;
@@ -33,8 +33,7 @@
 		prevDisabled = false,
 		nextDisabled = false,
 		menu,
-		abschlussAktion,
-		abschlussSichtbar = true,
+		nextLabel = "Nächster Schritt",
 		barHeight = $bindable(0)
 	}: Props = $props();
 
@@ -49,12 +48,6 @@
 	class="fixed inset-x-0 bottom-0 z-40 flex flex-col gap-2 px-4 pb-4 lg:hidden"
 	bind:clientHeight={barHeight}
 >
-	{#if abschlussAktion && abschlussSichtbar}
-		<!-- Weißer Grund: der Knopf steht über dem scrollenden Inhalt. -->
-		<div class="rounded-xl bg-white/95 p-2 shadow-lg backdrop-blur-sm">
-			{@render abschlussAktion()}
-		</div>
-	{/if}
 	<div class="flex items-center justify-between">
 		<button
 			type="button"
@@ -71,7 +64,7 @@
 			class={CIRCLE}
 			onclick={onNext}
 			disabled={nextDisabled}
-			aria-label="Nächster Schritt"
+			aria-label={nextLabel}
 		>
 			<CaretRightIcon size={22} weight="bold" />
 		</button>

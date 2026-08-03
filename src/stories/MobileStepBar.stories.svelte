@@ -2,8 +2,6 @@
 	import { defineMeta } from "@storybook/addon-svelte-csf";
 	import MobileStepBar from "../lib/components/MobileStepBar.svelte";
 	import StepMenuBadge from "../lib/components/StepMenuBadge.svelte";
-	import Button from "../lib/components/Button.svelte";
-	import CaretRightIcon from "phosphor-svelte/lib/CaretRightIcon";
 	import type { WorkflowStepStatus } from "../lib/components/WorkflowNav.svelte";
 
 	const { Story } = defineMeta({
@@ -35,13 +33,6 @@
 	/>
 {/snippet}
 
-{#snippet bestellen()}
-	<Button class="w-full" onclick={() => console.log("bestellen")}>
-		Kostenpflichtig bestellen
-		<CaretRightIcon size={16} weight="bold" />
-	</Button>
-{/snippet}
-
 <!-- Die Leiste ist position:fixed und nur unter lg sichtbar — Storybook-Viewport
      auf ein Mobilformat stellen. -->
 <Story name="Zwischenschritt">
@@ -56,16 +47,16 @@
 	/>
 </Story>
 
-<Story name="Letzter Schritt mit Abschluss-Aktion">
+<Story name="Letzter Schritt">
 	<p class="text-sm text-neutral-700">
-		Die Abschluss-Aktion steht fest über den Kreisen und bleibt beim Scrollen sichtbar.
+		Im letzten Schritt trägt die Leiste keine Abschluss-Aktion mehr — der weiter-Kreis öffnet die
+		rechte Karte des Hosts, in der Bestellung, Entwurf und Hilfe stehen.
 	</p>
-	<div class="h-36"></div>
+	<div class="h-20"></div>
 	<MobileStepBar
 		onPrev={() => console.log("zurück")}
-		onNext={() => console.log("weiter")}
-		nextDisabled
+		onNext={() => console.log("rechte Karte öffnen")}
 		{menu}
-		abschlussAktion={bestellen}
+		nextLabel="Abschluss öffnen"
 	/>
 </Story>
