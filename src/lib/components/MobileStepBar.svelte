@@ -11,8 +11,13 @@
 	// through `onNext`. Where that card is already docked open (from xl up) the
 	// host disables the circle instead — there is nothing left to open.
 	//
-	// The bar is position:fixed and cannot push content — pages keep a spacer at
-	// the end of their scroll area fed by `barHeight`.
+	// The bar cannot push content — pages keep a spacer at the end of their scroll
+	// area fed by `barHeight`.
+	//
+	// Placement: by default it is pinned to the viewport (position:fixed). Hosts
+	// with a three-column shell pass anchor="container" and render it as the last
+	// child of their (position:relative) content box — the circles then span that
+	// box instead of the whole window (Jens 2026-08-04).
 	interface Props {
 		onPrev: () => void;
 		onNext: () => void;
@@ -26,6 +31,9 @@
 		// Measured height of the fixed bar in px. Bind it to lift floating content
 		// above the bar (e.g. the GewerkeBar) and to size the end-of-page spacer.
 		barHeight?: number;
+		// "viewport" pins the bar to the window, "container" to the nearest
+		// positioned ancestor (the host's content box).
+		anchor?: "viewport" | "container";
 	}
 
 	let {
@@ -35,8 +43,14 @@
 		nextDisabled = false,
 		menu,
 		nextLabel = "Nächster Schritt",
-		barHeight = $bindable(0)
+		barHeight = $bindable(0),
+		anchor = "viewport"
 	}: Props = $props();
+
+	const platzierung = $derived.by(() => {
+		if (anchor === "container") return "absolute inset-x-0 bottom-0";
+		return "fixed inset-x-0 bottom-0 mx-auto max-w-[1920px]";
+	});
 
 	// z-40 keeps the bar below modals and overlays (cad modal z-120, oea overlays z-130+).
 	const CIRCLE =
@@ -53,7 +67,7 @@
      pointer-events: the bar spans the full width but is mostly empty — only the
      controls may catch clicks, the gaps must pass them through to the content. -->
 <div
-	class="pointer-events-none fixed inset-x-0 bottom-0 z-40 mx-auto flex max-w-[1920px] flex-col gap-2 px-3 pb-[env(safe-area-inset-bottom)] lg:px-4 lg:pb-4"
+	class="pointer-events-none z-40 flex flex-col gap-2 px-3 pb-[env(safe-area-inset-bottom)] lg:px-4 lg:pb-4 {platzierung}"
 	bind:clientHeight={barHeight}
 >
 	<div class="flex items-center justify-between">
