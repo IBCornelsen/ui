@@ -37,6 +37,7 @@ export { default as Anleitung } from "./components/Anleitung/Anleitung.svelte";
 export { default as AnleitungCard } from "./components/Anleitung/AnleitungCard.svelte";
 export type { Importance, NormNote } from "./components/Anleitung/types";
 export { IMPORTANCE_LABEL } from "./components/Anleitung/types";
+export { default as AnleitungZeile } from "./components/Anleitung/AnleitungZeile.svelte";
 export { anleitung } from "./components/Anleitung/anleitung";
 export type { AnleitungInstruction } from "./components/Anleitung/anleitung";
 export { getActiveAnleitung, setActiveAnleitung } from "./components/Anleitung/store.svelte";
