@@ -1,7 +1,6 @@
 <script lang="ts">
 	import type { Snippet } from "svelte";
 	import CheckIcon from "phosphor-svelte/lib/CheckIcon";
-	import WarningIcon from "phosphor-svelte/lib/WarningIcon";
 	import XIcon from "phosphor-svelte/lib/XIcon";
 	import CaretDownIcon from "phosphor-svelte/lib/CaretDownIcon";
 
@@ -62,12 +61,20 @@
 		</span>
 		<span class="flex-1 text-sm font-semibold text-neutral-900">{title}</span>
 
+		<!-- Status wie im Accordion (Verbrauchsausweis-Referenz): Haken im CI-blauen
+		     Kreis bzw. X im CI-orangen Kreis — keine nackten Dreiecke/Häkchen. -->
 		{#if isValid === true && showErrors}
-			<CheckIcon size={16} weight="bold" class="shrink-0 text-green-500" />
-		{:else if isValid === false && showErrors && optional}
-			<WarningIcon size={16} weight="bold" class="shrink-0 text-amber-500" />
+			<span
+				class="flex h-4.5 w-4.5 shrink-0 items-center justify-center rounded-full bg-primary-600"
+			>
+				<CheckIcon size={11} weight="bold" class="text-white" />
+			</span>
 		{:else if isValid === false && showErrors}
-			<XIcon size={16} weight="bold" class="shrink-0 text-red-500" />
+			<span
+				class="flex h-4.5 w-4.5 shrink-0 items-center justify-center rounded-full bg-secondary-500"
+			>
+				<XIcon size={11} weight="bold" class="text-white" />
+			</span>
 		{/if}
 
 		<CaretDownIcon

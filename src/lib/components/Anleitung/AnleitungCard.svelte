@@ -34,7 +34,13 @@
 	{/if}
 </div>
 
-<p class="mt-2 text-base leading-relaxed text-neutral-700">{instruction.description}</p>
+{#if instruction.inhalt}
+	<div class="mt-2 text-base leading-relaxed text-neutral-700">
+		{@render instruction.inhalt()}
+	</div>
+{:else if instruction.description}
+	<p class="mt-2 text-base leading-relaxed text-neutral-700">{instruction.description}</p>
+{/if}
 
 {#if instruction.error}
 	<div

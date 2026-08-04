@@ -19,9 +19,23 @@
 		// automatic checks that appear without a click. With an explicit value the
 		// row keeps its DOM position in the grid.
 		active?: AnleitungInstruction | null;
+		// Close handler for explicitly driven rows: shows the ✕ top right and is
+		// called on click (the host decides what "dismissed" means). Store-driven
+		// rows always show the ✕ and clear the store themselves.
+		onSchliessen?: () => void;
 	}
 
-	let { active }: Props = $props();
+	let { active, onSchliessen }: Props = $props();
+
+	function schliessen() {
+		if (onSchliessen) {
+			onSchliessen();
+			return;
+		}
+		setActiveAnleitung(null);
+	}
+
+	const schliessbar = $derived(active === undefined || onSchliessen !== undefined);
 
 	const gezeigt = $derived(active === undefined ? getActiveAnleitung() : active);
 	const anker = $derived(getAnleitungAnker());
@@ -95,10 +109,13 @@
 <svelte:window onresize={platzieren} />
 
 <!-- grid-row wird nur gesetzt, wenn die Zeile ermittelt werden konnte; mit
-     explizitem `active` (oder ohne Treffer) bleibt sie an ihrer DOM-Position. -->
+     explizitem `active` (oder ohne Treffer) bleibt sie an ihrer DOM-Position.
+     order-last: in Rastern mit order-*-Feldern (z. B. Ausweisart) würde die
+     geschlossene Zeile sonst als erstes Element einsortiert und eine Leerzeile
+     erzeugen. -->
 <div
 	bind:this={zeileEl}
-	class="col-span-full"
+	class="order-last col-span-full"
 	style:grid-row={active === undefined && gridZeile > 0 ? `${gridZeile + 1}` : null}
 >
 	{#if gezeigt && hierVerankert}
@@ -106,17 +123,17 @@
 			transition:slide={{ duration: 200 }}
 			class="relative rounded-lg border border-primary-200 bg-primary-50/60 px-3 py-2.5"
 		>
-			{#if active === undefined}
+			{#if schliessbar}
 				<button
 					type="button"
-					onclick={() => setActiveAnleitung(null)}
+					onclick={schliessen}
 					aria-label="Hinweis schließen"
 					class="absolute top-2 right-2 flex h-7 w-7 cursor-pointer items-center justify-center rounded text-neutral-500 transition-colors hover:bg-white hover:text-neutral-700"
 				>
 					<XIcon size={14} weight="bold" />
 				</button>
 			{/if}
-			<div class:pr-8={active === undefined}>
+			<div class:pr-8={schliessbar}>
 				<AnleitungCard instruction={gezeigt} />
 			</div>
 		</div>

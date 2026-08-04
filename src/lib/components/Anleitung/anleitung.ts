@@ -1,11 +1,15 @@
 import type { Action } from "svelte/action";
+import type { Snippet } from "svelte";
 import type { Importance, NormNote } from "./types";
 import { getAnleitungAnker, setActiveAnleitung } from "./store.svelte";
 
 // The instruction an input contributes to the contextual Anleitung display.
 export interface AnleitungInstruction {
 	title: string;
-	description: string;
+	description?: string;
+	// Rich body as a snippet — takes the place of `description` when set
+	// (FieldLabel passes its markup children through here).
+	inhalt?: Snippet;
 	importance?: Importance;
 	norm?: NormNote;
 	// Validation message for the field, shown prominently when set.
@@ -23,11 +27,11 @@ interface AnleitungOptions extends AnleitungInstruction {
 }
 
 // Question mark chip, injected next to the field label. Gray at rest, primary
-// on hover — matches the @ibc/ui palette.
+// on hover — same optics as the FieldLabel help button.
 const FRAGE_KNOPF_KLASSEN =
-	"ml-1.5 inline-flex h-4 w-4 shrink-0 cursor-pointer items-center justify-center " +
-	"rounded-full bg-neutral-200 align-text-bottom text-[10px] leading-none font-bold " +
-	"text-neutral-600 transition-colors hover:bg-primary-600 hover:text-white";
+	"ml-1.5 inline-flex h-5 w-5 shrink-0 cursor-pointer items-center justify-center " +
+	"rounded-full bg-neutral-200 align-text-bottom text-[11px] leading-none font-bold " +
+	"text-neutral-600 transition-colors hover:bg-primary-100 hover:text-primary-700";
 
 function toInstruction(options: AnleitungOptions): AnleitungInstruction {
 	return {
@@ -35,7 +39,8 @@ function toInstruction(options: AnleitungOptions): AnleitungInstruction {
 		description: options.description,
 		importance: options.importance,
 		norm: options.norm,
-		error: options.error
+		error: options.error,
+		link: options.link
 	};
 }
 
