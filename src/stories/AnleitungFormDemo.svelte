@@ -1,18 +1,14 @@
 <script lang="ts">
 	import Anleitung from "../lib/components/Anleitung/Anleitung.svelte";
-	import { anleitung, type AnleitungInstruction } from "../lib/components/Anleitung/anleitung";
+	import { anleitung } from "../lib/components/Anleitung/anleitung";
 	import Field from "../lib/components/Field.svelte";
 	import Input from "../lib/components/Input.svelte";
 	import Select from "../lib/components/Select.svelte";
-
-	// The focused/hovered input reports its guidance; the panel shows it and keeps
-	// it until another field takes over.
-	let active = $state<AnleitungInstruction | null>(null);
-	const setActive = (instruction: AnleitungInstruction) => (active = instruction);
 </script>
 
 <div class="flex gap-4">
-	<!-- use:anleitung on the wrapper reports the guidance of the control inside (events bubble) -->
+	<!-- use:anleitung injiziert das Fragezeichen am Label; Klick darauf füllt den
+	     geteilten Store, aus dem das Panel liest. -->
 	<form class="flex w-[360px] flex-col gap-4 rounded-2xl border border-neutral-200 bg-white p-5">
 		<div
 			use:anleitung={{
@@ -24,8 +20,7 @@
 					ref: "GEG §80",
 					quote:
 						"Energieausweise werden als Energiebedarfs- oder Energieverbrauchsausweis ausgestellt."
-				},
-				onFocus: setActive
+				}
 			}}
 		>
 			<Field label="Anlass" required>
@@ -42,8 +37,7 @@
 				title: "Gebäudetyp",
 				description:
 					"Wohngebäudetyp wählen (z. B. Ein- oder Mehrfamilienhaus). Legt das Nutzungsprofil fest: 20 °C, Warmwasser- und Luftbedarf.",
-				importance: "required",
-				onFocus: setActive
+				importance: "required"
 			}}
 		>
 			<Field label="Gebäudetyp" required>
@@ -58,8 +52,7 @@
 			use:anleitung={{
 				title: "Gebäudebild",
 				description: "Optional ein Foto hochladen. Nur Dokumentation, keine Rechenwirkung.",
-				importance: "optional",
-				onFocus: setActive
+				importance: "optional"
 			}}
 		>
 			<Field label="Gebäudebild" hint="Optional">
@@ -69,6 +62,6 @@
 	</form>
 
 	<div class="h-[560px] w-[380px] overflow-hidden rounded-2xl border border-neutral-200">
-		<Anleitung {active} />
+		<Anleitung />
 	</div>
 </div>

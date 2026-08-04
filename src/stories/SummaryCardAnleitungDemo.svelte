@@ -1,6 +1,6 @@
 <script lang="ts">
 	import Anleitung from "../lib/components/Anleitung/Anleitung.svelte";
-	import { anleitung, type AnleitungInstruction } from "../lib/components/Anleitung/anleitung";
+	import { anleitung } from "../lib/components/Anleitung/anleitung";
 	import SummaryCard from "../lib/components/SummaryCard/SummaryCard.svelte";
 	import Field from "../lib/components/Field.svelte";
 	import Input from "../lib/components/Input.svelte";
@@ -20,10 +20,6 @@
 		{ label: "H", size: 50, color: "var(--color-energy-h)" }
 	];
 	const scale = { classes, markers: [{ value: 90, position: "top" as const }] };
-
-	// Focused/hovered field feeds its guidance into the embedded Anleitung.
-	let active = $state<AnleitungInstruction | null>(null);
-	const setActive = (instruction: AnleitungInstruction) => (active = instruction);
 </script>
 
 <div class="flex gap-4 bg-[#fafafa] p-6">
@@ -39,8 +35,7 @@
 					ref: "GEG §80",
 					quote:
 						"Energieausweise werden als Energiebedarfs- oder Energieverbrauchsausweis ausgestellt."
-				},
-				onFocus: setActive
+				}
 			}}
 		>
 			<Field label="Anlass" required>
@@ -57,8 +52,7 @@
 				title: "Wohnfläche",
 				description:
 					"Wohnfläche nach Wohnflächenverordnung eintragen. Vertraute Bezugsgröße; dient der Plausibilitätsprüfung.",
-				importance: "required",
-				onFocus: setActive
+				importance: "required"
 			}}
 		>
 			<Field label="Wohnfläche (m²)" required>
@@ -75,8 +69,7 @@
 				norm: {
 					ref: "DIN V 18599-1, 8.2.1",
 					quote: "Als Bezugsfläche wird die Nettogrundfläche A_NGF verwendet."
-				},
-				onFocus: setActive
+				}
 			}}
 		>
 			<Field label="Nutzfläche A_NGF (m²)">
@@ -88,8 +81,7 @@
 			use:anleitung={{
 				title: "Gebäudebild",
 				description: "Optional ein Foto hochladen. Nur Dokumentation, keine Rechenwirkung.",
-				importance: "optional",
-				onFocus: setActive
+				importance: "optional"
 			}}
 		>
 			<Field label="Gebäudebild" hint="Optional">
@@ -102,7 +94,7 @@
 	<div class="w-[380px] shrink-0 px-3">
 		<SummaryCard produkt="Verbrauchsausweis Wohngebäude" preis={79} {scale} embedded>
 			{#snippet anleitung()}
-				<Anleitung {active} />
+				<Anleitung />
 			{/snippet}
 		</SummaryCard>
 	</div>

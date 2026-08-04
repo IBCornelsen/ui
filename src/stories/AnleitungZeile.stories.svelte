@@ -11,9 +11,10 @@
 	});
 </script>
 
-<!-- Die Zeile öffnet sich unter DER Rasterzeile, in der das fokussierte Feld steht —
-     unabhängig davon, wie viele Felder dort nebeneinander liegen. Sie folgt demselben
-     Store wie das Anleitung-Panel, es ist also immer nur eine offen. -->
+<!-- Die Sprechblase öffnet sich NUR über das Fragezeichen am Label (use:anleitung
+     injiziert den Knopf) und liegt unter DER Rasterzeile, in der das Feld steht —
+     der Pfeil zeigt auf das geklickte Fragezeichen. Gleicher Store wie das
+     Anleitung-Panel, es ist also immer nur eine offen; erneuter Klick schließt. -->
 <Story name="Feldraster mit Hinweiszeile">
 	<div class="grid max-w-[640px] grid-cols-2 gap-3">
 		<div
@@ -68,7 +69,7 @@
 		<AnleitungZeile />
 	</div>
 	<p class="mt-4 text-sm text-neutral-600">
-		Ein Feld anklicken: der Hinweis erscheint über die volle Rasterbreite direkt unter der Zeile des
-		Feldes.
+		Das Fragezeichen am Label anklicken: die Sprechblase erscheint über die volle Rasterbreite
+		direkt unter der Zeile des Feldes, der Pfeil zeigt auf das Fragezeichen.
 	</p>
 </Story>

@@ -1,0 +1,15 @@
+/* Geteilte Mobil-Regel beider Apps (cad + oea) — als @ibc/ui/mobile-eingaben.css
+   in das jeweilige App-Stylesheet importiert.
+
+   iOS zoomt beim Fokus in jedes Eingabefeld, dessen Schrift kleiner als 16px ist,
+   und scrollt die Seite dabei ruckartig zurecht — auf dem Telefon wirkt der ganze
+   Eingabebereich dadurch instabil. Unter lg (64rem) deshalb 16px erzwingen; die
+   Utility-Klassen der Felder (text-[11px], text-sm …) haben höhere Spezifität als
+   ein Element-Selektor, weshalb hier !important nötig ist. */
+@media (width < 64rem) {
+	input:not([type="checkbox"]):not([type="radio"]):not([type="range"]),
+	select,
+	textarea {
+		font-size: 16px !important;
+	}
+}

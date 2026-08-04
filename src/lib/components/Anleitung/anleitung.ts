@@ -1,26 +1,30 @@
 import type { Action } from "svelte/action";
 import type { Importance, NormNote } from "./types";
-import { setActiveAnleitung } from "./store.svelte";
+import { getAnleitungAnker, setActiveAnleitung } from "./store.svelte";
 
-// The instruction an input contributes to the contextual Anleitung panel.
+// The instruction an input contributes to the contextual Anleitung display.
 export interface AnleitungInstruction {
 	title: string;
 	description: string;
 	importance?: Importance;
 	norm?: NormNote;
-	// Validation message for the field, shown prominently in the panel when set.
+	// Validation message for the field, shown prominently when set.
 	error?: string;
 }
 
 interface AnleitungOptions extends AnleitungInstruction {
-	// Optional custom sink, called with the instruction when the input is focused or
-	// hovered. Omit it to use the shared store that <Anleitung /> reads by default.
-	// Never called with null — the panel keeps showing until another input takes over.
+	// Optional custom sink: the host renders the guidance itself. With a sink set,
+	// no question mark is injected and the shared store stays untouched — the
+	// action is inert until the host wires the sink up to its own display.
 	onFocus?: (instruction: AnleitungInstruction) => void;
 }
 
-// Hover is delayed so the panel doesn't switch while the pointer just passes over fields.
-const HOVER_DELAY = 400;
+// Question mark chip, injected next to the field label. Gray at rest, inverts to
+// the bubble color (neutral-900, same as the tooltip bubbles) on hover.
+const FRAGE_KNOPF_KLASSEN =
+	"ml-1.5 inline-flex h-4 w-4 shrink-0 cursor-pointer items-center justify-center " +
+	"rounded-full bg-neutral-200 align-text-bottom text-[10px] leading-none font-bold " +
+	"text-neutral-600 transition-colors hover:bg-neutral-900 hover:text-white";
 
 function toInstruction(options: AnleitungOptions): AnleitungInstruction {
 	return {
@@ -32,60 +36,63 @@ function toInstruction(options: AnleitungOptions): AnleitungInstruction {
 	};
 }
 
-// use:anleitung — attach to a form input to sync the contextual Anleitung with it.
-// Focusing shows its instruction immediately; hovering shows it after a short delay.
-// The guidance stays visible until another input activates (no clear on blur/leave).
+// Best insertion point for the question mark: an explicit marker wins, then the
+// field label, then a heading-like <p> (sub headings), else the wrapper itself.
+function frageZiel(node: HTMLElement): HTMLElement {
+	const marker = node.querySelector<HTMLElement>("[data-anleitung-anker]");
+	if (marker) return marker;
+	const label = node.querySelector<HTMLElement>("label");
+	if (label) return label;
+	const absatz = node.querySelector<HTMLElement>("p");
+	if (absatz) return absatz;
+	return node;
+}
+
+// use:anleitung — attach to a form-field wrapper to give it contextual guidance.
+// The action injects a small "?" button next to the label; ONLY clicking it opens
+// the guidance (AnleitungZeile below the field's row), clicking again closes it
+// (Jens 2026-08-04 — no more opening on focus or hover).
 export const anleitung: Action<HTMLElement, AnleitungOptions> = (node, options) => {
 	let current = options;
-	let hoverTimer: ReturnType<typeof setTimeout> | undefined;
-	// True while this field owns the panel, so live prop changes (e.g. a validation
-	// error appearing) refresh the panel without waiting for a re-focus.
-	let active = false;
 
-	function emit(instruction: AnleitungInstruction) {
-		if (current.onFocus) {
-			current.onFocus(instruction);
+	// Host-sink mode: no trigger, no store — see AnleitungOptions.onFocus.
+	if (current.onFocus) {
+		return {
+			update(next) {
+				current = next;
+			}
+		};
+	}
+
+	function umschalten(e: MouseEvent) {
+		e.preventDefault();
+		e.stopPropagation();
+		if (getAnleitungAnker() === node) {
+			setActiveAnleitung(null);
 			return;
 		}
-		setActiveAnleitung(instruction);
+		setActiveAnleitung(toInstruction(current), node);
 	}
 
-	function show() {
-		clearTimeout(hoverTimer);
-		active = true;
-		emit(toInstruction(current));
-	}
-
-	function onFocusOut() {
-		active = false;
-	}
-
-	function onPointerEnter() {
-		hoverTimer = setTimeout(show, HOVER_DELAY);
-	}
-
-	// Cancel a pending hover only — keep whatever is currently shown.
-	function onPointerLeave() {
-		clearTimeout(hoverTimer);
-	}
-
-	node.addEventListener("focusin", show);
-	node.addEventListener("focusout", onFocusOut);
-	node.addEventListener("mouseenter", onPointerEnter);
-	node.addEventListener("mouseleave", onPointerLeave);
+	const knopf = document.createElement("button");
+	knopf.type = "button";
+	knopf.textContent = "?";
+	knopf.className = FRAGE_KNOPF_KLASSEN;
+	knopf.setAttribute("aria-label", `Hinweis: ${current.title}`);
+	knopf.dataset.anleitungFrage = "";
+	knopf.addEventListener("click", umschalten);
+	frageZiel(node).appendChild(knopf);
 
 	return {
 		update(next) {
 			current = next;
-			// Keep the panel in sync while the field stays active (live error updates).
-			if (active) emit(toInstruction(current));
+			knopf.setAttribute("aria-label", `Hinweis: ${current.title}`);
+			// Keep an open bubble in sync while this field owns it (live error updates).
+			if (getAnleitungAnker() === node) setActiveAnleitung(toInstruction(current), node);
 		},
 		destroy() {
-			clearTimeout(hoverTimer);
-			node.removeEventListener("focusin", show);
-			node.removeEventListener("focusout", onFocusOut);
-			node.removeEventListener("mouseenter", onPointerEnter);
-			node.removeEventListener("mouseleave", onPointerLeave);
+			if (getAnleitungAnker() === node) setActiveAnleitung(null);
+			knopf.remove();
 		}
 	};
 };
