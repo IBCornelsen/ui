@@ -19,12 +19,12 @@ interface AnleitungOptions extends AnleitungInstruction {
 	onFocus?: (instruction: AnleitungInstruction) => void;
 }
 
-// Question mark chip, injected next to the field label. Gray at rest, inverts to
-// the bubble color (neutral-900, same as the tooltip bubbles) on hover.
+// Question mark chip, injected next to the field label. Gray at rest, primary
+// on hover — matches the @ibc/ui palette.
 const FRAGE_KNOPF_KLASSEN =
 	"ml-1.5 inline-flex h-4 w-4 shrink-0 cursor-pointer items-center justify-center " +
 	"rounded-full bg-neutral-200 align-text-bottom text-[10px] leading-none font-bold " +
-	"text-neutral-600 transition-colors hover:bg-neutral-900 hover:text-white";
+	"text-neutral-600 transition-colors hover:bg-primary-600 hover:text-white";
 
 function toInstruction(options: AnleitungOptions): AnleitungInstruction {
 	return {
