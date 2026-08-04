@@ -1,6 +1,8 @@
 <script lang="ts">
+	import ArrowRightIcon from "phosphor-svelte/lib/ArrowRightIcon";
 	import BookOpenTextIcon from "phosphor-svelte/lib/BookOpenTextIcon";
 	import WarningIcon from "phosphor-svelte/lib/WarningIcon";
+	import Button from "../Button.svelte";
 	import { IMPORTANCE_LABEL, type Importance } from "./types";
 	import type { AnleitungInstruction } from "./anleitung";
 
@@ -41,6 +43,13 @@
 		<WarningIcon size={18} weight="fill" class="mt-0.5 shrink-0" />
 		<span>{instruction.error}</span>
 	</div>
+{/if}
+
+{#if instruction.link}
+	<Button href={instruction.link.href} class="mt-3 w-full sm:w-auto">
+		{instruction.link.label}
+		<ArrowRightIcon size={16} weight="bold" />
+	</Button>
 {/if}
 
 {#if instruction.norm}

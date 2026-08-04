@@ -35,7 +35,8 @@
 				title: "Wohnfläche",
 				importance: "required",
 				description: "Beheizte Wohnfläche in m². Keller und Dachboden nur, wenn beheizt.",
-				norm: { ref: "GEG §3", quote: "Nutzfläche gebäudebezogen ermitteln." }
+				norm: { ref: "GEG §3", quote: "Nutzfläche gebäudebezogen ermitteln." },
+				link: { href: "#", label: "Zum Bedarfsausweis-Formular" }
 			}}
 		>
 			<Field label="Wohnfläche [m²]" for="wohnflaeche" required>

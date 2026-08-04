@@ -10,6 +10,9 @@ export interface AnleitungInstruction {
 	norm?: NormNote;
 	// Validation message for the field, shown prominently when set.
 	error?: string;
+	// Prominent call-to-action rendered as a primary button (e.g. the link to the
+	// Bedarfsausweis form when the Verbrauchsausweis is not admissible).
+	link?: { href: string; label: string };
 }
 
 interface AnleitungOptions extends AnleitungInstruction {
