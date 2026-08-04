@@ -25,7 +25,6 @@ export { default as WorkflowNav } from "./components/WorkflowNav.svelte";
 export { default as StepBadge } from "./components/StepBadge.svelte";
 export { default as StepMenuBadge } from "./components/StepMenuBadge.svelte";
 export { default as MobileStepBar } from "./components/MobileStepBar.svelte";
-export { default as StepNavigation } from "./components/StepNavigation.svelte";
 export type { WorkflowStepStatus } from "./components/WorkflowNav.svelte";
 export { default as Accordion } from "./components/Accordion.svelte";
 export { default as FaqAccordion } from "./components/FaqAccordion/FaqAccordion.svelte";

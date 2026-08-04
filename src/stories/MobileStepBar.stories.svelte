@@ -33,8 +33,8 @@
 	/>
 {/snippet}
 
-<!-- Die Leiste ist position:fixed und nur unter lg sichtbar — Storybook-Viewport
-     auf ein Mobilformat stellen. -->
+<!-- Die Leiste ist position:fixed und in JEDER Breite sichtbar; auf breiten
+     Viewports sitzen die Kreise an den Kanten des 1920er-Inhaltsrasters. -->
 <Story name="Zwischenschritt">
 	<p class="text-sm text-neutral-700">Schritt {active + 1}/{STEPS.length}: {STEPS[active]}</p>
 	<div class="h-20"></div>
@@ -58,5 +58,20 @@
 		onNext={() => console.log("rechte Karte öffnen")}
 		{menu}
 		nextLabel="Abschluss öffnen"
+	/>
+</Story>
+
+<Story name="Letzter Schritt mit offener Karte">
+	<p class="text-sm text-neutral-700">
+		Ist die rechte Karte schon aufgeklappt (ab xl), gibt es nichts mehr zu öffnen — der Host
+		deaktiviert den weiter-Kreis.
+	</p>
+	<div class="h-20"></div>
+	<MobileStepBar
+		onPrev={() => console.log("zurück")}
+		onNext={() => {}}
+		nextDisabled
+		{menu}
+		nextLabel="Letzter Schritt"
 	/>
 </Story>
