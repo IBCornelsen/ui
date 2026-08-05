@@ -8,6 +8,7 @@
 	import CheckCircleIcon from "phosphor-svelte/lib/CheckCircleIcon";
 	import { anleitung, type AnleitungInstruction } from "../Anleitung/anleitung";
 	import AnleitungZeile from "../Anleitung/AnleitungZeile.svelte";
+	import { addNotification } from "../Notifications/store.svelte";
 	import { FOTO_KATEGORIEN, fotoKategorieLabel, type FotoKategorie } from "./fotoKategorien";
 	import type { FotoUploadBild } from "./types";
 
@@ -102,9 +103,25 @@
 		const kategorie = gewaehlteKategorie();
 		zielKategorie = undefined;
 		if (!kategorie) return;
-		const dateien = gewaehlt.slice(0, freiePlaetze);
+		const dateien = begrenzteAuswahl(gewaehlt, kategorie);
 		if (!dateien.length) return;
 		void onHochladen(dateien, kategorie);
+	}
+
+	// max zählt nur die bewertete Kategorie des Blocks — Uploads einer fremden
+	// Kategorie werden nicht gekappt. Überzählige Dateien fallen nie still weg.
+	function begrenzteAuswahl(dateien: File[], kategorie: string): File[] {
+		if (vorauswahl && kategorie !== vorauswahl) return dateien;
+		if (dateien.length <= freiePlaetze) return dateien;
+		const behalten = Math.max(0, freiePlaetze);
+		addNotification({
+			message: `Maximal ${max} ${fotoWort(max)} möglich.`,
+			subtext: `${dateien.length - behalten} ${fotoWort(dateien.length - behalten)} nicht hochgeladen.`,
+			type: "warning",
+			timeout: 5000,
+			dismissible: true
+		});
+		return dateien.slice(0, behalten);
 	}
 
 	function listeSchliessen(event: MouseEvent) {
