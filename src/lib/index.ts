@@ -1,5 +1,9 @@
 export { default as Button } from "./components/Button.svelte";
 export { default as Input } from "./components/Input.svelte";
+export type {
+  FieldValidator,
+  FieldValidationResult,
+} from "./components/fieldValidation";
 export { default as TagInput } from "./components/TagInput.svelte";
 export { default as SelectInput } from "./components/SelectInput/SelectInput.svelte";
 export type { SelectInputOption } from "./components/SelectInput/types";
@@ -17,9 +21,14 @@ export type {
 } from "./components/SummaryCard/types";
 export { default as Checkbox } from "./components/Checkbox.svelte";
 export { default as FieldLabel } from "./components/FieldLabel.svelte";
+export { default as FieldTabLabel } from "./components/FieldTabLabel.svelte";
+export { default as FaqAccordion } from "./components/FaqAccordion/FaqAccordion.svelte";
+export { default as FaqAccordionItem } from "./components/FaqAccordion/FaqAccordionItem.svelte";
 export { default as Modal } from "./components/Modal.svelte";
+export { default as ConfirmDialog } from "./components/ConfirmDialog.svelte";
 export { default as WorkflowNav } from "./components/WorkflowNav.svelte";
 export type { WorkflowStepStatus } from "./components/WorkflowNav.svelte";
+export { default as StepBadge } from "./components/StepBadge.svelte";
 export { default as Accordion } from "./components/Accordion.svelte";
 export { default as PdfButton } from "./components/PdfButton.svelte";
 export { default as EnergyScale } from "./components/EnergyScale/EnergyScale.svelte";

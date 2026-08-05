@@ -12,6 +12,7 @@
       "svelte": "./src/lib/index.ts"
     },
     "./tokens.css": "./src/lib/tokens.css",
+    "./mobile-eingaben.css": "./src/lib/mobile-eingaben.css",
     "./technik": {
       "types": "./src/lib/components/TechnikIcon/technikIkonen.ts",
       "svelte": "./src/lib/components/TechnikIcon/technikIkonen.ts",

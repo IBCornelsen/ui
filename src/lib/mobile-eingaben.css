@@ -1,0 +1,12 @@
+/* iOS zooms into any focused input whose font size is below 16px and jerkily
+   scrolls the page while doing so — on phones the whole input area feels
+   unstable. Below lg we therefore force 16px; the fields' utility classes
+   (text-[11px], text-sm …) have higher specificity than an element selector,
+   which is why !important is required here. */
+@media (width < 64rem) {
+	input:not([type="checkbox"]):not([type="radio"]):not([type="range"]),
+	select,
+	textarea {
+		font-size: 16px !important;
+	}
+}
