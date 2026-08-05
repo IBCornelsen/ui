@@ -23,7 +23,9 @@
 </script>
 
 <div class="flex flex-col gap-2">
-	<div class="text-primary-700 flex items-center gap-1.5 text-[11px] font-bold tracking-[0.08em] uppercase">
+	<div
+		class="flex items-center gap-1.5 text-[11px] font-bold tracking-[0.08em] text-primary-700 uppercase"
+	>
 		<InfoIcon size={13} weight="fill" /> Anleitung
 	</div>
 

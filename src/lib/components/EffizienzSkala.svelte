@@ -45,7 +45,9 @@
 </script>
 
 <!-- Kompakte, horizontale Effizienzskala (Farbband A+ … H, zwei Pfeile) -->
-<div class="flex items-center gap-3.5 rounded-lg border border-[#dfe2ee] bg-white/95 px-3 py-2 shadow-[0_3px_14px_rgba(0,0,0,.12)] backdrop-blur-sm">
+<div
+	class="flex items-center gap-3.5 rounded-lg border border-[#dfe2ee] bg-white/95 px-3 py-2 shadow-[0_3px_14px_rgba(0,0,0,.12)] backdrop-blur-sm"
+>
 	<div class="min-w-0 flex-1">
 		<!-- Endenergie-Pfeil (oben, zeigt nach unten) -->
 		<div class="relative h-[8px]">
@@ -75,7 +77,11 @@
 		<!-- Primärenergie-Pfeil (unten, zeigt nach oben) -->
 		<div class="relative h-[8px]">
 			{#if primaerenergie !== null && isFinite(primaerenergie)}
-				<div class="absolute -translate-x-1/2" style:left="{toPct(primaerenergie)}%" title="Primärenergie">
+				<div
+					class="absolute -translate-x-1/2"
+					style:left="{toPct(primaerenergie)}%"
+					title="Primärenergie"
+				>
 					<div
 						class="h-0 w-0 border-r-[5px] border-b-[7px] border-l-[5px] border-r-transparent border-l-transparent"
 						style:border-bottom-color={PRIM_COLOR}

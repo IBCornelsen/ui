@@ -1,7 +1,6 @@
 <script lang="ts">
 	import type { Snippet } from "svelte";
 	import CheckIcon from "phosphor-svelte/lib/CheckIcon";
-	import WarningIcon from "phosphor-svelte/lib/WarningIcon";
 	import XIcon from "phosphor-svelte/lib/XIcon";
 	import CaretDownIcon from "phosphor-svelte/lib/CaretDownIcon";
 
@@ -45,25 +44,35 @@
 	}
 </script>
 
-<div {id} class="scroll-mt-4 rounded-xl border border-neutral-200 bg-white" class:overflow-hidden={!open}>
+<!-- Optik identisch mit Accordion.svelte (Bestellstrecken-Referenz):
+     primary-50-Box ohne Rahmen. Bei Änderungen beide Komponenten angleichen. -->
+<div {id} class="scroll-mt-4 rounded-xl bg-primary-50" class:overflow-hidden={!open}>
 	<button
 		type="button"
-		class="flex w-full items-center gap-3 rounded-t-xl px-4 py-3 text-left transition-colors hover:bg-neutral-200"
+		class="flex w-full items-center gap-2 rounded-t-xl px-2 py-3 text-left transition-colors hover:bg-white/40 sm:gap-3 sm:px-4"
 		onclick={toggle}
 	>
 		<span
-			class="bg-primary-600 flex h-6 w-6 shrink-0 items-center justify-center rounded-md font-mono text-sm font-bold text-white"
+			class="flex h-6 w-6 shrink-0 items-center justify-center rounded-md bg-primary-600 font-mono text-[12px] font-bold text-white"
 		>
 			{bereich}
 		</span>
-		<span class="flex-1 text-sm font-semibold text-neutral-900">{title}</span>
+		<span class="flex-1 text-sm font-semibold text-neutral-800">{title}</span>
 
+		<!-- Status wie im Accordion (Verbrauchsausweis-Referenz): Haken im CI-blauen
+		     Kreis bzw. X im CI-orangen Kreis — keine nackten Dreiecke/Häkchen. -->
 		{#if isValid === true && showErrors}
-			<CheckIcon size={16} weight="bold" class="shrink-0 text-green-500" />
-		{:else if isValid === false && showErrors && optional}
-			<WarningIcon size={16} weight="bold" class="shrink-0 text-amber-500" />
+			<span
+				class="flex h-4.5 w-4.5 shrink-0 items-center justify-center rounded-full bg-primary-600"
+			>
+				<CheckIcon size={11} weight="bold" class="text-white" />
+			</span>
 		{:else if isValid === false && showErrors}
-			<XIcon size={16} weight="bold" class="shrink-0 text-red-500" />
+			<span
+				class="flex h-4.5 w-4.5 shrink-0 items-center justify-center rounded-full bg-secondary-500"
+			>
+				<XIcon size={11} weight="bold" class="text-white" />
+			</span>
 		{/if}
 
 		<CaretDownIcon
@@ -80,8 +89,8 @@
 		class:max-h-[3000px]={open}
 		class:overflow-visible={open}
 	>
-		<div class="border-t border-neutral-100">
-			<div class="p-4">
+		<div class="border-t border-white">
+			<div class="p-2 sm:p-4">
 				{@render children?.()}
 			</div>
 		</div>

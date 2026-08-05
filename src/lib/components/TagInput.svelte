@@ -91,7 +91,7 @@
 
 <div
 	class={[
-		"flex flex-wrap items-center gap-1.5 rounded-md border px-1.5 py-1 transition-colors focus-within:ring-2",
+		"flex flex-wrap items-center gap-1.5 rounded-md border px-1.5 py-0.5 transition-colors focus-within:ring-2",
 		!invalid &&
 			!pflichtOffen &&
 			"border-neutral-300 bg-white focus-within:border-primary-600 focus-within:ring-primary-600/15",
@@ -130,7 +130,7 @@
 		{minlength}
 		{maxlength}
 		autocomplete="off"
-		class="h-7 min-w-[4rem] flex-1 bg-transparent px-1 text-sm text-neutral-800 focus:outline-none disabled:cursor-default"
+		class="h-9 min-w-[4rem] flex-1 bg-transparent px-1 text-sm text-neutral-800 focus:outline-none disabled:cursor-default"
 		oninput={(event) => (draft = event.currentTarget.value)}
 		onkeydown={onKeydown}
 		onblur={onBlur}

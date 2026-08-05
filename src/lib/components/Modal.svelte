@@ -78,7 +78,9 @@
 		onclick={onBackdropClick}
 	>
 		<div
-			class="w-full {maxWidthClass[size]} overflow-hidden rounded-lg border border-neutral-300 bg-white shadow-2xl"
+			class="w-full {maxWidthClass[
+				size
+			]} overflow-hidden rounded-lg border border-neutral-300 bg-white shadow-2xl"
 		>
 			<div class="flex items-center justify-between border-b border-neutral-200 bg-white px-5 py-3">
 				<span class="text-base font-bold text-neutral-800">{title}</span>

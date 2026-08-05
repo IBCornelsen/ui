@@ -32,7 +32,7 @@
 			data-cy={`tab-${index}`}
 			onclick={() => onSelect(index)}
 			class="{ROW} {index === active
-				? 'bg-primary-50 text-primary-700 font-semibold'
+				? 'bg-primary-50 font-semibold text-primary-700'
 				: 'text-neutral-700 hover:bg-neutral-50 hover:text-primary-700'}"
 		>
 			{#if status[index] === "complete"}

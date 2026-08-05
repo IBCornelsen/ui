@@ -1,6 +1,8 @@
 <script lang="ts">
+	import ArrowRightIcon from "phosphor-svelte/lib/ArrowRightIcon";
 	import BookOpenTextIcon from "phosphor-svelte/lib/BookOpenTextIcon";
 	import WarningIcon from "phosphor-svelte/lib/WarningIcon";
+	import Button from "../Button.svelte";
 	import { IMPORTANCE_LABEL, type Importance } from "./types";
 	import type { AnleitungInstruction } from "./anleitung";
 
@@ -32,21 +34,34 @@
 	{/if}
 </div>
 
-<p class="mt-2 text-base leading-relaxed text-neutral-700">{instruction.description}</p>
+{#if instruction.inhalt}
+	<div class="mt-2 text-base leading-relaxed text-neutral-700">
+		{@render instruction.inhalt()}
+	</div>
+{:else if instruction.description}
+	<p class="mt-2 text-base leading-relaxed text-neutral-700">{instruction.description}</p>
+{/if}
 
 {#if instruction.error}
 	<div
-		class="border-error-200 bg-error-50 text-error-700 mt-2.5 flex items-start gap-2 rounded-md border px-3 py-2 text-base leading-snug font-medium"
+		class="border-error-200 mt-2.5 flex items-start gap-2 rounded-md border bg-error-50 px-3 py-2 text-base leading-snug font-medium text-error-700"
 	>
 		<WarningIcon size={18} weight="fill" class="mt-0.5 shrink-0" />
 		<span>{instruction.error}</span>
 	</div>
 {/if}
 
+{#if instruction.link}
+	<Button href={instruction.link.href} class="mt-3 w-full sm:w-auto">
+		{instruction.link.label}
+		<ArrowRightIcon size={16} weight="bold" />
+	</Button>
+{/if}
+
 {#if instruction.norm}
-	<div class="border-primary-300 bg-primary-50 mt-2.5 rounded-md border-l-[3px] px-3 py-2">
+	<div class="mt-2.5 rounded-md border-l-[3px] border-primary-300 bg-primary-50 px-3 py-2">
 		<div
-			class="text-primary-700 flex items-center gap-1.5 text-base font-bold tracking-wide uppercase"
+			class="flex items-center gap-1.5 text-base font-bold tracking-wide text-primary-700 uppercase"
 		>
 			<BookOpenTextIcon size={13} weight="fill" />
 			{instruction.norm.ref}

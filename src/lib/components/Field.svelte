@@ -17,7 +17,7 @@
 <div class="flex flex-col gap-1">
 	{#if label}
 		<label class="text-xs font-medium text-neutral-700" for={forId}>
-			{label}{#if required}<span class="text-error-600"> *</span>{/if}
+			{label}{#if required}<span class="text-secondary-600"> *</span>{/if}
 		</label>
 	{/if}
 

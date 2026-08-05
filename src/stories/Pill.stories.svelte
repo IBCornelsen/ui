@@ -20,7 +20,9 @@
 
 <Story name="Mit Gerätegrafik">
 	<div class="flex flex-wrap gap-1.5">
-		<Pill active><TechnikIcon name="wp-luft-aussen" size={26} class="-ml-1 shrink-0" />Wärmepumpe</Pill>
+		<Pill active
+			><TechnikIcon name="wp-luft-aussen" size={26} class="-ml-1 shrink-0" />Wärmepumpe</Pill
+		>
 		<Pill><TechnikIcon name="gas-boden" size={26} class="-ml-1 shrink-0" />Gas/Öl-Kessel</Pill>
 		<Pill><TechnikIcon name="pellet" size={26} class="-ml-1 shrink-0" />Biomassekessel</Pill>
 	</div>

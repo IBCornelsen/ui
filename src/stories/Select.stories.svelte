@@ -31,3 +31,28 @@
 		</Field>
 	</div>
 </Story>
+
+<!-- Leeres Pflichtfeld: CI-orange statt Fehlerrot (Formulare cad/Schnellerfassung). -->
+<Story name="Pflichtfeld leer">
+	<div class="w-72">
+		<Field label="Dachgeschoss" for="dg-pflicht" required>
+			<Select id="dg-pflicht" invalid invalidVariant="required" value={null}>
+				<option disabled value={null}>Bitte auswählen</option>
+				<option value="unbeheizt">Vorhanden – unbeheizt</option>
+			</Select>
+		</Field>
+	</div>
+</Story>
+
+<!-- validate: Fehlertext erscheint nach dem ersten Verlassen des Feldes. -->
+<Story name="Mit Validierung">
+	<div class="w-72">
+		<Field label="Lüftung" for="lueftung-validate" required>
+			<Select id="lueftung-validate" required validate value={null}>
+				<option disabled value={null}>Bitte auswählen</option>
+				<option value="fenster">Fensterlüftung</option>
+				<option value="anlage">Lüftungsanlage</option>
+			</Select>
+		</Field>
+	</div>
+</Story>

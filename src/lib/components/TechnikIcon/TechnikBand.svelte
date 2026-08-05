@@ -51,8 +51,10 @@
 
 	function wellePfad(wx: number): string {
 		const wy = wellen === "oben" ? 0 : hoehe + 2;
-		return `M${wx} ${wy} C${wx + 3} ${wy + 3.5} ${wx + 3} ${wy + 7} ${wx} ${wy + 10.5} ` +
-			`C${wx - 3} ${wy + 14} ${wx - 3} ${wy + 17.5} ${wx} ${wy + 21}`;
+		return (
+			`M${wx} ${wy} C${wx + 3} ${wy + 3.5} ${wx + 3} ${wy + 7} ${wx} ${wy + 10.5} ` +
+			`C${wx - 3} ${wy + 14} ${wx - 3} ${wy + 17.5} ${wx} ${wy + 21}`
+		);
 	}
 </script>
 
