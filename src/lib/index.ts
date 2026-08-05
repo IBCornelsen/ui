@@ -41,6 +41,10 @@ export { default as AnleitungZeile } from "./components/Anleitung/AnleitungZeile
 export { anleitung } from "./components/Anleitung/anleitung";
 export type { AnleitungInstruction } from "./components/Anleitung/anleitung";
 export { getActiveAnleitung, setActiveAnleitung } from "./components/Anleitung/store.svelte";
+export { default as FotoUpload } from "./components/FotoUpload/FotoUpload.svelte";
+export type { FotoUploadBild } from "./components/FotoUpload/types";
+export { FOTO_KATEGORIEN, fotoKategorieLabel } from "./components/FotoUpload/fotoKategorien";
+export type { FotoKategorie } from "./components/FotoUpload/fotoKategorien";
 export { default as NotificationWrapper } from "./components/Notifications/NotificationWrapper.svelte";
 export { default as RawNotificationWrapper } from "./components/Notifications/RawNotificationWrapper.svelte";
 export { default as RawNotification } from "./components/Notifications/RawNotification.svelte";
