@@ -66,7 +66,9 @@
 	</div>
 </Story>
 
-<Story name="Maximum erreicht">
+<!-- Bei max=1 bleibt die Kachel als „Foto ersetzen" stehen — der Aufrufer
+     tauscht das Bestandsbild beim Upload aus. -->
+<Story name="Ersetzen bei max 1">
 	<div class="max-w-2xl">
 		<FotoUpload
 			titel="Gebäudefoto"

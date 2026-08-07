@@ -66,6 +66,9 @@
 	const freiePlaetze = $derived(max - anzahl);
 	const maximalErreicht = $derived(anzahl >= max);
 	const fehlend = $derived(Math.max(0, min - anzahl));
+	// Bei genau einem erlaubten Foto bleibt die Kachel als "Foto ersetzen"
+	// stehen — der Aufrufer tauscht das Bestandsbild beim Upload aus.
+	const ersetzenAngeboten = $derived(max === 1 && anzahl >= 1);
 
 	function fotoWort(wert: number): string {
 		if (wert === 1) return "Foto";
@@ -142,6 +145,8 @@
 	// Kategorie werden nicht gekappt. Überzählige Dateien fallen nie still weg.
 	function begrenzteAuswahl(dateien: File[], kategorie: string): File[] {
 		if (vorauswahl && kategorie !== vorauswahl) return dateien;
+		// Ersetzen: genau ein Foto durchlassen, auch wenn der Platz belegt ist.
+		if (max === 1) return dateien.slice(0, 1);
 		if (dateien.length <= freiePlaetze) return dateien;
 		const behalten = Math.max(0, freiePlaetze);
 		addNotification({
@@ -250,7 +255,7 @@
 			</div>
 		{/each}
 
-		{#if hochladenErlaubt && !maximalErreicht}
+		{#if hochladenErlaubt && (!maximalErreicht || ersetzenAngeboten)}
 			<button
 				type="button"
 				onclick={hinzufuegenKlick}
@@ -262,6 +267,8 @@
 				<span class="text-xs font-semibold">
 					{#if laeuft}
 						Lädt hoch…
+					{:else if ersetzenAngeboten}
+						Foto ersetzen
 					{:else}
 						Foto hinzufügen
 					{/if}
