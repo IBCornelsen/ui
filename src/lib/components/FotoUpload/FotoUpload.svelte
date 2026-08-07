@@ -54,7 +54,6 @@
 		onLoeschen
 	}: Props = $props();
 
-	let dateiFeld = $state<HTMLInputElement>();
 	let listeOffen = $state(false);
 	let zielKategorie = $state<string | undefined>(undefined);
 
@@ -76,7 +75,27 @@
 	function kategorieWaehlen(kategorie: string) {
 		listeOffen = false;
 		zielKategorie = kategorie;
-		dateiFeld?.click();
+		dateiAuswahlOeffnen();
+	}
+
+	// iOS Safari verschluckt bei WIEDERVERWENDETEN file-Inputs gern das
+	// change-Ereignis der zweiten Auswahl — deshalb pro Auswahl ein frisches
+	// Input im DOM (Klicks auf losgelöste Inputs ignorieren manche Browser).
+	// Das feste benannte Input bleibt für direkte Zuweisungen (Tests) bestehen.
+	function dateiAuswahlOeffnen() {
+		const feld = document.createElement("input");
+		feld.type = "file";
+		feld.accept = "image/*";
+		feld.multiple = max !== 1;
+		feld.style.display = "none";
+		feld.onchange = () => {
+			const dateien = Array.from(feld.files || []);
+			feld.remove();
+			dateienVerarbeiten(dateien);
+		};
+		feld.oncancel = () => feld.remove();
+		document.body.appendChild(feld);
+		feld.click();
 	}
 
 	function hinzufuegenKlick() {
@@ -100,6 +119,10 @@
 		const feld = event.target as HTMLInputElement;
 		const gewaehlt = Array.from(feld.files || []);
 		feld.value = "";
+		dateienVerarbeiten(gewaehlt);
+	}
+
+	function dateienVerarbeiten(gewaehlt: File[]) {
 		const kategorie = gewaehlteKategorie();
 		zielKategorie = undefined;
 		if (!kategorie) return;
@@ -171,7 +194,6 @@
 		class="hidden"
 		accept="image/*"
 		multiple={max !== 1}
-		bind:this={dateiFeld}
 		onchange={dateienUebernehmen}
 	/>
 
