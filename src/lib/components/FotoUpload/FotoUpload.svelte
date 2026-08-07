@@ -82,7 +82,13 @@
 	// change-Ereignis der zweiten Auswahl — deshalb pro Auswahl ein frisches
 	// Input im DOM (Klicks auf losgelöste Inputs ignorieren manche Browser).
 	// Das feste benannte Input bleibt für direkte Zuweisungen (Tests) bestehen.
+	let wegwerfFeld: HTMLInputElement | undefined;
+
 	function dateiAuswahlOeffnen() {
+		// Vorgaenger erst JETZT aufraeumen: iOS feuert beim Fotowaehlen teils ein
+		// fruehes cancel, bevor das (langsame) change kommt — wer auf cancel
+		// entfernt, verliert die Auswahl.
+		wegwerfFeld?.remove();
 		const feld = document.createElement("input");
 		feld.type = "file";
 		feld.accept = "image/*";
@@ -90,10 +96,11 @@
 		feld.style.display = "none";
 		feld.onchange = () => {
 			const dateien = Array.from(feld.files || []);
+			if (wegwerfFeld === feld) wegwerfFeld = undefined;
 			feld.remove();
 			dateienVerarbeiten(dateien);
 		};
-		feld.oncancel = () => feld.remove();
+		wegwerfFeld = feld;
 		document.body.appendChild(feld);
 		feld.click();
 	}
