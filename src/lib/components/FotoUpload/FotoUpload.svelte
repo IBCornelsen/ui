@@ -246,7 +246,7 @@
 							title="Foto löschen"
 							aria-label="Foto löschen"
 							onclick={() => onLoeschen(bild.id)}
-							class="absolute top-1 right-1 flex h-7 w-7 items-center justify-center rounded-md bg-black/50 text-white opacity-0 transition-opacity group-hover:opacity-100 hover:bg-error-600"
+							class="absolute top-1 right-1 flex h-7 w-7 items-center justify-center rounded-md bg-black/50 text-white opacity-0 transition-opacity group-hover:opacity-100 pointer-coarse:opacity-100 hover:bg-error-600"
 						>
 							<TrashIcon size={14} weight="bold" />
 						</button>
