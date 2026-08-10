@@ -82,22 +82,21 @@
 	</div>
 </Story>
 
-<!-- Klick auf „Foto hinzufügen" öffnet die Kategorien-Auswahl als vertikale
-     Liste unter dem Raster (kein Overlay: Formular-Abschnitte kappen ihren
-     Inhalt). Die vorbelegte Kategorie ist markiert. Bei genau EINER Kategorie
-     entfällt die Liste — es geht direkt in die Dateiauswahl. -->
-<Story name="Kategorien-Auswahl (eine Kategorie überspringt die Liste)">
+<!-- Kein Zwischenschritt vor der Dateiauswahl (Jens 2026-08-10): im Formular
+     steht das Bauteil durch den Abschnitt fest, in Sammelblöcken trägt jede
+     "+"-Kachel ihr Bauteil im Text. Ein Klick öffnet immer direkt den Dateidialog. -->
+<Story name="Upload-Ziele: Abschnitt vs. Sammelblock">
 	<div class="flex max-w-2xl flex-col gap-8">
 		<FotoUpload
-			titel="Mehrere Kategorien — Liste erscheint"
+			titel="Im Abschnitt — eine Kachel, Bauteil steht fest"
 			bilder={bilder.slice(0, 1)}
 			vorauswahl="Heizung"
 			onHochladen={() => {}}
 			onLoeschen={() => {}}
 		/>
 		<FotoUpload
-			titel="Eine Kategorie — direkt zur Dateiauswahl"
-			kategorien={FOTO_KATEGORIEN.slice(0, 1)}
+			titel="Sammelblock — eine Kachel je Bauteil"
+			spalten="grid-cols-3 sm:grid-cols-4"
 			onHochladen={() => {}}
 		/>
 	</div>

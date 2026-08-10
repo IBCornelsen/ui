@@ -17,16 +17,6 @@
 	</div>
 </Story>
 
-<Story name="Status: Zahl, Haken, Kreuz">
-	<div class="flex items-center gap-3">
-		<StepBadge step={1} />
-		<StepBadge step={2} status="complete" />
-		<StepBadge step={3} status="fehlt" />
-		<StepBadge step={4} size="sm" status="complete" />
-		<StepBadge step={5} size="sm" status="fehlt" />
-	</div>
-</Story>
-
 <Story name="Vor der Schritt-Überschrift">
 	<div class="flex items-center gap-3">
 		<StepBadge step={2} />

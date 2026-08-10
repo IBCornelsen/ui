@@ -5,7 +5,6 @@
 	// inline prose next to the field.
 	import PlusIcon from "phosphor-svelte/lib/PlusIcon";
 	import TrashIcon from "phosphor-svelte/lib/TrashIcon";
-	import CheckCircleIcon from "phosphor-svelte/lib/CheckCircleIcon";
 	import { anleitung, type AnleitungInstruction } from "../Anleitung/anleitung";
 	import AnleitungZeile from "../Anleitung/AnleitungZeile.svelte";
 	import { addNotification } from "../Notifications/store.svelte";
@@ -54,7 +53,6 @@
 		onLoeschen
 	}: Props = $props();
 
-	let listeOffen = $state(false);
 	let zielKategorie = $state<string | undefined>(undefined);
 
 	function gewerteteAnzahl(): number {
@@ -75,8 +73,9 @@
 		return "Fotos";
 	}
 
-	function kategorieWaehlen(kategorie: string) {
-		listeOffen = false;
+	// Kein Zwischenschritt vor der Dateiauswahl (Jens 2026-08-10): der Klick auf
+	// eine "+"-Kachel legt das Bauteil fest UND öffnet den Dateidialog.
+	function fotoWaehlen(kategorie: string) {
 		zielKategorie = kategorie;
 		dateiAuswahlOeffnen();
 	}
@@ -108,14 +107,16 @@
 		feld.click();
 	}
 
-	function hinzufuegenKlick() {
-		// With a single allowed category there is nothing to pick.
-		if (kategorien.length === 1) {
-			kategorieWaehlen(kategorien[0].wert);
-			return;
+	// Eine "+"-Kachel je Ziel: im Formular genau eine (das Bauteil des Abschnitts
+	// steht fest), in Sammelblöcken ohne Vorauswahl eine beschriftete je Bauteil —
+	// so steht das Ziel auf dem Knopf, statt danach gefragt zu werden.
+	const uploadZiele = $derived.by(() => {
+		if (vorauswahl) {
+			const treffer = kategorien.find((kategorie) => kategorie.wert === vorauswahl);
+			if (treffer) return [treffer];
 		}
-		listeOffen = !listeOffen;
-	}
+		return kategorien;
+	});
 
 	// Without a pick from the list (files dropped straight onto the input) the
 	// preselected category wins, then the first one of the list.
@@ -158,16 +159,7 @@
 		});
 		return dateien.slice(0, behalten);
 	}
-
-	function listeSchliessen(event: MouseEvent) {
-		if (!listeOffen) return;
-		const ziel = event.target as HTMLElement;
-		if (ziel.closest("[data-foto-kategorie-liste]")) return;
-		listeOffen = false;
-	}
 </script>
-
-<svelte:window onclick={listeSchliessen} />
 
 {#snippet kopfzeile()}
 	<p data-anleitung-anker class="text-sm font-semibold text-neutral-900">
@@ -256,63 +248,29 @@
 		{/each}
 
 		{#if hochladenErlaubt && (!maximalErreicht || ersetzenAngeboten)}
-			<button
-				type="button"
-				onclick={hinzufuegenKlick}
-				disabled={laeuft}
-				data-foto-kategorie-liste
-				class="flex aspect-4/3 w-full flex-col items-center justify-center gap-1 rounded-lg border border-dashed border-neutral-300 bg-neutral-50 text-neutral-500 transition-colors hover:border-primary-400 hover:text-primary-600 disabled:opacity-60"
-			>
-				<PlusIcon size={20} weight="bold" />
-				<span class="text-xs font-semibold">
-					{#if laeuft}
-						Lädt hoch…
-					{:else if ersetzenAngeboten}
-						Foto ersetzen
-					{:else}
-						Foto hinzufügen
-					{/if}
-				</span>
-			</button>
+			{#each uploadZiele as ziel (ziel.wert)}
+				<button
+					type="button"
+					onclick={() => fotoWaehlen(ziel.wert)}
+					disabled={laeuft}
+					class="flex aspect-4/3 w-full flex-col items-center justify-center gap-1 rounded-lg border border-dashed border-neutral-300 bg-neutral-50 px-1.5 text-neutral-500 transition-colors hover:border-primary-400 hover:text-primary-600 disabled:opacity-60"
+				>
+					<PlusIcon size={20} weight="bold" />
+					<span class="text-center text-xs leading-tight font-semibold">
+						{#if laeuft}
+							Lädt hoch…
+						{:else if ersetzenAngeboten}
+							Foto ersetzen
+						{:else if uploadZiele.length === 1}
+							Foto hinzufügen
+						{:else}
+							{ziel.label}
+						{/if}
+					</span>
+				</button>
+			{/each}
 		{/if}
 	</div>
-
-	<!-- Die Auswahl steht als eigene Zeile im Fluss, nicht als absolut
-	     positioniertes Menü: Formular-Abschnitte kappen ihren Inhalt
-	     (overflow-clip), ein Overlay wäre dort abgeschnitten. -->
-	{#if listeOffen}
-		<div
-			data-foto-kategorie-liste
-			class="rounded-lg border border-primary-200 bg-primary-50/60 px-3 py-2.5"
-		>
-			<p class="mb-1.5 text-[11px] font-semibold tracking-wide text-neutral-500 uppercase">
-				Bauteil zuordnen
-			</p>
-			<!-- Vertikale Liste statt Pillen: Pillen lasen sich nicht als Auswahl
-			     (Jens). Eine Zeile je Kategorie, volle Breite, Auswahl-Indikator links. -->
-			<div
-				class="flex flex-col divide-y divide-neutral-100 overflow-hidden rounded-md border border-neutral-200 bg-white"
-			>
-				{#each kategorien as kategorie (kategorie.wert)}
-					<button
-						type="button"
-						onclick={() => kategorieWaehlen(kategorie.wert)}
-						class="flex w-full items-center gap-2.5 px-3 py-2.5 text-left text-sm text-neutral-700 transition-colors hover:bg-primary-50 hover:text-primary-700 active:bg-primary-100"
-						class:font-semibold={kategorie.wert === vorauswahl}
-						class:text-primary-700={kategorie.wert === vorauswahl}
-					>
-						{#if kategorie.wert === vorauswahl}
-							<CheckCircleIcon size={18} weight="fill" class="shrink-0 text-primary-600" />
-						{:else}
-							<span class="h-[18px] w-[18px] shrink-0 rounded-full border border-neutral-300"
-							></span>
-						{/if}
-						{kategorie.label}
-					</button>
-				{/each}
-			</div>
-		</div>
-	{/if}
 
 	<AnleitungZeile />
 </div>

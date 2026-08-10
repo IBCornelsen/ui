@@ -1,8 +1,7 @@
 <script lang="ts">
 	import type { Snippet } from "svelte";
 	import CaretDownIcon from "phosphor-svelte/lib/CaretDownIcon";
-	import CheckIcon from "phosphor-svelte/lib/CheckIcon";
-	import XIcon from "phosphor-svelte/lib/XIcon";
+	import StatusKreis from "./StatusKreis.svelte";
 
 	// Abschnitts-Accordion der Bestellstrecken (cad-Optik): primary-50-Box mit
 	// Badge, Titel, Vollständigkeits-Kreis (Haken/X) und Caret. Der Körper bleibt
@@ -62,21 +61,7 @@
 				{title}
 			{/if}
 		</span>
-		{#if complete}
-			<!-- Abschnitt vollständig → Haken im CI-blauen Kreis -->
-			<span
-				class="flex h-4.5 w-4.5 shrink-0 items-center justify-center rounded-full bg-primary-600"
-			>
-				<CheckIcon size={11} weight="bold" class="text-white" />
-			</span>
-		{:else}
-			<!-- Pflichtangaben offen → X im CI-orangen Kreis -->
-			<span
-				class="flex h-4.5 w-4.5 shrink-0 items-center justify-center rounded-full bg-secondary-500"
-			>
-				<XIcon size={11} weight="bold" class="text-white" />
-			</span>
-		{/if}
+		<StatusKreis status={complete ? "complete" : "fehlt"} />
 		<CaretDownIcon
 			size={16}
 			weight="bold"
