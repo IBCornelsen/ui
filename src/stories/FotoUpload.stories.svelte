@@ -81,3 +81,24 @@
 		/>
 	</div>
 </Story>
+
+<!-- Klick auf „Foto hinzufügen" öffnet die Kategorien-Auswahl als vertikale
+     Liste unter dem Raster (kein Overlay: Formular-Abschnitte kappen ihren
+     Inhalt). Die vorbelegte Kategorie ist markiert. Bei genau EINER Kategorie
+     entfällt die Liste — es geht direkt in die Dateiauswahl. -->
+<Story name="Kategorien-Auswahl (eine Kategorie überspringt die Liste)">
+	<div class="flex max-w-2xl flex-col gap-8">
+		<FotoUpload
+			titel="Mehrere Kategorien — Liste erscheint"
+			bilder={bilder.slice(0, 1)}
+			vorauswahl="Heizung"
+			onHochladen={() => {}}
+			onLoeschen={() => {}}
+		/>
+		<FotoUpload
+			titel="Eine Kategorie — direkt zur Dateiauswahl"
+			kategorien={FOTO_KATEGORIEN.slice(0, 1)}
+			onHochladen={() => {}}
+		/>
+	</div>
+</Story>

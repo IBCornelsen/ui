@@ -246,7 +246,7 @@
 							title="Foto löschen"
 							aria-label="Foto löschen"
 							onclick={() => onLoeschen(bild.id)}
-							class="absolute top-1 right-1 flex h-7 w-7 items-center justify-center rounded-md bg-black/50 text-white opacity-0 transition-opacity group-hover:opacity-100 pointer-coarse:opacity-100 hover:bg-error-600"
+							class="absolute top-1 right-1 flex h-7 w-7 items-center justify-center rounded-md bg-black/50 text-white opacity-0 transition-opacity group-hover:opacity-100 hover:bg-error-600 pointer-coarse:opacity-100"
 						>
 							<TrashIcon size={14} weight="bold" />
 						</button>
@@ -288,20 +288,26 @@
 			<p class="mb-1.5 text-[11px] font-semibold tracking-wide text-neutral-500 uppercase">
 				Bauteil zuordnen
 			</p>
-			<div class="flex flex-wrap gap-1.5">
+			<!-- Vertikale Liste statt Pillen: Pillen lasen sich nicht als Auswahl
+			     (Jens). Eine Zeile je Kategorie, volle Breite, Auswahl-Indikator links. -->
+			<div
+				class="flex flex-col divide-y divide-neutral-100 overflow-hidden rounded-md border border-neutral-200 bg-white"
+			>
 				{#each kategorien as kategorie (kategorie.wert)}
 					<button
 						type="button"
 						onclick={() => kategorieWaehlen(kategorie.wert)}
-						class="flex items-center gap-1.5 rounded-full border border-neutral-200 bg-white px-3 py-1.5 text-sm text-neutral-700 transition-colors hover:border-primary-400 hover:text-primary-700"
-						class:border-primary-400={kategorie.wert === vorauswahl}
+						class="flex w-full items-center gap-2.5 px-3 py-2.5 text-left text-sm text-neutral-700 transition-colors hover:bg-primary-50 hover:text-primary-700 active:bg-primary-100"
 						class:font-semibold={kategorie.wert === vorauswahl}
 						class:text-primary-700={kategorie.wert === vorauswahl}
 					>
-						{kategorie.label}
 						{#if kategorie.wert === vorauswahl}
-							<CheckCircleIcon size={14} weight="fill" class="shrink-0 text-primary-600" />
+							<CheckCircleIcon size={18} weight="fill" class="shrink-0 text-primary-600" />
+						{:else}
+							<span class="h-[18px] w-[18px] shrink-0 rounded-full border border-neutral-300"
+							></span>
 						{/if}
+						{kategorie.label}
 					</button>
 				{/each}
 			</div>
