@@ -30,6 +30,7 @@ export { default as Accordion } from "./components/Accordion.svelte";
 export { default as FaqAccordion } from "./components/FaqAccordion/FaqAccordion.svelte";
 export { default as FaqAccordionItem } from "./components/FaqAccordion/FaqAccordionItem.svelte";
 export { default as PdfButton } from "./components/PdfButton.svelte";
+export { default as Progress } from "./components/Progress.svelte";
 export { default as EnergyScale } from "./components/EnergyScale/EnergyScale.svelte";
 export { default as EffizienzSkala } from "./components/EffizienzSkala.svelte";
 export type { EnergyScaleClass, EnergyScaleMarker } from "./components/EnergyScale/types";
