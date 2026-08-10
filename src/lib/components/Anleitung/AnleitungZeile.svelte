@@ -93,7 +93,11 @@
 
 	// Re-place when the guidance or its anchor changes, and on resize — a rewrap
 	// of the grid (sm→xl, tablet rotation) moves the anchor into another row.
-	$effect(() => {
+	// PRE, not post: measured after the DOM update the new guidance would first
+	// paint in the previous anchor's row and then jump. The measurement only counts
+	// the distinct top edges of the FIELD items, so it is unaffected by the height
+	// the still-open row currently occupies.
+	$effect.pre(() => {
 		void gezeigt;
 		void anker;
 		platzieren();
