@@ -30,7 +30,7 @@
 	aria-valuenow={anteil}
 	aria-valuemin={0}
 	aria-valuemax={100}
-	aria-label={label}
+	aria-label={label || "Fortschritt"}
 >
 	<div
 		class="h-full rounded-full transition-[width] duration-500 ease-out"

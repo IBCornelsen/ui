@@ -1,8 +1,7 @@
 <script lang="ts">
 	import type { Snippet } from "svelte";
-	import CheckIcon from "phosphor-svelte/lib/CheckIcon";
-	import XIcon from "phosphor-svelte/lib/XIcon";
 	import CaretDownIcon from "phosphor-svelte/lib/CaretDownIcon";
+	import StatusKreis from "./StatusKreis.svelte";
 
 	// Aufklappbarer Formular-Abschnitt (Akkordeon) mit Buchstaben-Badge + Validierungsstatus.
 	interface Props {
@@ -59,20 +58,10 @@
 		</span>
 		<span class="flex-1 text-sm font-semibold text-neutral-800">{title}</span>
 
-		<!-- Status wie im Accordion (Verbrauchsausweis-Referenz): Haken im CI-blauen
-		     Kreis bzw. X im CI-orangen Kreis — keine nackten Dreiecke/Häkchen. -->
 		{#if isValid === true && showErrors}
-			<span
-				class="flex h-4.5 w-4.5 shrink-0 items-center justify-center rounded-full bg-primary-600"
-			>
-				<CheckIcon size={11} weight="bold" class="text-white" />
-			</span>
+			<StatusKreis status="complete" />
 		{:else if isValid === false && showErrors}
-			<span
-				class="flex h-4.5 w-4.5 shrink-0 items-center justify-center rounded-full bg-secondary-500"
-			>
-				<XIcon size={11} weight="bold" class="text-white" />
-			</span>
+			<StatusKreis status="fehlt" />
 		{/if}
 
 		<CaretDownIcon

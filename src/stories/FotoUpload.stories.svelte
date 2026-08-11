@@ -39,7 +39,8 @@
 	</div>
 </Story>
 
-<!-- Bestellstrecke: Kategorie des Abschnitts ist vorbelegt, bleibt aber änderbar. -->
+<!-- Bestellstrecke: die Abschnitts-Kategorie ist vorgegeben — genau eine
+     „+"-Kachel, ein Klick öffnet direkt den Dateidialog. -->
 <Story name="Vorbelegte Kategorie">
 	<div class="max-w-2xl">
 		<FotoUpload
