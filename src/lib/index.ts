@@ -26,6 +26,8 @@ export { default as StatusKreis } from "./components/StatusKreis.svelte";
 export { default as StepBadge } from "./components/StepBadge.svelte";
 export { default as StepMenuBadge } from "./components/StepMenuBadge.svelte";
 export { default as MobileStepBar } from "./components/MobileStepBar.svelte";
+export { default as DockSpalte } from "./components/DockSpalte/DockSpalte.svelte";
+export { default as SpaltenGriff } from "./components/DockSpalte/SpaltenGriff.svelte";
 export type { WorkflowStepStatus } from "./components/WorkflowNav.svelte";
 export { default as Accordion } from "./components/Accordion.svelte";
 export { default as FaqAccordion } from "./components/FaqAccordion/FaqAccordion.svelte";
