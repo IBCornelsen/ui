@@ -67,6 +67,7 @@
      pointer-events: the bar spans the full width but is mostly empty — only the
      controls may catch clicks, the gaps must pass them through to the content. -->
 <div
+	data-cy="schritt-leiste"
 	class="pointer-events-none z-40 flex flex-col gap-2 px-3 pb-[env(safe-area-inset-bottom)] lg:px-4 lg:pb-4 {platzierung}"
 	bind:clientHeight={barHeight}
 >
