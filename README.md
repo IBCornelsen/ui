@@ -40,9 +40,9 @@ bun run --filter @ibc/ui build-storybook  # static build
 
 ## Roadmap
 
-- **Adopt across apps**: replace the ad-hoc input/select/button styles in
-  `apps/cad` (e.g. `ProjektdatenModal`/`EnvelopeModal` diverged) and the host
-  `Ausweis/*` form components with these shared ones.
+- **Adopt across apps**: replace the ad-hoc input/select/button styles in the CAD
+  editor (`apps/online-energieausweis/src/cad/`, e.g. `ProjektdatenModal`/`EnvelopeModal`
+  diverged) and the host `Ausweis/*` form components with these shared ones.
 - **Drop DaisyUI**: once Button/Input/Select cover the usages, remove the
   `@plugin "daisyui"` from `apps/online-energieausweis/src/style/design-system.css`
   and migrate remaining `.btn`/`.input`/`.card` DaisyUI classes to `@ibc/ui`
