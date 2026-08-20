@@ -84,6 +84,10 @@
 	--color-surface-subtle: #f8f9fa;
 	--color-surface-muted: #f1f3f5;
 
+	/* --- Box heading ---
+	   Überschriftenblau der Karten- und Tabellenköpfe (Preise, FAQ-Titel). */
+	--color-box-heading: #3a4ab5;
+
 	/* --- Typography --- */
 	--font-sans: "Heron", ui-sans-serif, system-ui, -apple-system, sans-serif;
 	--font-mono: "JetBrains Mono", ui-monospace, "SFMono-Regular", monospace;
