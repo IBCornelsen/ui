@@ -7,7 +7,6 @@ export { default as Select } from "./components/Select.svelte";
 export type { FieldValidator, FieldValidationResult } from "./components/fieldValidation";
 export { default as Textarea } from "./components/Textarea.svelte";
 export { default as Field } from "./components/Field.svelte";
-export { default as Section } from "./components/Section.svelte";
 export { default as Tooltip } from "./components/Tooltip.svelte";
 export { default as SummaryCard } from "./components/SummaryCard/SummaryCard.svelte";
 export type {
@@ -23,6 +22,9 @@ export { default as Modal } from "./components/Modal.svelte";
 export { default as ConfirmDialog } from "./components/ConfirmDialog.svelte";
 export { default as WorkflowNav } from "./components/WorkflowNav.svelte";
 export { default as StatusKreis } from "./components/StatusKreis.svelte";
+export { default as StatusPille } from "./components/StatusPille.svelte";
+export { STATUS_PILLE_RAND } from "./components/StatusPille.svelte";
+export type { StatusPilleTon } from "./components/StatusPille.svelte";
 export { default as StepBadge } from "./components/StepBadge.svelte";
 export { default as StepMenuBadge } from "./components/StepMenuBadge.svelte";
 export { default as MobileStepBar } from "./components/MobileStepBar.svelte";
