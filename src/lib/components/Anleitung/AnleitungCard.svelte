@@ -44,7 +44,7 @@
 
 {#if instruction.error}
 	<div
-		class="border-error-200 mt-2.5 flex items-start gap-2 rounded-md border bg-error-50 px-3 py-2 text-base leading-snug font-medium text-error-700"
+		class="mt-2.5 flex items-start gap-2 rounded-md border border-error-200 bg-error-50 px-3 py-2 text-base leading-snug font-medium text-error-700"
 	>
 		<WarningIcon size={18} weight="fill" class="mt-0.5 shrink-0" />
 		<span>{instruction.error}</span>

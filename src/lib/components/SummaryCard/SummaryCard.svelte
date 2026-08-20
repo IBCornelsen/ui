@@ -248,10 +248,10 @@
 											{#each step.messages as message (message.id)}
 												<li
 													class="flex items-start gap-2 rounded-md border px-2.5 py-2 text-sm leading-snug"
-													class:border-red-200={message.severity === "error"}
+													class:border-error-200={message.severity === "error"}
 													class:bg-error-50={message.severity === "error"}
 													class:text-error-700={message.severity === "error"}
-													class:border-amber-200={message.severity === "warning"}
+													class:border-warning-200={message.severity === "warning"}
 													class:bg-warning-50={message.severity === "warning"}
 													class:text-warning-700={message.severity === "warning"}
 													class:border-primary-200={message.severity === "info"}

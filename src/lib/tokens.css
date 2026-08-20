@@ -40,23 +40,33 @@
 	--color-neutral-900: #212529;
 	--color-neutral-950: #0d1117;
 
-	/* --- Semantic --- */
+	/* --- Semantic ---
+	   100/200 = helle Flächen-/Randstufen (Alert-Ränder, Pastell-Ringe);
+	   Werte entsprechen der Tailwind-Palette, aus der sie historisch kamen. */
 	--color-success-50: #ecfdf3;
+	--color-success-100: #dcfce7;
+	--color-success-200: #bbf7d0;
 	--color-success-500: #10b981;
 	--color-success-600: #059669;
 	--color-success-700: #047857;
 
 	--color-warning-50: #fffbeb;
+	--color-warning-100: #fef3c7;
+	--color-warning-200: #fde68a;
 	--color-warning-500: #f59e0b;
 	--color-warning-600: #d97706;
 	--color-warning-700: #b45309;
 
 	--color-error-50: #fef2f2;
+	--color-error-100: #fee2e2;
+	--color-error-200: #fecaca;
 	--color-error-500: #ef4444;
 	--color-error-600: #dc2626;
 	--color-error-700: #b91c1c;
 
 	--color-info-50: #eff6ff;
+	--color-info-100: #dbeafe;
+	--color-info-200: #bfdbfe;
 	--color-info-500: #3b82f6;
 	--color-info-600: #2563eb;
 	--color-info-700: #1d4ed8;
