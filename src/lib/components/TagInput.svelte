@@ -130,6 +130,7 @@
 		{minlength}
 		{maxlength}
 		autocomplete="off"
+		data-verbundfeld=""
 		class="h-9 min-w-[4rem] flex-1 bg-transparent px-1 text-sm text-neutral-800 focus:outline-none disabled:cursor-default"
 		oninput={(event) => (draft = event.currentTarget.value)}
 		onkeydown={onKeydown}
