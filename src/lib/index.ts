@@ -44,7 +44,11 @@ export { IMPORTANCE_LABEL } from "./components/Anleitung/types";
 export { default as AnleitungZeile } from "./components/Anleitung/AnleitungZeile.svelte";
 export { anleitung } from "./components/Anleitung/anleitung";
 export type { AnleitungInstruction } from "./components/Anleitung/anleitung";
-export { getActiveAnleitung, setActiveAnleitung } from "./components/Anleitung/store.svelte";
+export {
+	getActiveAnleitung,
+	getAnleitungAnker,
+	setActiveAnleitung
+} from "./components/Anleitung/store.svelte";
 export { default as FotoUpload } from "./components/FotoUpload/FotoUpload.svelte";
 export type { FotoUploadBild } from "./components/FotoUpload/types";
 export { FOTO_KATEGORIEN, fotoKategorieLabel } from "./components/FotoUpload/fotoKategorien";
