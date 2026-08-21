@@ -109,7 +109,7 @@
 			{#if !disabled && !readonly}
 				<button
 					type="button"
-					aria-label="Entfernen"
+					aria-label="{tag} entfernen"
 					class="inline-flex cursor-pointer text-neutral-500 hover:text-neutral-800"
 					onclick={() => removeTag(index)}
 				>
