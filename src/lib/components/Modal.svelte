@@ -7,6 +7,7 @@
 	// modal; while its promise is pending a spinner replaces the label.
 	// Wide editor dialogs use size="breit" + randlos (body manages its own
 	// scroll/padding) and a custom `fusszeile` instead of the option stack.
+	// size="inhalt" shrinks the box to its content width (image/page previews).
 	type Option = {
 		title: string;
 		variant?: "primary" | "outline" | "ghost";
@@ -29,7 +30,7 @@
 		hidden?: boolean;
 		closable?: boolean;
 		title: string;
-		size?: "sm" | "md" | "lg" | "xl" | "breit";
+		size?: "sm" | "md" | "lg" | "xl" | "breit" | "inhalt";
 		children?: Snippet;
 		options?: Option[];
 		// Zusatzzeilen unter dem Titel (Untertitel, Warnhinweise).
@@ -42,12 +43,13 @@
 		onClose?: () => void;
 	} = $props();
 
-	const maxWidthClass = {
-		sm: "max-w-sm",
-		md: "max-w-md",
-		lg: "max-w-lg",
-		xl: "max-w-2xl",
-		breit: "max-w-4xl"
+	const widthClass = {
+		sm: "w-full max-w-sm",
+		md: "w-full max-w-md",
+		lg: "w-full max-w-lg",
+		xl: "w-full max-w-2xl",
+		breit: "w-full max-w-4xl",
+		inhalt: "w-fit max-w-full"
 	};
 
 	let loading = $state<number | null>(null);
@@ -101,7 +103,7 @@
 		onclick={onBackdropClick}
 	>
 		<div
-			class="flex max-h-[90dvh] w-full {maxWidthClass[
+			class="flex max-h-[90dvh] {widthClass[
 				size
 			]} flex-col overflow-hidden rounded-lg border border-neutral-300 bg-white shadow-2xl"
 		>

@@ -12,6 +12,7 @@
 <script lang="ts">
 	let hidden = $state(true);
 	let breitHidden = $state(true);
+	let inhaltHidden = $state(true);
 </script>
 
 <Story name="Standard">
@@ -47,6 +48,27 @@
 		{#snippet fusszeile()}
 			<Button variant="outline" size="sm" onclick={() => (breitHidden = true)}>Abbrechen</Button>
 			<Button size="sm" onclick={() => (breitHidden = true)}>Übernehmen</Button>
+		{/snippet}
+	</Modal>
+</Story>
+
+<!-- size="inhalt": der Dialog ist so breit wie sein Inhalt (Seiten-/Bildvorschau),
+     begrenzt auf den Bildschirm. -->
+<Story name="Inhaltsbreit (Vorschau)">
+	<Button onclick={() => (inhaltHidden = false)}>Inhaltsbreites Modal öffnen</Button>
+	<Modal bind:hidden={inhaltHidden} title="Energieausweis" size="inhalt" randlos>
+		{#snippet kopfZusatz()}
+			<p class="text-[11px] text-neutral-600">Vorschau — Dialogbreite folgt der Seite.</p>
+		{/snippet}
+		<div class="flex max-w-full items-center justify-center bg-neutral-100 p-4">
+			<div
+				class="flex h-[480px] w-[340px] items-center justify-center rounded border border-neutral-300 bg-white text-sm text-neutral-500"
+			>
+				Seite 1
+			</div>
+		</div>
+		{#snippet fusszeile()}
+			<Button variant="outline" size="sm" onclick={() => (inhaltHidden = true)}>Schließen</Button>
 		{/snippet}
 	</Modal>
 </Story>
