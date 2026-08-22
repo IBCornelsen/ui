@@ -3,10 +3,9 @@
 	import CaretDownIcon from "phosphor-svelte/lib/CaretDownIcon";
 	import StatusKreis from "./StatusKreis.svelte";
 
-	// Abschnitts-Accordion der Bestellstrecken (cad-Optik): primary-50-Box mit
-	// Badge, Titel, Vollständigkeits-Kreis (Haken/X) und Caret. Der Körper bleibt
-	// GEMOUNTET und wird zugeklappt nur versteckt — Abschnittskomponenten dürfen
-	// Mount-Seiteneffekte haben (siehe Formular-Strecken).
+	// DIE Abschnitts-Hülle aller Strecken: primary-50-Box mit Badge, Titel,
+	// Vollständigkeits-Kreis (Haken/X) und Caret. Der Körper bleibt GEMOUNTET und wird zugeklappt nur versteckt —
+	// Abschnittskomponenten dürfen Mount-Seiteneffekte haben (Formular-Strecken).
 	interface Props {
 		badge: string;
 		title: string;

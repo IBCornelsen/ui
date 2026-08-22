@@ -35,7 +35,7 @@
 		aria-expanded={open}
 		class="flex w-full cursor-pointer items-center justify-between gap-3 rounded-xl border border-neutral-200 bg-white px-5 py-4 text-left shadow-sm transition-colors hover:border-primary-300"
 	>
-		<span class="text-box-heading text-base font-bold">{title}</span>
+		<span class="text-base font-bold text-box-heading">{title}</span>
 		<CaretDownIcon size={20} weight="bold" class={caretClass} />
 	</button>
 

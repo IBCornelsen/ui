@@ -1,7 +1,9 @@
 <script lang="ts">
-	// Fortschrittsbalken der Workflow- und Dashboard-Ansichten: schmale Spur,
+	// Ladebalken für laufende Vorgänge (Upload, Berechnung): schmale Spur,
 	// gefüllter Anteil, weiche Breitenänderung. Die Breite gibt der Aufrufer über
 	// den umgebenden Container vor.
+	// NICHT für Bearbeitungsstand/Status verwenden — der wird als Statuspunkt in
+	// error/warning/success-500 dargestellt, nie als Balken (Jens 2026-08-11).
 	interface Props {
 		// 0–100; Werte außerhalb werden gekappt.
 		wert: number;

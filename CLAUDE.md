@@ -1,6 +1,6 @@
 # CLAUDE.md — packages/ui (@ibc/ui)
 
-Shared Svelte component package used by `apps/cad` and `apps/online-energieausweis`. Source-only package: apps compile `src/lib/` directly, there is no build step. No database, no server code — if a change needs either, it belongs in an app.
+Shared Svelte component package used by `apps/online-energieausweis` (inkl. des CAD-Editors unter `src/cad`). Source-only package: apps compile `src/lib/` directly, there is no build step. No database, no server code — if a change needs either, it belongs in an app.
 
 ## Working rules
 
@@ -8,7 +8,7 @@ Shared Svelte component package used by `apps/cad` and `apps/online-energieauswe
 - Every new or visually changed component needs a Storybook story in `src/stories/` (`bunx storybook dev` to preview).
 - Keep components generic: no app-specific business logic, no imports from `apps/*`. App-specific behavior stays in the app; the component gets props/snippets instead.
 - Design tokens live in `src/lib/tokens.css` (exported as `@ibc/ui/tokens.css`). Use them instead of hardcoding colors.
-- Breaking a component's props breaks two apps — check usages in both apps (`grep -r "from \"@ibc/ui\"" ../../apps`) before changing a public prop.
+- Breaking a component's props breaks the app — check usages (`grep -r "from \"@ibc/ui\"" ../../apps`) before changing a public prop.
 
 ## Prüfungen
 

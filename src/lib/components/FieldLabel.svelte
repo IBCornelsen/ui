@@ -7,9 +7,11 @@
 		title: string;
 		children?: Snippet;
 		required?: boolean;
+		// Verknüpfung mit dem Eingabefeld (Field reicht seine id durch).
+		for?: string;
 	}
 
-	let { title, children, required = false }: Props = $props();
+	let { title, children, required = false, for: forId }: Props = $props();
 
 	// Klick aufs Fragezeichen füllt den geteilten Anleitung-Store; die Anzeige
 	// übernimmt die AnleitungZeile des umgebenden Rasters — volle Breite unter der
@@ -31,7 +33,7 @@
      Labels in die Nachbarspalte. `items-start` hält es bei zweizeiligen Labels
      auf der ersten Zeile. -->
 <div bind:this={wurzelEl} class="flex items-start gap-1.5">
-	<label class="text-sm leading-snug font-semibold text-neutral-700">
+	<label class="text-sm leading-snug font-semibold text-neutral-700" for={forId}>
 		{title}{#if required}<span class="ml-0.5 text-secondary-600">*</span>{/if}
 	</label>
 

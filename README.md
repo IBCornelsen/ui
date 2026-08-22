@@ -18,7 +18,7 @@ import { Button, Input, Select, Field } from "@ibc/ui";
 
 ```svelte
 <Field label="PLZ" for="plz" required error={errors.plz}>
-	<Input id="plz" bind:value={objekt.plz} invalid={!objekt.plz} />
+ <Input id="plz" bind:value={objekt.plz} invalid={!objekt.plz} />
 </Field>
 
 <Button variant="primary" onclick={save}>Speichern &amp; weiter</Button>

@@ -12,10 +12,10 @@
 
 	// Farbwelt je Typ (vormals .alert-*-Klassen der App).
 	const TYP_KLASSEN: Record<string, string> = {
-		error: "border-red-200 bg-error-50 text-error-700",
-		info: "border-blue-200 bg-info-50 text-info-700",
-		success: "border-green-200 bg-success-50 text-success-700",
-		warning: "border-amber-200 bg-warning-50 text-warning-700"
+		error: "border-error-200 bg-error-50 text-error-700",
+		info: "border-info-200 bg-info-50 text-info-700",
+		success: "border-success-200 bg-success-50 text-success-700",
+		warning: "border-warning-200 bg-warning-50 text-warning-700"
 	};
 
 	function focusSelector() {
