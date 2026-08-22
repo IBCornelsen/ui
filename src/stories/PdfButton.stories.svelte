@@ -15,3 +15,11 @@
 		<PdfButton disabled>Datenblatt (gesperrt)</PdfButton>
 	</div>
 </Story>
+
+<!-- size="lg": Dokument-Boxen, in denen das PDF-Symbol die Zeile trägt. -->
+<Story name="Groß (Dokument-Box)">
+	<div class="grid w-[36rem] grid-cols-2 gap-2">
+		<PdfButton size="lg">Energieausweis</PdfButton>
+		<PdfButton size="lg">Datenblatt</PdfButton>
+	</div>
+</Story>
