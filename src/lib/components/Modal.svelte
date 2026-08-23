@@ -153,7 +153,6 @@
 {#if !hidden}
 	<!-- z-[170]: über dem cad-Chrome (Dock/Overlay bis z-160) — ein Modal deckt
 	     immer die ganze Anwendung ab. -->
-	<!-- svelte-ignore a11y_click_events_have_key_events -->
 	<div
 		class="fixed inset-0 z-[170] flex items-center justify-center bg-black/85 p-4"
 		role="presentation"
