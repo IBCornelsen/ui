@@ -94,7 +94,9 @@ export const anleitung: Action<HTMLElement, AnleitungOptions> = (node, options) 
 	knopf.setAttribute("aria-label", `Hinweis: ${current.title}`);
 	knopf.dataset.anleitungFrage = "";
 	knopf.addEventListener("click", umschalten);
-	frageZiel(node).appendChild(knopf);
+	// Ein Ziel trägt nur EIN Fragezeichen (z. B. FieldLabel mit eigener Hilfe).
+	const ziel = frageZiel(node);
+	if (!ziel.querySelector("[data-anleitung-frage]")) ziel.appendChild(knopf);
 
 	return {
 		update(next) {

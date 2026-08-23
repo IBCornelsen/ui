@@ -1,3 +1,8 @@
+<script lang="ts" module>
+	// Laufende Nummer für aria-labelledby — mehrere Modale auf einer Seite.
+	let modalZaehler = 0;
+</script>
+
 <script lang="ts">
 	import type { Component, Snippet } from "svelte";
 	import CircleNotchIcon from "phosphor-svelte/lib/CircleNotchIcon";
@@ -53,6 +58,9 @@
 	};
 
 	let loading = $state<number | null>(null);
+	let dialogEl = $state<HTMLDivElement>();
+	modalZaehler += 1;
+	const titelId = `modal-titel-${modalZaehler}`;
 
 	function close() {
 		hidden = true;
@@ -71,6 +79,50 @@
 		};
 	});
 
+	// Fokus wandert beim Öffnen in den Dialog und beim Schließen zurück zum Auslöser.
+	$effect(() => {
+		const dialog = dialogEl;
+		if (hidden || !dialog) return;
+		const vorher = document.activeElement;
+		dialog.focus();
+		return () => {
+			if (vorher instanceof HTMLElement) vorher.focus();
+		};
+	});
+
+	const FOKUSSIERBAR =
+		'a[href], button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])';
+
+	function fokussierbareElemente(dialog: HTMLElement): HTMLElement[] {
+		const alle = Array.from(dialog.querySelectorAll<HTMLElement>(FOKUSSIERBAR));
+		return alle.filter((element) => element.offsetParent !== null);
+	}
+
+	// Tab bleibt im Dialog (Fokusfalle); greift nur, wenn der Fokus schon im
+	// Dialog liegt — ein darüberliegender ConfirmDialog behält seinen eigenen.
+	function fokusImDialogHalten(event: KeyboardEvent) {
+		const dialog = dialogEl;
+		if (!dialog) return;
+		const aktiv = document.activeElement;
+		if (!dialog.contains(aktiv)) return;
+		const elemente = fokussierbareElemente(dialog);
+		if (elemente.length === 0) {
+			event.preventDefault();
+			return;
+		}
+		const erstes = elemente[0];
+		const letztes = elemente[elemente.length - 1];
+		if (event.shiftKey && (aktiv === erstes || aktiv === dialog)) {
+			event.preventDefault();
+			letztes.focus();
+			return;
+		}
+		if (!event.shiftKey && aktiv === letztes) {
+			event.preventDefault();
+			erstes.focus();
+		}
+	}
+
 	async function handleOption(option: Option, index: number) {
 		loading = index;
 		try {
@@ -87,8 +139,12 @@
 	}
 
 	function onKeydown(event: KeyboardEvent) {
-		if (hidden || !closable) return;
-		if (event.key === "Escape") close();
+		if (hidden) return;
+		if (event.key === "Tab") {
+			fokusImDialogHalten(event);
+			return;
+		}
+		if (event.key === "Escape" && closable) close();
 	}
 </script>
 
@@ -97,21 +153,27 @@
 {#if !hidden}
 	<!-- z-[170]: über dem cad-Chrome (Dock/Overlay bis z-160) — ein Modal deckt
 	     immer die ganze Anwendung ab. -->
-	<!-- svelte-ignore a11y_click_events_have_key_events a11y_no_static_element_interactions -->
+	<!-- svelte-ignore a11y_click_events_have_key_events -->
 	<div
 		class="fixed inset-0 z-[170] flex items-center justify-center bg-black/85 p-4"
+		role="presentation"
 		onclick={onBackdropClick}
 	>
 		<div
+			bind:this={dialogEl}
+			role="dialog"
+			aria-modal="true"
+			aria-labelledby={titelId}
+			tabindex="-1"
 			class="flex max-h-[90dvh] {widthClass[
 				size
-			]} flex-col overflow-hidden rounded-lg border border-neutral-300 bg-white shadow-2xl"
+			]} flex-col overflow-hidden rounded-lg border border-neutral-300 bg-white shadow-2xl outline-none"
 		>
 			<div
 				class="flex shrink-0 items-center justify-between border-b border-neutral-200 bg-white px-5 py-3"
 			>
 				<div class="min-w-0">
-					<span class="text-base font-bold text-neutral-800">{title}</span>
+					<span id={titelId} class="text-base font-bold text-neutral-800">{title}</span>
 					{#if kopfZusatz}
 						{@render kopfZusatz()}
 					{/if}

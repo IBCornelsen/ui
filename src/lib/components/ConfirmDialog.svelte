@@ -43,13 +43,19 @@
 <svelte:window onkeydown={onKeydown} />
 
 {#if offen}
-	<!-- svelte-ignore a11y_click_events_have_key_events a11y_no_static_element_interactions -->
-	<div class="fixed inset-0 z-200 flex items-center justify-center bg-black/35" onclick={abbrechen}>
+	<!-- svelte-ignore a11y_click_events_have_key_events -->
+	<div
+		class="fixed inset-0 z-200 flex items-center justify-center bg-black/35"
+		role="presentation"
+		onclick={abbrechen}
+	>
+		<!-- svelte-ignore a11y_click_events_have_key_events -->
 		<div
-			class="w-80 rounded-md bg-white p-5 text-[13px] shadow-xl"
+			class="w-80 rounded-md bg-white p-5 text-[13px] shadow-xl outline-none"
 			onclick={(event) => event.stopPropagation()}
 			role="alertdialog"
 			aria-label={title}
+			tabindex="-1"
 		>
 			<p class="mb-2 text-sm font-semibold text-neutral-800">{title}</p>
 			<div class="mb-4 leading-snug text-neutral-600">
