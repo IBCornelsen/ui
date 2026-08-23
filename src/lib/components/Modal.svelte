@@ -1,8 +1,3 @@
-<script lang="ts" module>
-	// Laufende Nummer für aria-labelledby — mehrere Modale auf einer Seite.
-	let modalZaehler = 0;
-</script>
-
 <script lang="ts">
 	import type { Component, Snippet } from "svelte";
 	import CircleNotchIcon from "phosphor-svelte/lib/CircleNotchIcon";
@@ -59,8 +54,8 @@
 
 	let loading = $state<number | null>(null);
 	let dialogEl = $state<HTMLDivElement>();
-	modalZaehler += 1;
-	const titelId = `modal-titel-${modalZaehler}`;
+	// SSR-stabile Kennung für aria-labelledby (mehrere Modale je Seite).
+	const titelId = $props.id();
 
 	function close() {
 		hidden = true;
@@ -138,13 +133,21 @@
 		if (event.target === event.currentTarget) close();
 	}
 
+	// Ein darüberliegender ConfirmDialog (role=alertdialog) hört selbst auf Escape —
+	// beide lauschen am Fenster, sonst schlösse ein Escape beide Dialoge.
+	function alertdialogOffen(): boolean {
+		return document.querySelector('[role="alertdialog"]') !== null;
+	}
+
 	function onKeydown(event: KeyboardEvent) {
 		if (hidden) return;
 		if (event.key === "Tab") {
 			fokusImDialogHalten(event);
 			return;
 		}
-		if (event.key === "Escape" && closable) close();
+		if (event.key !== "Escape" || !closable) return;
+		if (alertdialogOffen()) return;
+		close();
 	}
 </script>
 
