@@ -58,10 +58,21 @@
 
 	// Photos whose URL failed to load (missing or corrupt object): the tile shows a
 	// clear error state instead of the browser's broken-image icon, and stays deletable.
-	let fehlerhafteBildIds = $state<Set<string>>(new Set());
+	// Keyed by id AND url so a replaced photo (new URL, same id) gets a fresh attempt.
+	let fehlerhafteQuellen = $state<Set<string>>(new Set());
 
-	function bildFehlgeschlagen(id: string) {
-		fehlerhafteBildIds = new Set([...fehlerhafteBildIds, id]);
+	function bildQuelle(bild: { id: string; url?: string }): string {
+		return bild.id + "|" + (bild.url || "");
+	}
+
+	function bildFehlgeschlagen(quelle: string) {
+		fehlerhafteQuellen = new Set([...fehlerhafteQuellen, quelle]);
+	}
+
+	// An error event can fire before hydration attaches the onerror listener (fast 404
+	// on a server-rendered img) — catch that case once the element is mounted.
+	function bildFehlerPruefen(img: HTMLImageElement, quelle: string) {
+		if (img.complete && img.naturalWidth === 0) bildFehlgeschlagen(quelle);
 	}
 
 	function gewerteteAnzahl(): number {
@@ -235,15 +246,18 @@
 							class="h-6 w-6 animate-spin rounded-full border-2 border-neutral-300 border-t-primary-600"
 						></div>
 					</div>
-				{:else if fehlerhafteBildIds.has(bild.id)}
+				{:else if fehlerhafteQuellen.has(bildQuelle(bild))}
 					<div
 						class="flex h-full w-full flex-col items-center justify-center gap-1 text-neutral-400"
 						title="Das Foto konnte nicht geladen werden — die Datei fehlt oder ist beschädigt."
 						data-testid="foto-fehler"
 					>
-						<ImageBrokenIcon size={22} />
+						<ImageBrokenIcon size={22} aria-hidden="true" />
 						<span class="text-center text-[10px] leading-tight font-semibold"
 							>Bild nicht ladbar</span
+						>
+						<span class="sr-only"
+							>Das Foto konnte nicht geladen werden — die Datei fehlt oder ist beschädigt.</span
 						>
 					</div>
 					<span
@@ -264,7 +278,8 @@
 							src={bild.url}
 							alt={fotoKategorieLabel(bild.kategorie)}
 							loading="lazy"
-							onerror={() => bildFehlgeschlagen(bild.id)}
+							use:bildFehlerPruefen={bildQuelle(bild)}
+							onerror={() => bildFehlgeschlagen(bildQuelle(bild))}
 							class="h-full w-full object-cover transition-transform duration-200 group-hover:scale-105"
 						/>
 						<span
