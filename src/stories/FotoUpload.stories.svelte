@@ -83,6 +83,23 @@
 	</div>
 </Story>
 
+<!-- Ein nicht ladbares Foto (fehlendes/beschädigtes Objekt) zeigt eine klare
+     Fehler-Kachel statt des Browser-Broken-Icons und bleibt löschbar. -->
+<Story name="Bild nicht ladbar">
+	<div class="max-w-2xl">
+		<FotoUpload
+			titel="Fotos des Vorgangs"
+			bilder={[
+				bilder[0],
+				{ id: "media:kaputt", url: "data:image/png;base64,kaputt", kategorie: "Heizung" },
+				bilder[2]
+			]}
+			onHochladen={() => {}}
+			onLoeschen={() => {}}
+		/>
+	</div>
+</Story>
+
 <!-- Kein Zwischenschritt vor der Dateiauswahl (Jens 2026-08-10): im Formular
      steht das Bauteil durch den Abschnitt fest, in Sammelblöcken trägt jede
      "+"-Kachel ihr Bauteil im Text. Ein Klick öffnet immer direkt den Dateidialog. -->

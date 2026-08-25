@@ -5,6 +5,7 @@
 	// inline prose next to the field.
 	import PlusIcon from "phosphor-svelte/lib/PlusIcon";
 	import TrashIcon from "phosphor-svelte/lib/TrashIcon";
+	import ImageBrokenIcon from "phosphor-svelte/lib/ImageBrokenIcon";
 	import { anleitung, type AnleitungInstruction } from "../Anleitung/anleitung";
 	import AnleitungZeile from "../Anleitung/AnleitungZeile.svelte";
 	import { addNotification } from "../Notifications/store.svelte";
@@ -54,6 +55,14 @@
 	}: Props = $props();
 
 	let zielKategorie = $state<string | undefined>(undefined);
+
+	// Photos whose URL failed to load (missing or corrupt object): the tile shows a
+	// clear error state instead of the browser's broken-image icon, and stays deletable.
+	let fehlerhafteBildIds = $state<Set<string>>(new Set());
+
+	function bildFehlgeschlagen(id: string) {
+		fehlerhafteBildIds = new Set([...fehlerhafteBildIds, id]);
+	}
 
 	function gewerteteAnzahl(): number {
 		if (bewerteteAnzahl === undefined) return bilder.length;
@@ -201,6 +210,20 @@
 		onchange={dateienUebernehmen}
 	/>
 
+	{#snippet loeschKnopf(id: string)}
+		{#if loeschenErlaubt && onLoeschen}
+			<button
+				type="button"
+				title="Foto löschen"
+				aria-label="Foto löschen"
+				onclick={() => onLoeschen(id)}
+				class="absolute top-1 right-1 flex h-7 w-7 items-center justify-center rounded-md bg-black/50 text-white opacity-0 transition-opacity group-hover:opacity-100 hover:bg-error-600 pointer-coarse:opacity-100"
+			>
+				<TrashIcon size={14} weight="bold" />
+			</button>
+		{/if}
+	{/snippet}
+
 	<div class="grid gap-2 {spalten}">
 		{#each bilder as bild (bild.id)}
 			<div
@@ -212,6 +235,23 @@
 							class="h-6 w-6 animate-spin rounded-full border-2 border-neutral-300 border-t-primary-600"
 						></div>
 					</div>
+				{:else if fehlerhafteBildIds.has(bild.id)}
+					<div
+						class="flex h-full w-full flex-col items-center justify-center gap-1 text-neutral-400"
+						title="Das Foto konnte nicht geladen werden — die Datei fehlt oder ist beschädigt."
+						data-testid="foto-fehler"
+					>
+						<ImageBrokenIcon size={22} />
+						<span class="text-center text-[10px] leading-tight font-semibold"
+							>Bild nicht ladbar</span
+						>
+					</div>
+					<span
+						class="absolute inset-x-0 bottom-0 bg-linear-to-t from-black/70 to-transparent px-1.5 pt-4 pb-1 text-[11px] font-semibold text-white"
+					>
+						{fotoKategorieLabel(bild.kategorie)}
+					</span>
+					{@render loeschKnopf(bild.id)}
 				{:else}
 					<a
 						href={bild.url}
@@ -224,6 +264,7 @@
 							src={bild.url}
 							alt={fotoKategorieLabel(bild.kategorie)}
 							loading="lazy"
+							onerror={() => bildFehlgeschlagen(bild.id)}
 							class="h-full w-full object-cover transition-transform duration-200 group-hover:scale-105"
 						/>
 						<span
@@ -232,17 +273,7 @@
 							{fotoKategorieLabel(bild.kategorie)}
 						</span>
 					</a>
-					{#if loeschenErlaubt && onLoeschen}
-						<button
-							type="button"
-							title="Foto löschen"
-							aria-label="Foto löschen"
-							onclick={() => onLoeschen(bild.id)}
-							class="absolute top-1 right-1 flex h-7 w-7 items-center justify-center rounded-md bg-black/50 text-white opacity-0 transition-opacity group-hover:opacity-100 hover:bg-error-600 pointer-coarse:opacity-100"
-						>
-							<TrashIcon size={14} weight="bold" />
-						</button>
-					{/if}
+					{@render loeschKnopf(bild.id)}
 				{/if}
 			</div>
 		{/each}
