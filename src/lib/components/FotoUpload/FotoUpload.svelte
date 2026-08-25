@@ -159,8 +159,13 @@
 		if (!kategorie) return;
 		const dateien = begrenzteAuswahl(gewaehlt, kategorie);
 		if (!dateien.length) return;
+		ladendesZiel = kategorie;
 		void onHochladen(dateien, kategorie);
 	}
+
+	// "Lädt hoch…" steht nur am tatsächlich beladenen Ziel — die übrigen Knöpfe
+	// sind währenddessen nur gesperrt, ohne selbst als ladend zu erscheinen.
+	let ladendesZiel = $state<string | undefined>(undefined);
 
 	// max zählt nur die bewertete Kategorie des Blocks — Uploads einer fremden
 	// Kategorie werden nicht gekappt. Überzählige Dateien fallen nie still weg.
@@ -303,7 +308,7 @@
 				>
 					<PlusIcon size={20} weight="bold" />
 					<span class="text-center text-xs leading-tight font-semibold">
-						{#if laeuft}
+						{#if laeuft && ziel.wert === ladendesZiel}
 							Lädt hoch…
 						{:else if ersetzenAngeboten}
 							Foto ersetzen
