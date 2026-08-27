@@ -25,6 +25,7 @@
 		kopfZusatz,
 		fusszeile,
 		randlos = false,
+		vollflaeche = false,
 		onClose
 	}: {
 		hidden?: boolean;
@@ -39,6 +40,9 @@
 		fusszeile?: Snippet;
 		// Körper ohne Innenabstand — der Inhalt orchestriert Scrollen/Padding selbst.
 		randlos?: boolean;
+		// Maximale Nutzfläche (PDF-/Bild-Vorschauen): minimaler Rand zur
+		// Bildschirmkante und kompakte Kopf-/Fußzeilen.
+		vollflaeche?: boolean;
 		// Wird bei jedem Schließen gerufen (Escape, Backdrop, ✕, erfolgreiche Option).
 		onClose?: () => void;
 	} = $props();
@@ -157,7 +161,9 @@
 	<!-- z-[170]: über dem cad-Chrome (Dock/Overlay bis z-160) — ein Modal deckt
 	     immer die ganze Anwendung ab. -->
 	<div
-		class="fixed inset-0 z-[170] flex items-center justify-center bg-black/85 p-4"
+		class="fixed inset-0 z-[170] flex items-center justify-center bg-black/85 {vollflaeche
+			? 'p-1'
+			: 'p-4'}"
 		role="presentation"
 		onclick={onBackdropClick}
 	>
@@ -167,12 +173,14 @@
 			aria-modal="true"
 			aria-labelledby={titelId}
 			tabindex="-1"
-			class="flex max-h-[90dvh] {widthClass[
+			class="flex {vollflaeche ? 'max-h-[calc(100dvh-0.5rem)]' : 'max-h-[90dvh]'} {widthClass[
 				size
 			]} flex-col overflow-hidden rounded-lg border border-neutral-300 bg-white shadow-2xl outline-none"
 		>
 			<div
-				class="flex shrink-0 items-center justify-between border-b border-neutral-200 bg-white px-5 py-3"
+				class="flex shrink-0 items-center justify-between border-b border-neutral-200 bg-white px-5 {vollflaeche
+					? 'py-1.5'
+					: 'py-3'}"
 			>
 				<div class="min-w-0">
 					<span id={titelId} class="text-base font-bold text-neutral-800">{title}</span>
@@ -205,7 +213,9 @@
 
 			{#if fusszeile}
 				<div
-					class="flex shrink-0 items-center justify-end gap-2 border-t border-neutral-200 px-5 py-3"
+					class="flex shrink-0 items-center justify-end gap-2 border-t border-neutral-200 px-5 {vollflaeche
+						? 'py-1.5'
+						: 'py-3'}"
 				>
 					{@render fusszeile()}
 				</div>

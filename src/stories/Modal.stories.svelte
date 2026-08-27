@@ -13,6 +13,7 @@
 	let hidden = $state(true);
 	let breitHidden = $state(true);
 	let inhaltHidden = $state(true);
+	let vollHidden = $state(true);
 </script>
 
 <Story name="Standard">
@@ -69,6 +70,27 @@
 		</div>
 		{#snippet fusszeile()}
 			<Button variant="outline" size="sm" onclick={() => (inhaltHidden = true)}>Schließen</Button>
+		{/snippet}
+	</Modal>
+</Story>
+
+<!-- vollflaeche: maximale Nutzfläche für PDF-/Bildvorschauen — minimaler Rand
+     zur Bildschirmkante, kompakte Kopf- und Fußzeile. -->
+<Story name="Vollfläche (PDF-Vorschau)">
+	<Button onclick={() => (vollHidden = false)}>Vollflächen-Modal öffnen</Button>
+	<Modal bind:hidden={vollHidden} title="Energieausweis" size="inhalt" randlos vollflaeche>
+		{#snippet kopfZusatz()}
+			<p class="text-[11px] text-neutral-600">Vorschau — nutzt fast die volle Bildschirmhöhe.</p>
+		{/snippet}
+		<div class="flex max-w-full items-center justify-center bg-neutral-100 p-1.5">
+			<div
+				class="flex h-[80dvh] w-[500px] items-center justify-center rounded border border-neutral-300 bg-white text-sm text-neutral-500"
+			>
+				Seite 1
+			</div>
+		</div>
+		{#snippet fusszeile()}
+			<Button variant="outline" size="sm" onclick={() => (vollHidden = true)}>Schließen</Button>
 		{/snippet}
 	</Modal>
 </Story>
