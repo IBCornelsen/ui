@@ -11,6 +11,7 @@
 
 <script lang="ts">
 	let offen = $state(false);
+	let offenDestruktiv = $state(false);
 	let ergebnis = $state("");
 </script>
 
@@ -24,4 +25,16 @@
 		onConfirm={() => (ergebnis = "bestätigt")}
 	/>
 	{#if ergebnis}<p class="mt-3 text-sm text-neutral-600">Aktion: {ergebnis}</p>{/if}
+</Story>
+
+<Story name="Destruktiv">
+	<Button onclick={() => (offenDestruktiv = true)}>Ausweis stornieren …</Button>
+	<ConfirmDialog
+		bind:offen={offenDestruktiv}
+		ton="destruktiv"
+		title="Ausweis stornieren?"
+		message="Der Vorgang wird als storniert markiert und der Kunde erhält keine Dokumente. Das lässt sich nicht rückgängig machen."
+		confirmLabel="Stornieren"
+		onConfirm={() => (ergebnis = "storniert")}
+	/>
 </Story>
