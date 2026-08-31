@@ -21,10 +21,18 @@ export { default as Modal } from "./components/Modal.svelte";
 export { default as ConfirmDialog } from "./components/ConfirmDialog.svelte";
 export { default as WorkflowNav } from "./components/WorkflowNav.svelte";
 export { default as StatusKreis } from "./components/StatusKreis.svelte";
+export { default as MitgliederKreise } from "./components/MitgliederKreise.svelte";
+export type { MitgliederKreis } from "./components/MitgliederKreise.svelte";
 export { default as StatusPille } from "./components/StatusPille.svelte";
 export { default as Zwischentitel } from "./components/Zwischentitel.svelte";
-export { STATUS_PILLE_RAND } from "./components/StatusPille.svelte";
+export {
+	STATUS_PILLE_FLAECHE,
+	STATUS_PILLE_RAND,
+	STATUS_PILLE_PUNKT
+} from "./components/StatusPille.svelte";
 export type { StatusPilleTon } from "./components/StatusPille.svelte";
+export { OHNE_STATUS, statusPilleFuer } from "./components/ausweisStatus";
+export type { AusweisStatus, StatusPilleWert } from "./components/ausweisStatus";
 export { default as StepBadge } from "./components/StepBadge.svelte";
 export { default as StepMenuBadge } from "./components/StepMenuBadge.svelte";
 export { default as MobileStepBar } from "./components/MobileStepBar.svelte";

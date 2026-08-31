@@ -13,6 +13,12 @@
 		},
 		"./tokens.css": "./src/lib/tokens.css",
 		"./mobile-eingaben.css": "./src/lib/mobile-eingaben.css",
+		"./status": {
+			"types": "./src/lib/components/ausweisStatus.ts",
+			"svelte": "./src/lib/components/ausweisStatus.ts",
+			"import": "./src/lib/components/ausweisStatus.ts",
+			"default": "./src/lib/components/ausweisStatus.ts"
+		},
 		"./technik": {
 			"types": "./src/lib/components/TechnikIcon/technikIkonen.ts",
 			"svelte": "./src/lib/components/TechnikIcon/technikIkonen.ts",
