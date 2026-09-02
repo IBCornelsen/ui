@@ -6,6 +6,8 @@
 		name: string;
 		initialen: string;
 		farbe: string;
+		// Offene Einladung: gedämpfter, gestrichelter Kreis statt Avatarfarbe.
+		ausstehend?: boolean;
 	};
 </script>
 
@@ -25,16 +27,28 @@
 
 	const sichtbare = $derived(mitglieder.slice(0, max));
 	const weitere = $derived(mitglieder.length - sichtbare.length);
+
+	function kreisKlassen(mitglied: MitgliederKreis): string {
+		if (mitglied.ausstehend) {
+			return "border-dashed border-neutral-400 bg-white text-neutral-500";
+		}
+		return `border-white text-white ${mitglied.farbe}`;
+	}
+
+	function kreisTitel(mitglied: MitgliederKreis): string {
+		if (mitglied.ausstehend) return `${mitglied.name} — Einladung offen`;
+		return mitglied.name;
+	}
 </script>
 
 {#if mitglieder.length > 0}
 	<div class="flex -space-x-2">
 		{#each sichtbare as mitglied (mitglied.id)}
 			<span
-				class="flex shrink-0 items-center justify-center rounded-full border-2 border-white font-semibold text-white {GROESSE_KLASSEN[
+				class="flex shrink-0 items-center justify-center rounded-full border-2 font-semibold {GROESSE_KLASSEN[
 					groesse
-				]} {mitglied.farbe}"
-				title={mitglied.name}
+				]} {kreisKlassen(mitglied)}"
+				title={kreisTitel(mitglied)}
 			>
 				{mitglied.initialen}
 			</span>

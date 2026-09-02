@@ -16,6 +16,17 @@
 		{ id: "4", name: "Michael Braun", initialen: "MB", farbe: "bg-info-500" },
 		{ id: "5", name: "Ingo Cornelsen", initialen: "IC", farbe: "bg-warning-500" }
 	];
+
+	const MIT_EINLADUNG: MitgliederKreis[] = [
+		...MITGLIEDER.slice(0, 2),
+		{
+			id: "einladung-1",
+			name: "gast@beispiel.de",
+			initialen: "G",
+			farbe: "bg-neutral-400",
+			ausstehend: true
+		}
+	];
 </script>
 
 <Story name="Stapel">
@@ -28,4 +39,8 @@
 
 <Story name="Groß">
 	<MitgliederKreise mitglieder={MITGLIEDER} groesse="md" />
+</Story>
+
+<Story name="Mit offener Einladung">
+	<MitgliederKreise mitglieder={MIT_EINLADUNG} groesse="md" />
 </Story>
