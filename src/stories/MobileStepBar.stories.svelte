@@ -75,3 +75,23 @@
 		nextLabel="Letzter Schritt"
 	/>
 </Story>
+
+<!-- Klappt eine Dock-Spalte des Hosts weg, wird die Inhalts-Box breiter. Mit
+     insetLeft/insetRight gibt der Host den freigewordenen Platz an die Leiste
+     zurück, damit die Kreise an derselben Stelle stehen bleiben. -->
+<Story name="Mit Rand für eingeklappte Spalten">
+	<p class="text-sm text-neutral-700">
+		Die Kreise sitzen um 300 px eingerückt — genau dort, wo sie bei ausgeklappten Dock-Spalten
+		stehen.
+	</p>
+	<div class="h-20"></div>
+	<MobileStepBar
+		onPrev={() => (active = active - 1)}
+		onNext={() => (active = active + 1)}
+		prevDisabled={active <= 0}
+		nextDisabled={active >= STEPS.length - 1}
+		insetLeft={300}
+		insetRight={300}
+		{menu}
+	/>
+</Story>

@@ -34,6 +34,12 @@
 		// "viewport" pins the bar to the window, "container" to the nearest
 		// positioned ancestor (the host's content box).
 		anchor?: "viewport" | "container";
+		// Extra horizontal inset of the circle row in px. Hosts whose side columns
+		// collapse pass the freed width here, so the circles keep the place they
+		// hold while the columns are open. It animates with the same 300 ms as the
+		// dock columns — otherwise the circles jump out and slide back.
+		insetLeft?: number;
+		insetRight?: number;
 	}
 
 	let {
@@ -44,7 +50,9 @@
 		menu,
 		nextLabel = "Nächster Schritt",
 		barHeight = $bindable(0),
-		anchor = "viewport"
+		anchor = "viewport",
+		insetLeft = 0,
+		insetRight = 0
 	}: Props = $props();
 
 	const platzierung = $derived.by(() => {
@@ -71,7 +79,11 @@
 	class="pointer-events-none z-40 flex flex-col gap-2 px-3 pb-[env(safe-area-inset-bottom)] lg:px-4 lg:pb-4 {platzierung}"
 	bind:clientHeight={barHeight}
 >
-	<div class="flex items-center justify-between">
+	<div
+		class="flex items-center justify-between transition-[margin] duration-300 ease-out"
+		style:margin-left="{insetLeft}px"
+		style:margin-right="{insetRight}px"
+	>
 		<button
 			type="button"
 			class="pointer-events-auto {CIRCLE}"
