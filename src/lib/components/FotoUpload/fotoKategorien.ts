@@ -11,6 +11,7 @@ export interface FotoKategorie {
 export const FOTO_KATEGORIEN: FotoKategorie[] = [
 	{ wert: "Gebaeude", label: "Gebäude außen" },
 	{ wert: "GebaeudeInnen", label: "Gebäude innen" },
+	{ wert: "Fassade", label: "Fassade" },
 	{ wert: "Heizung", label: "Heizung" },
 	{ wert: "Fenster", label: "Fenster" },
 	{ wert: "Daemmung", label: "Dämmung" },

@@ -15,6 +15,8 @@
 		"Abgelaufen",
 		"Storniert"
 	];
+	// Angebotsanfrage der Gewerbe-Nachweise: läuft vor der Bestellung.
+	const ANGEBOT: AusweisStatus[] = ["Angefragt", "Angeboten", "Abgelehnt"];
 </script>
 
 <Story name="Lebenszyklus">
@@ -40,6 +42,15 @@
 					Hinweistext zum Status.
 				</p>
 			</div>
+		{/each}
+	</div>
+</Story>
+
+<Story name="Angebotsanfrage">
+	<div class="flex items-center gap-3">
+		{#each ANGEBOT as status (status)}
+			{@const pille = statusPilleFuer(status)}
+			<StatusPille ton={pille.ton} label={pille.label} />
 		{/each}
 	</div>
 </Story>
