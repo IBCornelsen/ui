@@ -60,6 +60,8 @@ export {
 	setActiveAnleitung
 } from "./components/Anleitung/store.svelte";
 export { default as FotoUpload } from "./components/FotoUpload/FotoUpload.svelte";
+export { default as BildGalerie } from "./components/BildGalerie/BildGalerie.svelte";
+export type { GalerieBild } from "./components/BildGalerie/types";
 export type { FotoUploadBild } from "./components/FotoUpload/types";
 export { FOTO_KATEGORIEN, fotoKategorieLabel } from "./components/FotoUpload/fotoKategorien";
 export type { FotoKategorie } from "./components/FotoUpload/fotoKategorien";
