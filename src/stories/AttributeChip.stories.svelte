@@ -8,7 +8,7 @@
 	});
 </script>
 
-<Story name="Ohne Beschriftung">
+<Story name="Gebäudeliste">
 	<div class="flex flex-wrap gap-1.5">
 		<AttributeChip value="Mehrfamilienhaus" />
 		<AttributeChip value="Baujahr 1998" />
@@ -17,13 +17,15 @@
 	</div>
 </Story>
 
-<Story name="Mit Beschriftung">
+<Story name="Gebäudeakte">
 	<div class="flex flex-wrap gap-1.5">
-		<AttributeChip label="Gebäudetyp" value="Mehrfamilienhaus" />
-		<AttributeChip label="Gebäudeteil" value="Gesamtgebäude" />
-		<AttributeChip label="Wohnfläche" value="420 m²" />
-		<AttributeChip label="Nutzfläche" value="530 m²" />
-		<AttributeChip label="Baujahr Heizung" value="2014" />
-		<AttributeChip label="Heizsystem" value="Zentralheizung" />
+		<AttributeChip value="Mehrfamilienhaus" />
+		<AttributeChip value="Gesamtgebäude" />
+		<AttributeChip value="Wohnfläche 420 m²" />
+		<AttributeChip value="Nutzfläche 530 m²" />
+		<AttributeChip value="6 Wohneinheiten" />
+		<AttributeChip value="Baujahr 1998" />
+		<AttributeChip value="Heizung 2014" />
+		<AttributeChip value="Zentralheizung" />
 	</div>
 </Story>
