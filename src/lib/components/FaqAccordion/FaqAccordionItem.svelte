@@ -42,9 +42,7 @@
 	<!-- grid-rows 0fr→1fr animates the height while keeping content in the DOM. -->
 	<div class={bodyClass}>
 		<div class="overflow-hidden">
-			<div
-				class="prose mt-2 rounded-xl border border-neutral-200 bg-white px-5 py-4"
-			>
+			<div class="prose mt-2 rounded-xl border border-neutral-200 bg-white px-5 py-4">
 				{@render children()}
 			</div>
 		</div>
