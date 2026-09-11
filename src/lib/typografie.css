@@ -40,7 +40,9 @@
 	@apply text-lg leading-relaxed text-neutral-800;
 }
 @utility body-md {
-	@apply text-base leading-relaxed text-neutral-800;
+	/* Hausgroesse fuer Fliesstext: 18px. Bewusst eine Stufe ueber der
+	   Tailwind-Vorgabe — die Inhaltsseiten sind Lesetexte. */
+	@apply text-lg leading-relaxed text-neutral-800;
 }
 @utility body-sm {
 	@apply text-sm leading-relaxed text-neutral-700;
