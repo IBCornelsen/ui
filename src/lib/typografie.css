@@ -1,6 +1,6 @@
 /* IBC-Typografie — gemeinsame Quelle für App und Storybook.
 
-   Hier stehen die Schriftklassen des Hauses (h1–h6, body-*, label-*, link …)
+   Hier stehen die Schriftklassen des Hauses (h1–h5, body-*, label-*, link …)
    und der prose-Block für Fließtextseiten. Sie gehören in die Bibliothek und
    nicht in eine App, damit eine Komponente in Storybook genauso aussieht wie
    auf der Website.
@@ -19,7 +19,7 @@
    ========================================================= */
 
 @utility h1 {
-	@apply text-[28px] leading-tight font-extrabold tracking-tight text-primary-900 md:text-3xl;
+	@apply text-[28px] leading-tight font-extrabold tracking-tight text-primary-900 md:text-[32px];
 }
 @utility h2 {
 	@apply text-2xl leading-snug font-bold tracking-tight text-primary-900;
@@ -28,21 +28,18 @@
 	@apply text-xl leading-snug font-bold tracking-tight text-primary-900;
 }
 @utility h4 {
-	@apply text-xl leading-snug font-semibold text-primary-900;
-}
-@utility h5 {
 	@apply text-lg leading-snug font-semibold text-primary-900;
 }
-@utility h6 {
+@utility h5 {
 	@apply text-base leading-snug font-semibold text-primary-900;
 }
 @utility body-lg {
 	@apply text-lg leading-relaxed text-neutral-800;
 }
 @utility body-md {
-	/* Hausgroesse fuer Fliesstext: 18px. Bewusst eine Stufe ueber der
-	   Tailwind-Vorgabe — die Inhaltsseiten sind Lesetexte. */
-	@apply text-lg leading-relaxed text-neutral-800;
+	/* Hausgroesse fuer Fliesstext. Die Ueberschriftenskala darunter setzt
+	   darauf auf: keine Stufe darf kleiner werden als diese Zeile. */
+	@apply text-base leading-relaxed text-neutral-800;
 }
 @utility body-sm {
 	@apply text-sm leading-relaxed text-neutral-700;
@@ -100,9 +97,6 @@
 		}
 		h5 {
 			@apply mt-4 mb-2 h5 first:mt-0;
-		}
-		h6 {
-			@apply mt-4 mb-2 h6 first:mt-0;
 		}
 		/* Zeilenlänge begrenzen — nur Fließtext, damit Tabellen, Karten und
 		   Diagramme weiter die volle Spaltenbreite nutzen. */

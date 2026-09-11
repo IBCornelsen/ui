@@ -31,13 +31,11 @@
 				{#snippet h3Text()}<span class="h3">Energieausweis online erstellen</span>{/snippet}
 				{#snippet h4Text()}<span class="h4">Energieausweis online erstellen</span>{/snippet}
 				{#snippet h5Text()}<span class="h5">Energieausweis online erstellen</span>{/snippet}
-				{#snippet h6Text()}<span class="h6">Energieausweis online erstellen</span>{/snippet}
 				{@render zeile("h1", h1Text)}
 				{@render zeile("h2", h2Text)}
 				{@render zeile("h3", h3Text)}
 				{@render zeile("h4", h4Text)}
 				{@render zeile("h5", h5Text)}
-				{@render zeile("h6", h6Text)}
 			</div>
 		</section>
 
