@@ -1,0 +1,150 @@
+/* IBC-Typografie — gemeinsame Quelle für App und Storybook.
+
+   Hier stehen die Schriftklassen des Hauses (h1–h6, body-*, label-*, link …)
+   und der prose-Block für Fließtextseiten. Sie gehören in die Bibliothek und
+   nicht in eine App, damit eine Komponente in Storybook genauso aussieht wie
+   auf der Website.
+
+   Bewusst KEIN @tailwindcss/typography: das Plugin bringt eine eigene
+   Schriftskala mit, die mit der Skala unten kollidieren würde. `prose` hier ist
+   eine eigene Utility — Klassen des Plugins wie `not-prose` gibt es deshalb
+   nicht.
+
+   Voraussetzung: tokens.css ist vorher importiert, die Regeln unten greifen auf
+   dessen Farbtoken zu. */
+
+/* =========================================================
+   TYPOGRAPHY UTILITIES
+   Defined with @utility so they work inside @apply too.
+   ========================================================= */
+
+@utility h1 {
+	@apply text-[28px] leading-tight font-extrabold tracking-tight text-primary-900 md:text-3xl;
+}
+@utility h2 {
+	@apply text-2xl leading-snug font-bold tracking-tight text-primary-900;
+}
+@utility h3 {
+	@apply text-xl leading-snug font-bold tracking-tight text-primary-900;
+}
+@utility h4 {
+	@apply text-xl leading-snug font-semibold text-primary-900;
+}
+@utility h5 {
+	@apply text-lg leading-snug font-semibold text-primary-900;
+}
+@utility h6 {
+	@apply text-base leading-snug font-semibold text-primary-900;
+}
+@utility body-lg {
+	@apply text-lg leading-relaxed text-neutral-800;
+}
+@utility body-md {
+	@apply text-base leading-relaxed text-neutral-800;
+}
+@utility body-sm {
+	@apply text-sm leading-relaxed text-neutral-700;
+}
+@utility body-xs {
+	@apply text-sm leading-relaxed text-neutral-600;
+}
+@utility label-lg {
+	@apply text-sm font-semibold text-neutral-900;
+}
+@utility label-md {
+	@apply text-sm font-semibold text-neutral-900;
+}
+@utility label-sm {
+	@apply text-xs font-semibold tracking-wider text-neutral-600 uppercase;
+}
+@utility muted {
+	@apply text-neutral-600;
+}
+@utility lead {
+	@apply text-lg leading-relaxed text-neutral-600;
+}
+@utility caption {
+	@apply text-sm leading-normal text-neutral-600;
+}
+@utility eyebrow {
+	@apply font-mono text-sm font-semibold tracking-widest text-secondary-600 uppercase;
+}
+@utility link {
+	@apply font-medium text-primary-600 underline underline-offset-2 transition-colors hover:text-primary-700 hover:decoration-2;
+}
+@utility code-inline {
+	@apply rounded border border-neutral-200 bg-neutral-100 px-1.5 py-0.5 font-mono text-sm text-neutral-800;
+}
+
+@layer components {
+	.prose-sm {
+		@apply body-sm;
+	}
+
+	.prose {
+		@apply body-md;
+
+		h1 {
+			@apply mt-8 mb-4 h1 first:mt-0;
+		}
+		h2 {
+			@apply mt-8 mb-3 h2 first:mt-0;
+		}
+		h3 {
+			@apply mt-6 mb-3 h3 first:mt-0;
+		}
+		h4 {
+			@apply mt-6 mb-2 h4 first:mt-0;
+		}
+		h5 {
+			@apply mt-4 mb-2 h5 first:mt-0;
+		}
+		h6 {
+			@apply mt-4 mb-2 h6 first:mt-0;
+		}
+		/* Zeilenlänge begrenzen — nur Fließtext, damit Tabellen, Karten und
+		   Diagramme weiter die volle Spaltenbreite nutzen. */
+		p {
+			@apply mb-4 max-w-[75ch] last:mb-0;
+		}
+		a {
+			@apply link;
+		}
+		strong {
+			@apply font-semibold text-neutral-900;
+		}
+		em {
+			@apply italic;
+		}
+		ul {
+			@apply mb-4 ml-5 list-disc space-y-1;
+		}
+		ol {
+			@apply mb-4 ml-5 list-decimal space-y-1;
+		}
+		li {
+			@apply max-w-[75ch] text-neutral-700;
+		}
+		code {
+			@apply code-inline;
+		}
+		blockquote {
+			@apply my-4 border-l-4 border-secondary-400 pl-4 text-neutral-600 italic;
+		}
+		hr {
+			@apply my-6 border-neutral-200;
+		}
+		table {
+			@apply w-full border-collapse text-sm;
+			thead th {
+				@apply border-b border-neutral-200 bg-neutral-50 px-3 py-2 text-left font-semibold text-neutral-900;
+			}
+			tbody td {
+				@apply border-b border-neutral-100 px-3 py-2 text-neutral-700;
+			}
+			tbody tr:last-child td {
+				@apply border-b-0;
+			}
+		}
+	}
+}

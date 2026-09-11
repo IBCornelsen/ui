@@ -1,5 +1,8 @@
 @import "tailwindcss";
 @import "./tokens.css";
+/* Dieselbe Typografie wie die Website — sonst sieht eine Komponente hier
+   anders aus als im Einsatz. */
+@import "./typografie.css";
 
 /* Storybook renders components from this folder — scan their utility classes. */
 @source "./components";

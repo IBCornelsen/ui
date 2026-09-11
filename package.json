@@ -12,6 +12,7 @@
 			"svelte": "./src/lib/index.ts"
 		},
 		"./tokens.css": "./src/lib/tokens.css",
+		"./typografie.css": "./src/lib/typografie.css",
 		"./mobile-eingaben.css": "./src/lib/mobile-eingaben.css",
 		"./status": {
 			"types": "./src/lib/components/ausweisStatus.ts",
