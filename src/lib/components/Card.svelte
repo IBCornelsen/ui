@@ -31,7 +31,9 @@
 		subtle: "bg-surface-subtle"
 	};
 
-	const BASE_CLASSES = "border border-neutral-200";
+	// neutral-400 statt der helleren Stufe: auf weissem Grund war die Kante
+	// vorher kaum auszumachen — die Karte muss sich ohne Schatten abgrenzen.
+	const BASE_CLASSES = "border border-neutral-400";
 	const LINK_CLASSES =
 		"block no-underline transition-colors hover:border-primary-300 hover:bg-primary-50/40";
 </script>

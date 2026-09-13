@@ -18,28 +18,32 @@
    Defined with @utility so they work inside @apply too.
    ========================================================= */
 
+/* Die Skala setzt auf der Fliesstextgroesse (body-md, 20px) auf: keine Stufe
+   darf kleiner sein als der Fliesstext, und zwischen zwei Stufen liegt jeweils
+   eine spuerbare Differenz. 20 - 24 - 30 - 36 - 40. */
 @utility h1 {
-	@apply text-[28px] leading-tight font-extrabold tracking-tight text-primary-900 md:text-[32px];
+	@apply text-[32px] leading-tight font-extrabold tracking-tight text-primary-900 md:text-[40px];
 }
 @utility h2 {
-	@apply text-2xl leading-snug font-bold tracking-tight text-primary-900;
+	@apply text-3xl leading-snug font-bold tracking-tight text-primary-900;
 }
 @utility h3 {
-	@apply text-xl leading-snug font-bold tracking-tight text-primary-900;
+	@apply text-2xl leading-snug font-bold tracking-tight text-primary-900;
 }
 @utility h4 {
-	@apply text-lg leading-snug font-semibold text-primary-900;
+	@apply text-xl leading-snug font-semibold text-primary-900;
 }
 @utility h5 {
-	@apply text-base leading-snug font-semibold text-primary-900;
+	@apply text-lg leading-snug font-semibold text-primary-900;
 }
 @utility body-lg {
-	@apply text-lg leading-relaxed text-neutral-800;
+	@apply text-xl leading-relaxed text-neutral-800;
 }
 @utility body-md {
-	/* Hausgroesse fuer Fliesstext. Die Ueberschriftenskala darunter setzt
-	   darauf auf: keine Stufe darf kleiner werden als diese Zeile. */
-	@apply text-base leading-relaxed text-neutral-800;
+	/* Hausgroesse fuer Fliesstext: EINE Groesse fuer jeden laufenden Text im
+	   Inhaltsbereich — Absaetze, Listen und Kartentexte gleichermassen. `lead`
+	   traegt dieselbe Groesse und unterscheidet sich nur in der Farbe. */
+	@apply text-lg leading-relaxed text-neutral-800;
 }
 @utility body-sm {
 	@apply text-sm leading-relaxed text-neutral-700;

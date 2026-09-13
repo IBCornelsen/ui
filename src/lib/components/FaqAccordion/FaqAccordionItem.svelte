@@ -33,7 +33,7 @@
 		type="button"
 		onclick={() => accordion.toggle(title)}
 		aria-expanded={open}
-		class="flex w-full cursor-pointer items-center justify-between gap-3 rounded-xl border border-neutral-200 bg-white px-5 py-4 text-left shadow-sm transition-colors hover:border-primary-300"
+		class="flex w-full cursor-pointer items-center justify-between gap-3 rounded-xl border border-neutral-400 bg-white px-5 py-4 text-left transition-colors hover:border-primary-300"
 	>
 		<span class="text-lg font-bold text-box-heading">{title}</span>
 		<CaretDownIcon size={20} weight="bold" class={caretClass} />
@@ -42,7 +42,7 @@
 	<!-- grid-rows 0fr→1fr animates the height while keeping content in the DOM. -->
 	<div class={bodyClass}>
 		<div class="overflow-hidden">
-			<div class="prose mt-2 rounded-xl border border-neutral-200 bg-white px-5 py-4">
+			<div class="prose mt-2 rounded-xl border border-neutral-400 bg-white px-5 py-4">
 				{@render children()}
 			</div>
 		</div>
