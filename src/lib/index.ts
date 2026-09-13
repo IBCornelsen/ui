@@ -40,6 +40,7 @@ export { default as DockSpalte } from "./components/DockSpalte/DockSpalte.svelte
 export { default as SpaltenGriff } from "./components/DockSpalte/SpaltenGriff.svelte";
 export type { WorkflowStepStatus } from "./components/WorkflowNav.svelte";
 export { default as Card } from "./components/Card.svelte";
+export { default as CardTitle } from "./components/CardTitle.svelte";
 export { default as InfoCard } from "./components/InfoCard.svelte";
 export { default as StepCards } from "./components/StepCards.svelte";
 export type { Step } from "./components/StepCards.svelte";
