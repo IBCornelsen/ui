@@ -10,6 +10,8 @@
 	interface Props {
 		title: string;
 		icon?: Component<IconComponentProps>;
+		/** Blue by default; `warning` marks a box that points out pitfalls. */
+		iconTone?: "primary" | "warning";
 		/** Checked list. Omit it and pass `children` for free content instead. */
 		items?: string[];
 		size?: "sm" | "md" | "lg";
@@ -21,22 +23,31 @@
 	let {
 		title,
 		icon: IconComponent,
+		iconTone = "primary",
 		items,
 		size = "md",
 		tone = "card",
 		class: className = "",
 		children
 	}: Props = $props();
+
+	// The icon stands on its own, without a tinted tile, and carries the size of
+	// the step badges so every round mark on a content page reads the same.
+	const ICON_SIZE = 36;
+	const ICON_TONE_CLASSES: Record<"primary" | "warning", string> = {
+		primary: "text-primary-600",
+		warning: "text-secondary-500"
+	};
 </script>
 
 <Card {size} {tone} class={className}>
 	<div class="mb-3 flex items-center gap-3">
 		{#if IconComponent}
-			<span
-				class="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-primary-50 text-primary-700"
-			>
-				<IconComponent size={22} weight="fill" />
-			</span>
+			<IconComponent
+				size={ICON_SIZE}
+				weight="fill"
+				class="shrink-0 {ICON_TONE_CLASSES[iconTone]}"
+			/>
 		{/if}
 		<h3 class="m-0 h5">{title}</h3>
 	</div>
@@ -45,7 +56,7 @@
 		<ul class="m-0 flex list-none flex-col gap-2 p-0">
 			{#each items as item (item)}
 				<li class="flex items-start gap-2.5">
-					<CheckCircleIcon size={18} weight="fill" class="mt-[3px] shrink-0 text-secondary-500" />
+					<CheckCircleIcon size={18} weight="fill" class="mt-[3px] shrink-0 text-primary-600" />
 					<span class="body-md">{item}</span>
 				</li>
 			{/each}

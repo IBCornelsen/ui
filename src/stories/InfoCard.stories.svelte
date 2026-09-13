@@ -3,6 +3,7 @@
 	import InfoCard from "../lib/components/InfoCard.svelte";
 	import ShieldCheckIcon from "phosphor-svelte/lib/ShieldCheckIcon";
 	import ClockIcon from "phosphor-svelte/lib/ClockIcon";
+	import WarningCircleIcon from "phosphor-svelte/lib/WarningCircleIcon";
 
 	const { Story } = defineMeta({
 		title: "UI/InfoCard",
@@ -33,6 +34,20 @@
 				vollständig, geht der Ausweis in der Regel am nächsten Werktag heraus.
 			</p>
 		</InfoCard>
+	</div>
+</Story>
+
+<Story name="Warnton">
+	<div class="w-[640px]">
+		<InfoCard
+			icon={WarningCircleIcon}
+			iconTone="warning"
+			title="Häufige Stolpersteine bei der Eingabe"
+			items={[
+				"Wohnfläche statt beheizter Fläche: Gefragt ist die beheizte Fläche.",
+				"Warmwasser vergessen: Wird es über die Heizung erzeugt, gehört der Anteil dazu."
+			]}
+		/>
 	</div>
 </Story>
 
