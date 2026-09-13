@@ -24,8 +24,10 @@
 	}: Props = $props();
 
 	// Ripple layer needs a positioned, clipped host.
+	// no-underline: with `href` the button renders as an anchor, and the prose
+	// styles of the content pages underline every anchor inside them.
 	const base =
-		"relative overflow-hidden inline-flex items-center justify-center gap-2 rounded-md font-semibold transition-colors cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-primary-600/40 disabled:cursor-default disabled:opacity-50";
+		"relative overflow-hidden inline-flex items-center justify-center gap-2 rounded-md font-semibold no-underline transition-colors cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-primary-600/40 disabled:cursor-default disabled:opacity-50";
 
 	const variants: Record<Variant, string> = {
 		primary: "bg-primary-600 text-white shadow-sm hover:bg-primary-700 active:bg-primary-800",

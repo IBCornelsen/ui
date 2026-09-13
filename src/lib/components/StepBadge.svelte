@@ -4,14 +4,17 @@
 	// buttons of the order forms.
 	interface Props {
 		step: number;
-		size?: "sm" | "md";
+		size?: "sm" | "md" | "lg";
 	}
 
 	const { step, size = "md" }: Props = $props();
 
+	// lg carries the number at the head of a step card, where it stands next to
+	// a heading rather than inside a button.
 	const SIZE_CLASSES = {
 		sm: "h-[22px] w-[22px] text-[11px]",
-		md: "h-[26px] w-[26px] text-[13px]"
+		md: "h-[26px] w-[26px] text-[13px]",
+		lg: "h-9 w-9 text-sm"
 	};
 </script>
 

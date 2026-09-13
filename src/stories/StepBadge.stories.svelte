@@ -11,9 +11,9 @@
 
 <Story name="Größen">
 	<div class="flex items-center gap-3">
-		<StepBadge step={1} />
+		<StepBadge step={1} size="sm" />
 		<StepBadge step={2} />
-		<StepBadge step={3} size="sm" />
+		<StepBadge step={3} size="lg" />
 	</div>
 </Story>
 

@@ -59,3 +59,13 @@
 		<Button variant="outline" size="sm" href="#ziel">Outline-Link</Button>
 	</div>
 </Story>
+
+<Story name="Als Link im Fließtext">
+	<div class="prose w-[560px]">
+		<p>
+			Innerhalb eines <code class="code-inline">prose</code>-Blocks wird jeder Link unterstrichen —
+			ein Knopf mit <code class="code-inline">href</code> bleibt davon ausgenommen.
+		</p>
+		<Button href="/energieausweis-erstellen" size="lg">Energieausweis erstellen</Button>
+	</div>
+</Story>
