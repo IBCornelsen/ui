@@ -1,24 +1,36 @@
 <script lang="ts">
 	import type { Snippet } from "svelte";
 
-	// The one content surface of the house: a white panel with a hairline border.
-	// Elevation is reserved for elements that float above the page (sidebar,
-	// menu, dialogs) — a content card earns its edge from the border, not a
-	// shadow. Radius and padding move together, so a small card never carries
-	// the radius of a large one.
+	// The one content surface of the house: a panel with a hairline border.
+	// Radius and padding move together, so a small card never carries the radius
+	// of a large one.
 	type Size = "sm" | "md" | "lg";
 	type Tone = "card" | "subtle";
+	type Edge = "content" | "app";
 
 	interface Props {
 		size?: Size;
 		tone?: Tone;
+		/**
+		 * `content` — the visible edge of the content pages, no elevation.
+		 * `app` — the softer panel of the signed-in area, lifted a little off the
+		 * tinted page background.
+		 */
+		edge?: Edge;
 		/** Renders the card as a link, including hover feedback. */
 		href?: string;
 		class?: string;
 		children: Snippet;
 	}
 
-	let { size = "md", tone = "card", href, class: className = "", children }: Props = $props();
+	let {
+		size = "md",
+		tone = "card",
+		edge = "content",
+		href,
+		class: className = "",
+		children
+	}: Props = $props();
 
 	const SIZE_CLASSES: Record<Size, string> = {
 		sm: "rounded-lg p-4",
@@ -31,9 +43,16 @@
 		subtle: "bg-surface-subtle"
 	};
 
-	// neutral-400 statt der helleren Stufe: auf weissem Grund war die Kante
-	// vorher kaum auszumachen — die Karte muss sich ohne Schatten abgrenzen.
-	const BASE_CLASSES = "border border-neutral-400";
+	// content: neutral-400 statt der helleren Stufe — auf weissem Grund war die
+	// Kante vorher kaum auszumachen, und eine Inhaltskarte bezieht ihren Rand aus
+	// der Linie, nicht aus einem Schatten.
+	// app: der eingeloggte Bereich steht auf getoentem Grund und hebt seine
+	// Flaechen leicht ab; EIN Randton fuer alle Panels dort.
+	const EDGE_CLASSES: Record<Edge, string> = {
+		content: "border border-neutral-400",
+		app: "border border-neutral-200 shadow-sm"
+	};
+
 	const LINK_CLASSES =
 		"block no-underline transition-colors hover:border-primary-300 hover:bg-primary-50/40";
 </script>
@@ -41,12 +60,14 @@
 {#if href}
 	<a
 		{href}
-		class="{BASE_CLASSES} {SIZE_CLASSES[size]} {TONE_CLASSES[tone]} {LINK_CLASSES} {className}"
+		class="{EDGE_CLASSES[edge]} {SIZE_CLASSES[size]} {TONE_CLASSES[
+			tone
+		]} {LINK_CLASSES} {className}"
 	>
 		{@render children()}
 	</a>
 {:else}
-	<div class="{BASE_CLASSES} {SIZE_CLASSES[size]} {TONE_CLASSES[tone]} {className}">
+	<div class="{EDGE_CLASSES[edge]} {SIZE_CLASSES[size]} {TONE_CLASSES[tone]} {className}">
 		{@render children()}
 	</div>
 {/if}

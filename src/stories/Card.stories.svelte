@@ -50,3 +50,21 @@
 		</Card>
 	</div>
 </Story>
+
+<Story name="Kanten">
+	<div class="flex w-[560px] flex-col gap-4 bg-surface-page p-6">
+		<Card edge="content">
+			<div class="h5">content — Inhaltsseiten</div>
+			<p class="m-0 body-md">
+				Sichtbare Kante in neutral-400, keine Erhebung: die Karte grenzt sich durch die Linie ab.
+			</p>
+		</Card>
+		<Card edge="app">
+			<div class="h5">app — eingeloggter Bereich</div>
+			<p class="m-0 body-md">
+				Weichere Kante in neutral-200 mit leichter Erhebung — EIN Randton für alle Panels von
+				Dashboard, Ausstellerbereich und Bestellstrecke.
+			</p>
+		</Card>
+	</div>
+</Story>
