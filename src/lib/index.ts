@@ -23,6 +23,8 @@ export { default as WorkflowNav } from "./components/WorkflowNav.svelte";
 export { default as StatusKreis } from "./components/StatusKreis.svelte";
 export { default as MitgliederKreise } from "./components/MitgliederKreise.svelte";
 export type { MitgliederKreis } from "./components/MitgliederKreise.svelte";
+export { default as PortraitZuschnitt } from "./components/PortraitZuschnitt.svelte";
+export type { Ausschnitt as PortraitAusschnitt } from "./components/portraitAusschnitt";
 export { default as StatusPille } from "./components/StatusPille.svelte";
 export { default as Zwischentitel } from "./components/Zwischentitel.svelte";
 export {

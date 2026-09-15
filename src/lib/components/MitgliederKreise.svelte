@@ -22,9 +22,10 @@
 
 	const { mitglieder, max = 4, groesse = "sm" }: Props = $props();
 
+	// Groß genug, dass ein Porträt als Gesicht erkennbar bleibt.
 	const GROESSE_KLASSEN: Record<"sm" | "md", string> = {
-		sm: "h-7 w-7 text-xs",
-		md: "h-9 w-9 text-sm"
+		sm: "h-10 w-10 text-sm",
+		md: "h-12 w-12 text-base"
 	};
 
 	const sichtbare = $derived(mitglieder.slice(0, max));
@@ -51,7 +52,7 @@
 </script>
 
 {#if mitglieder.length > 0}
-	<div class="flex -space-x-2">
+	<div class="flex -space-x-3">
 		{#each sichtbare as mitglied (mitglied.id)}
 			<span
 				class="flex shrink-0 items-center justify-center rounded-full border-2 font-semibold {GROESSE_KLASSEN[
