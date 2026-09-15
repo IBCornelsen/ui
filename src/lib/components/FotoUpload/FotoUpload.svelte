@@ -61,6 +61,11 @@
 	// Keyed by id AND url so a replaced photo (new URL, same id) gets a fresh attempt.
 	let fehlerhafteQuellen = $state<Set<string>>(new Set());
 
+	function kachelQuelle(bild: FotoUploadBild): string | undefined {
+		if (bild.vorschauUrl) return bild.vorschauUrl;
+		return bild.url;
+	}
+
 	function bildQuelle(bild: { id: string; url?: string }): string {
 		return bild.id + "|" + (bild.url || "");
 	}
@@ -280,9 +285,10 @@
 						title="Foto in voller Größe öffnen"
 					>
 						<img
-							src={bild.url}
+							src={kachelQuelle(bild)}
 							alt={fotoKategorieLabel(bild.kategorie)}
 							loading="lazy"
+							decoding="async"
 							use:bildFehlerPruefen={bildQuelle(bild)}
 							onerror={() => bildFehlgeschlagen(bildQuelle(bild))}
 							class="h-full w-full object-cover transition-transform duration-200 group-hover:scale-105"
