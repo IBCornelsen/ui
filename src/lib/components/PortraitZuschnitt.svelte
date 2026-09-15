@@ -124,6 +124,7 @@
 				src={bildUrl}
 				alt=""
 				draggable="false"
+				decoding="async"
 				class="absolute top-0 left-0 max-w-none origin-top-left"
 				style={bildStil}
 				onload={bildGeladen}
