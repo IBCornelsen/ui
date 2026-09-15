@@ -17,6 +17,19 @@
 		{ id: "5", name: "Ingo Cornelsen", initialen: "IC", farbe: "bg-warning-500" }
 	];
 
+	// Datei-URLs statt Fremdhosts: Storybook läuft ohne Netz.
+	const PORTRAIT =
+		"data:image/svg+xml;utf8," +
+		encodeURIComponent(
+			'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><rect width="64" height="64" fill="#3f4f8f"/><circle cx="32" cy="24" r="12" fill="#f2f4fb"/><path d="M8 64c0-13 11-22 24-22s24 9 24 22z" fill="#f2f4fb"/></svg>'
+		);
+
+	const MIT_PORTRAIT: MitgliederKreis[] = [
+		{ ...MITGLIEDER[0], bild: PORTRAIT },
+		MITGLIEDER[1],
+		{ ...MITGLIEDER[2], bild: PORTRAIT }
+	];
+
 	const MIT_EINLADUNG: MitgliederKreis[] = [
 		...MITGLIEDER.slice(0, 2),
 		{
@@ -39,6 +52,13 @@
 
 <Story name="Groß">
 	<MitgliederKreise mitglieder={MITGLIEDER} groesse="md" />
+</Story>
+
+<Story name="Mit Porträtbild">
+	<div class="flex flex-col gap-4">
+		<MitgliederKreise mitglieder={MIT_PORTRAIT} />
+		<MitgliederKreise mitglieder={MIT_PORTRAIT} groesse="md" />
+	</div>
 </Story>
 
 <Story name="Mit offener Einladung">

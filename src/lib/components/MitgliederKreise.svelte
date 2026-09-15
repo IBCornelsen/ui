@@ -6,6 +6,8 @@
 		name: string;
 		initialen: string;
 		farbe: string;
+		// Porträtbild der Person; ohne Bild trägt der Kreis die Initialen.
+		bild?: string;
 		// Offene Einladung: gedämpfter, gestrichelter Kreis statt Avatarfarbe.
 		ausstehend?: boolean;
 	};
@@ -35,6 +37,13 @@
 		return `border-white text-white ${mitglied.farbe}`;
 	}
 
+	// Das Porträt füllt den Kreis; eine offene Einladung behält ihren
+	// gestrichelten Platzhalter, auch wenn ein Bild mitkommt.
+	function zeigtBild(mitglied: MitgliederKreis): boolean {
+		if (mitglied.ausstehend) return false;
+		return Boolean(mitglied.bild);
+	}
+
 	function kreisTitel(mitglied: MitgliederKreis): string {
 		if (mitglied.ausstehend) return `${mitglied.name} — Einladung offen`;
 		return mitglied.name;
@@ -50,7 +59,16 @@
 				]} {kreisKlassen(mitglied)}"
 				title={kreisTitel(mitglied)}
 			>
-				{mitglied.initialen}
+				{#if zeigtBild(mitglied)}
+					<img
+						src={mitglied.bild}
+						alt=""
+						class="h-full w-full rounded-full object-cover"
+						loading="lazy"
+					/>
+				{:else}
+					{mitglied.initialen}
+				{/if}
 			</span>
 		{/each}
 		{#if weitere > 0}
