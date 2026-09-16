@@ -48,14 +48,16 @@
 					<PlayIcon size={28} weight="fill" />
 				</span>
 			</span>
-			<span
-				class="absolute inset-x-0 bottom-0 bg-black/60 px-3 py-1.5 text-left text-xs text-white"
-			>
-				Beim Abspielen werden Daten an YouTube übertragen.
-			</span>
 		</button>
 	{/if}
-	{#if caption}
-		<figcaption class="mt-2 body-sm">{caption}</figcaption>
-	{/if}
+	<!-- The privacy note sits below the poster so the title in the image stays
+	     readable; it is always rendered so that pressing play does not shift the layout. -->
+	<figcaption class="mt-2 body-sm">
+		{#if caption}
+			<span class="block">{caption}</span>
+		{/if}
+		<span class="block text-xs text-neutral-500">
+			Beim Abspielen werden Daten an YouTube übertragen.
+		</span>
+	</figcaption>
 </figure>
