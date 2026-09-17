@@ -12,10 +12,31 @@
 		posterUrl: string;
 		/** Line under the video. Omit it and the video stands on its own. */
 		caption?: string;
+		/**
+		 * The poster is the largest element above the fold: fetch it at once and
+		 * with high priority instead of lazily, so it does not delay the LCP.
+		 */
+		priority?: boolean;
 		class?: string;
 	}
 
-	let { videoId, title, posterUrl, caption, class: className = "" }: Props = $props();
+	let {
+		videoId,
+		title,
+		posterUrl,
+		caption,
+		priority = false,
+		class: className = ""
+	}: Props = $props();
+
+	const posterLoading = $derived.by(() => {
+		if (priority) return "eager";
+		return "lazy";
+	});
+	const posterFetchPriority = $derived.by(() => {
+		if (priority) return "high";
+		return "auto";
+	});
 
 	let playing = $state(false);
 
@@ -40,7 +61,13 @@
 			aria-label="Video abspielen: {title}"
 			onclick={play}
 		>
-			<img src={posterUrl} alt="" class="h-full w-full object-cover" loading="lazy" />
+			<img
+				src={posterUrl}
+				alt=""
+				class="h-full w-full object-cover"
+				loading={posterLoading}
+				fetchpriority={posterFetchPriority}
+			/>
 			<span class="absolute inset-0 flex items-center justify-center">
 				<span
 					class="flex h-14 w-14 items-center justify-center rounded-full bg-primary-600 text-white shadow-md transition-colors group-hover:bg-primary-700"

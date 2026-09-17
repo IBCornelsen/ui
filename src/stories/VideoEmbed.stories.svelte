@@ -20,11 +20,14 @@
 		"Sie wählen die Ausweisart, tragen die Gebäudedaten in ein geführtes Formular ein und erhalten den registrierten Energieausweis als PDF — geprüft von einem Diplom-Ingenieur. Welche Unterlagen Sie brauchen, wie lange es dauert und was nach dem Absenden passiert, steht weiter unten.";
 </script>
 
+<!-- priority: the block sits at the top of its page, so the poster is fetched
+     eagerly instead of lazily. -->
 <Story name="Video neben dem Fließtext">
 	<div class="prose @container w-[1000px]">
 		<TextWithVideo
 			videoId="rFKzKRu1_Yk"
 			posterUrl={poster}
+			priority
 			title="Erklärvideo: Energieausweis online erstellen"
 			caption="Erklärvideo: So läuft die Bestellung ab."
 		>

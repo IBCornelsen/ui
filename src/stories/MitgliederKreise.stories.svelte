@@ -10,8 +10,14 @@
 	});
 
 	const MITGLIEDER: MitgliederKreis[] = [
-		{ id: "1", name: "Anna Schmidt", initialen: "AS", farbe: "bg-primary-600" },
-		{ id: "2", name: "Thomas Weber", initialen: "TW", farbe: "bg-secondary-500" },
+		{
+			id: "1",
+			name: "Anna Schmidt",
+			initialen: "AS",
+			farbe: "bg-primary-600",
+			rolle: "Eigentümer"
+		},
+		{ id: "2", name: "Thomas Weber", initialen: "TW", farbe: "bg-secondary-500", rolle: "Makler" },
 		{ id: "3", name: "Petra Klein", initialen: "PK", farbe: "bg-success-500" },
 		{ id: "4", name: "Michael Braun", initialen: "MB", farbe: "bg-info-500" },
 		{ id: "5", name: "Ingo Cornelsen", initialen: "IC", farbe: "bg-warning-500" }

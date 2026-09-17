@@ -15,11 +15,21 @@
 		title: string;
 		posterUrl: string;
 		caption?: string;
+		/** Poster fetched eagerly — for the block at the top of a page (LCP). */
+		priority?: boolean;
 		class?: string;
 		children: Snippet;
 	}
 
-	let { videoId, title, posterUrl, caption, class: className = "", children }: Props = $props();
+	let {
+		videoId,
+		title,
+		posterUrl,
+		caption,
+		priority = false,
+		class: className = "",
+		children
+	}: Props = $props();
 
 	// 55rem = 880px: below that, text and a 300px video no longer share a line
 	// without pushing the measure under roughly 70 characters.
@@ -35,6 +45,7 @@
 		{title}
 		{posterUrl}
 		{caption}
+		{priority}
 		class="mx-auto w-full max-w-[520px] @min-[55rem]:mx-0 @min-[55rem]:w-[300px] @min-[55rem]:shrink-0"
 	/>
 </div>

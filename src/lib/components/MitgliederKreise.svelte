@@ -6,6 +6,8 @@
 		name: string;
 		initialen: string;
 		farbe: string;
+		// Rolle im Projekt („Eigentümer", „Aussteller" …); steht im Tooltip hinter dem Namen.
+		rolle?: string;
 		// Porträtbild der Person; ohne Bild trägt der Kreis die Initialen.
 		bild?: string;
 		// Offene Einladung: gedämpfter, gestrichelter Kreis statt Avatarfarbe.
@@ -46,8 +48,10 @@
 	}
 
 	function kreisTitel(mitglied: MitgliederKreis): string {
-		if (mitglied.ausstehend) return `${mitglied.name} — Einladung offen`;
-		return mitglied.name;
+		let titel = mitglied.name;
+		if (mitglied.rolle) titel = `${titel} (${mitglied.rolle})`;
+		if (mitglied.ausstehend) return `${titel} — Einladung offen`;
+		return titel;
 	}
 </script>
 
