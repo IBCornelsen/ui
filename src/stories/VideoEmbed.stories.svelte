@@ -51,7 +51,8 @@
 </Story>
 
 <!-- videoOnlyWide: in der schmalen Spalte bleibt der Block ohne Video; die
-     Seite zeigt es dann an anderer Stelle. -->
+     Seite zeigt es dann an anderer Stelle. Mit priority bleibt das Vorschaubild
+     trotzdem lazy, damit es in der schmalen Spalte nicht unsichtbar geladen wird. -->
 <Story name="Schmale Spalte — Video nur in der breiten Aufteilung">
 	<div class="prose @container w-[620px]">
 		<TextWithVideo
@@ -59,6 +60,7 @@
 			posterUrl={poster}
 			title="Erklärvideo: Energieausweis online erstellen"
 			videoOnlyWide
+			priority
 		>
 			<p>{absatz}</p>
 		</TextWithVideo>

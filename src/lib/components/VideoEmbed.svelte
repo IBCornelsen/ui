@@ -17,6 +17,13 @@
 		 * with high priority instead of lazily, so it does not delay the LCP.
 		 */
 		priority?: boolean;
+		/**
+		 * The poster may be hidden by a container query (TextWithVideo
+		 * `videoOnlyWide`). An eager image is fetched even while `display: none`,
+		 * a lazy one is not — so the poster stays lazy and keeps only the high
+		 * fetch priority for the layout in which it is shown.
+		 */
+		lazyWhenHidden?: boolean;
 		class?: string;
 	}
 
@@ -26,11 +33,12 @@
 		posterUrl,
 		caption,
 		priority = false,
+		lazyWhenHidden = false,
 		class: className = ""
 	}: Props = $props();
 
 	const posterLoading = $derived.by(() => {
-		if (priority) return "eager";
+		if (priority && !lazyWhenHidden) return "eager";
 		return "lazy";
 	});
 	const posterFetchPriority = $derived.by(() => {

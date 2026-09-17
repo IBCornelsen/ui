@@ -63,6 +63,7 @@
 		{posterUrl}
 		{caption}
 		{priority}
+		lazyWhenHidden={videoOnlyWide}
 		class="{videoNarrowClasses} mt-6 @min-[55rem]:mx-0 @min-[55rem]:mt-0 @min-[55rem]:w-[300px] @min-[55rem]:shrink-0"
 	/>
 </div>
