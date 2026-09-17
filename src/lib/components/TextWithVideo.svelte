@@ -17,6 +17,12 @@
 		caption?: string;
 		/** Poster fetched eagerly — for the block at the top of a page (LCP). */
 		priority?: boolean;
+		/**
+		 * Shows the video only while it stands beside the text. In the narrow
+		 * column the page places it elsewhere (for example next to the check that
+		 * answers the same question) so that the block above the fold stays short.
+		 */
+		videoOnlyWide?: boolean;
 		class?: string;
 		children: Snippet;
 	}
@@ -27,13 +33,24 @@
 		posterUrl,
 		caption,
 		priority = false,
+		videoOnlyWide = false,
 		class: className = "",
 		children
 	}: Props = $props();
 
+	const videoNarrowClasses = $derived.by(() => {
+		if (videoOnlyWide) return "hidden @min-[55rem]:block";
+		return "mx-auto w-full max-w-[520px]";
+	});
+
 	// 55rem = 880px: below that, text and a 300px video no longer share a line
-	// without pushing the measure under roughly 70 characters.
-	const AUFTEILUNG = "flex flex-col gap-6 @min-[55rem]:flex-row @min-[55rem]:items-start";
+	// without pushing the measure under roughly 70 characters. In the narrow
+	// column the block stays a plain block, not a flex container: a flex
+	// container steps aside from the float that keeps the first lines clear of
+	// the floating menu button, and the whole block would be indented instead
+	// of only the lines next to the button.
+	const AUFTEILUNG =
+		"@min-[55rem]:flex @min-[55rem]:flex-row @min-[55rem]:items-start @min-[55rem]:gap-6";
 </script>
 
 <div class="{AUFTEILUNG} {className}">
@@ -46,6 +63,6 @@
 		{posterUrl}
 		{caption}
 		{priority}
-		class="mx-auto w-full max-w-[520px] @min-[55rem]:mx-0 @min-[55rem]:w-[300px] @min-[55rem]:shrink-0"
+		class="{videoNarrowClasses} mt-6 @min-[55rem]:mx-0 @min-[55rem]:mt-0 @min-[55rem]:w-[300px] @min-[55rem]:shrink-0"
 	/>
 </div>

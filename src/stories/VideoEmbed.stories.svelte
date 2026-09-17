@@ -50,6 +50,21 @@
 	</div>
 </Story>
 
+<!-- videoOnlyWide: in der schmalen Spalte bleibt der Block ohne Video; die
+     Seite zeigt es dann an anderer Stelle. -->
+<Story name="Schmale Spalte — Video nur in der breiten Aufteilung">
+	<div class="prose @container w-[620px]">
+		<TextWithVideo
+			videoId="rFKzKRu1_Yk"
+			posterUrl={poster}
+			title="Erklärvideo: Energieausweis online erstellen"
+			videoOnlyWide
+		>
+			<p>{absatz}</p>
+		</TextWithVideo>
+	</div>
+</Story>
+
 <Story name="Video allein — Vorschaubild, Player erst nach Klick">
 	<div class="w-[520px]">
 		<VideoEmbed
