@@ -19,10 +19,14 @@
    ========================================================= */
 
 @utility h1 {
-	@apply text-[28px] leading-tight font-extrabold tracking-tight text-primary-900 md:text-[32px];
+	/* Seitentitel tragen dieselbe Groesse wie der blaue Titel der Kopfzeile
+	   (text-xl, in der Hausskala 24px) — auf jeder Breite gleich. h1, h2 und h3
+	   unterscheiden sich dadurch nur noch im Schriftschnitt, nicht in der
+	   Groesse. */
+	@apply text-xl leading-tight font-extrabold tracking-tight text-primary-900;
 }
 @utility h2 {
-	@apply text-2xl leading-snug font-bold tracking-tight text-primary-900;
+	@apply text-xl leading-snug font-bold tracking-tight text-primary-900;
 }
 @utility h3 {
 	@apply text-xl leading-snug font-bold tracking-tight text-primary-900;
