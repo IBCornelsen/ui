@@ -10,7 +10,7 @@
 		message,
 		confirmLabel = "Bestätigen",
 		cancelLabel = "Abbrechen",
-		ton = "primaer",
+		tone = "primary",
 		onConfirm,
 		onCancel,
 		children
@@ -20,19 +20,13 @@
 		message?: string;
 		confirmLabel?: string;
 		cancelLabel?: string;
-		// "destruktiv" turns the confirm button red — for actions that discard
+		// "destructive" turns the confirm button red — for actions that discard
 		// data or end a process (cancel an order, delete).
-		ton?: "primaer" | "destruktiv";
+		tone?: "primary" | "destructive";
 		onConfirm: () => void;
 		onCancel?: () => void;
 		children?: Snippet;
 	} = $props();
-
-	const BESTAETIGEN_FARBE = {
-		primaer: "bg-primary-600 hover:bg-primary-700",
-		destruktiv: "bg-error-600 hover:bg-error-700"
-	};
-	const bestaetigenFarbe = $derived(BESTAETIGEN_FARBE[ton]);
 
 	function abbrechen() {
 		offen = false;
@@ -84,7 +78,11 @@
 				</button>
 				<button
 					onclick={bestaetigen}
-					class="cursor-pointer rounded border-none px-4 py-1.5 text-xs text-white transition-colors {bestaetigenFarbe}"
+					class="cursor-pointer rounded border-none px-4 py-1.5 text-xs text-white transition-colors"
+					class:bg-primary-600={tone === "primary"}
+					class:hover:bg-primary-700={tone === "primary"}
+					class:bg-error-600={tone === "destructive"}
+					class:hover:bg-error-700={tone === "destructive"}
 				>
 					{confirmLabel}
 				</button>

@@ -31,7 +31,7 @@
 	<Button onclick={() => (offenDestruktiv = true)}>Ausweis stornieren …</Button>
 	<ConfirmDialog
 		bind:offen={offenDestruktiv}
-		ton="destruktiv"
+		tone="destructive"
 		title="Ausweis stornieren?"
 		message="Der Vorgang wird als storniert markiert und der Kunde erhält keine Dokumente. Das lässt sich nicht rückgängig machen."
 		confirmLabel="Stornieren"
